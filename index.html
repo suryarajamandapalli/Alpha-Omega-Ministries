@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,14 +13,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Alpha Omega Ministries">
 <meta property="og:description" content="Our website is coming soon. Stay connected with Alpha Omega Ministries.">
-<meta property="og:url" content="YOUR_GITHUB_PAGES_URL">
-<meta property="og:image" content="YOUR_GITHUB_PAGES_URL/logo.jpg">
+<meta property="og:url" content="https://suryarajamandapalli.github.io/Alpha-Omega-Ministries/">
+<meta property="og:image" content="https://suryarajamandapalli.github.io/Alpha-Omega-Ministries/logo.jpg">
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Alpha Omega Ministries">
 <meta name="twitter:description" content="Our website is coming soon.">
-<meta name="twitter:image" content="YOUR_GITHUB_PAGES_URL/logo.jpg">
+<meta name="twitter:image" content="https://suryarajamandapalli.github.io/Alpha-Omega-Ministries/logo.jpg">
 
 <meta name="theme-color" content="#0d5c63">
 
@@ -40,22 +39,22 @@ box-sizing:border-box;
 
 :root{
 --primary:#0d5c63;
---secondary:#138b81;
+--secondary:#11877d;
 --text:#475569;
 }
 
-html,
-body{
+html{
 height:100%;
 }
 
 body{
 font-family:'Figtree',sans-serif;
-overflow:hidden;
+min-height:100vh;
 background:
-radial-gradient(circle at top left,#0d5c6320,transparent 35%),
-radial-gradient(circle at bottom right,#138b8120,transparent 35%),
-linear-gradient(135deg,#ffffff,#f7fbfb);
+radial-gradient(circle at top left,#0d5c6315,transparent 30%),
+radial-gradient(circle at bottom right,#11877d15,transparent 30%),
+#ffffff;
+color:var(--text);
 }
 
 /* PRELOADER */
@@ -63,47 +62,44 @@ linear-gradient(135deg,#ffffff,#f7fbfb);
 #preloader{
 position:fixed;
 inset:0;
-background:#fff;
+background:#ffffff;
 display:flex;
 justify-content:center;
 align-items:center;
 z-index:99999;
-transition:all 1s ease;
+transition:opacity 1s ease;
 }
 
 #preloader.hide{
 opacity:0;
-visibility:hidden;
+pointer-events:none;
 }
 
-.loader{
-width:90px;
-height:90px;
-border-radius:50%;
-border:3px solid rgba(13,92,99,.12);
-border-top-color:var(--primary);
-animation:spin 1s linear infinite;
-position:relative;
+.preloader-logo{
+width:min(220px,60vw);
+animation:logoFade 2s ease-in-out infinite;
 }
 
-.loader::after{
-content:"✝";
-position:absolute;
-inset:0;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:2rem;
-color:var(--primary);
+@keyframes logoFade{
+
+0%{
+opacity:0;
+transform:scale(.96);
 }
 
-@keyframes spin{
-to{
-transform:rotate(360deg);
-}
+50%{
+opacity:1;
+transform:scale(1);
 }
 
-/* BACKGROUND */
+100%{
+opacity:0;
+transform:scale(1.04);
+}
+
+}
+
+/* BACKGROUND FLOATS */
 
 .bg{
 position:fixed;
@@ -115,89 +111,81 @@ z-index:-1;
 .circle{
 position:absolute;
 border-radius:50%;
-background:rgba(19,139,129,.08);
+background:rgba(17,135,125,.06);
 animation:float 10s ease-in-out infinite;
 }
 
 .circle:nth-child(1){
-width:400px;
-height:400px;
-left:-120px;
-top:-120px;
+width:350px;
+height:350px;
+left:-100px;
+top:-100px;
 }
 
 .circle:nth-child(2){
-width:300px;
-height:300px;
-right:-100px;
-bottom:-100px;
-animation-delay:2s;
-}
-
-.circle:nth-child(3){
-width:150px;
-height:150px;
-top:15%;
-right:20%;
-animation-delay:4s;
+width:280px;
+height:280px;
+right:-80px;
+bottom:-80px;
+animation-delay:3s;
 }
 
 @keyframes float{
+
 50%{
-transform:translateY(-30px);
-}
+transform:translateY(-25px);
 }
 
-/* MAIN */
+}
+
+/* CONTENT */
 
 .wrapper{
 min-height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 padding:20px;
 }
 
 .card{
 width:100%;
 max-width:900px;
-background:rgba(255,255,255,.88);
-backdrop-filter:blur(15px);
-padding:50px;
+background:rgba(255,255,255,.92);
+backdrop-filter:blur(10px);
 border-radius:28px;
+padding:60px 40px;
 text-align:center;
 box-shadow:0 20px 60px rgba(0,0,0,.08);
-animation:fadeUp 1.3s ease;
+animation:fadeUp 1s ease;
 }
 
 .logo{
-width:min(250px,75vw);
+width:min(280px,75vw);
 height:auto;
-display:block;
-margin:auto;
 margin-bottom:25px;
 }
 
 .badge{
 display:inline-block;
 padding:10px 18px;
+background:#ecf9f7;
 border-radius:999px;
-background:#e8f7f5;
-color:var(--primary);
 font-weight:700;
 font-size:.85rem;
+color:var(--primary);
 margin-bottom:20px;
 }
 
 h1{
-font-size:clamp(2rem,6vw,4rem);
+font-size:clamp(2.2rem,6vw,4rem);
 font-weight:800;
 color:var(--primary);
-margin-bottom:15px;
+margin-bottom:12px;
 }
 
 .subtitle{
-font-size:clamp(1rem,2vw,1.25rem);
+font-size:clamp(1rem,2vw,1.2rem);
 color:#64748b;
 margin-bottom:25px;
 }
@@ -206,13 +194,12 @@ margin-bottom:25px;
 max-width:650px;
 margin:auto;
 line-height:1.9;
-color:var(--text);
 font-size:1.05rem;
 }
 
 .quote-box{
 margin-top:35px;
-padding:28px;
+padding:30px;
 border-radius:20px;
 background:linear-gradient(135deg,var(--primary),var(--secondary));
 color:white;
@@ -220,8 +207,8 @@ color:white;
 
 .quote{
 font-size:1.15rem;
-font-style:italic;
 line-height:1.8;
+font-style:italic;
 }
 
 .reference{
@@ -237,24 +224,24 @@ color:#64748b;
 }
 
 @keyframes fadeUp{
+
 from{
 opacity:0;
-transform:translateY(40px);
+transform:translateY(35px);
 }
+
 to{
 opacity:1;
 transform:translateY(0);
 }
+
 }
 
-@media(max-width:768px){
-
-body{
-overflow:auto;
-}
+@media (max-width:768px){
 
 .card{
 padding:35px 22px;
+border-radius:22px;
 }
 
 .message{
@@ -271,21 +258,23 @@ font-size:1rem;
 </head>
 <body>
 
+<!-- PRELOADER -->
 <div id="preloader">
-<div class="loader"></div>
+<img src="logo.jpg" alt="Alpha Omega Ministries" class="preloader-logo">
 </div>
 
+<!-- BACKGROUND -->
 <div class="bg">
 <div class="circle"></div>
 <div class="circle"></div>
-<div class="circle"></div>
 </div>
 
+<!-- MAIN -->
 <div class="wrapper">
 
 <div class="card">
 
-<img src="logo.jpg" alt="Alpha Omega Ministries" class="logo">
+<img src="logo.jpg" alt="Alpha Omega Ministries Logo" class="logo">
 
 <div class="badge">
 ALPHA OMEGA MINISTRIES
@@ -298,16 +287,16 @@ Our New Website Is Under Construction
 </div>
 
 <p class="message">
-We are prayerfully building a new digital home for Alpha Omega Ministries.
-Soon you'll be able to access sermons, ministry updates, events, resources,
-and opportunities to grow together in faith and fellowship.
+We are prayerfully preparing a beautiful online experience.
+Soon you'll be able to access sermons, ministry resources,
+events, updates, and opportunities to grow together in faith
+and fellowship.
 </p>
 
 <div class="quote-box">
 
 <div class="quote">
-“I am the Alpha and the Omega,
-the Beginning and the End,
+“I am the Alpha and the Omega, the Beginning and the End,
 the First and the Last.”
 </div>
 
@@ -327,16 +316,19 @@ Revelation 22:13
 
 <script>
 
-window.addEventListener('load',()=>{
+window.addEventListener("load",()=>{
+
+const loader=document.getElementById("preloader");
 
 setTimeout(()=>{
 
-document
-.getElementById('preloader')
-.classList
-.add('hide');
+loader.classList.add("hide");
 
-},1200);
+setTimeout(()=>{
+loader.remove();
+},1000);
+
+},1500);
 
 });
 
