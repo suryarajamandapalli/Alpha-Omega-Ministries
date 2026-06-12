@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alpha Omega Ministries | Coming Soon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#0b5d5c;
+    --secondary:#12726f;
+    --bg:#f8fafc;
+    --text:#374151;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Figtree',sans-serif;
+    background:linear-gradient(135deg,#ffffff,#f3f8f8);
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/* PRELOADER */
+
+#preloader{
+    position:fixed;
+    inset:0;
+    background:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    transition:opacity 1.2s ease, visibility 1.2s ease;
+}
+
+#preloader.fade-out{
+    opacity:0;
+    visibility:hidden;
+}
+
+.cross-loader{
+    font-size:5rem;
+    color:var(--primary);
+    animation:glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+
+    0%{
+        opacity:.4;
+        transform:scale(.95);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.08);
+        text-shadow:
+        0 0 15px rgba(11,93,92,.3),
+        0 0 30px rgba(11,93,92,.2),
+        0 0 60px rgba(11,93,92,.15);
+    }
+
+    100%{
+        opacity:.4;
+        transform:scale(.95);
+    }
+}
+
+/* BACKGROUND */
+
+.bg-circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(11,93,92,.06);
+    animation:float 10s ease-in-out infinite;
+}
+
+.circle1{
+    width:350px;
+    height:350px;
+    top:-120px;
+    left:-120px;
+}
+
+.circle2{
+    width:300px;
+    height:300px;
+    bottom:-100px;
+    right:-100px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(-25px);
+    }
+}
+
+/* CONTENT */
+
+.container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.card{
+    max-width:850px;
+    width:100%;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(10px);
+    border-radius:28px;
+    padding:60px 40px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+    animation:fadeUp 1.4s ease;
+}
+
+.logo-symbol{
+    font-size:4rem;
+    color:var(--primary);
+    margin-bottom:20px;
+}
+
+h1{
+    color:var(--primary);
+    font-size:3rem;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.subtitle{
+    font-size:1.25rem;
+    color:#6b7280;
+    margin-bottom:25px;
+}
+
+.message{
+    color:var(--text);
+    line-height:1.9;
+    max-width:650px;
+    margin:auto;
+    margin-bottom:40px;
+}
+
+.quote-box{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+    border-radius:20px;
+    padding:28px;
+}
+
+.quote{
+    font-size:1.15rem;
+    font-style:italic;
+    line-height:1.8;
+}
+
+.reference{
+    display:block;
+    margin-top:15px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+.footer{
+    margin-top:30px;
+    color:#6b7280;
+    font-size:.95rem;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:768px){
+
+    h1{
+        font-size:2.2rem;
+    }
+
+    .card{
+        padding:40px 25px;
+    }
+
+    .quote{
+        font-size:1rem;
+    }
+
+    .cross-loader{
+        font-size:4rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="preloader">
+    <div class="cross-loader">✝</div>
+</div>
+
+<div class="bg-circle circle1"></div>
+<div class="bg-circle circle2"></div>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo-symbol">Α Ω</div>
+
+        <h1>Alpha Omega Ministries</h1>
+
+        <div class="subtitle">
+            Our Website Is Coming Soon
+        </div>
+
+        <p class="message">
+            We are prayerfully preparing a new online experience.
+            Soon you'll be able to access ministry resources,
+            messages, events, and opportunities to grow together
+            in faith and fellowship.
+        </p>
+
+        <div class="quote-box">
+
+            <div class="quote">
+                “I am the Alpha and the Omega,
+                the Beginning and the End,
+                the First and the Last.”
+            </div>
+
+            <span class="reference">
+                Revelation 22:13
+            </span>
+
+        </div>
+
+        <div class="footer">
+            © Alpha Omega Ministries • All Rights Reserved
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+window.addEventListener("load", () => {
+
+    const loader = document.getElementById("preloader");
+
+    setTimeout(() => {
+
+        loader.classList.add("fade-out");
+
+        setTimeout(() => {
+            loader.remove();
+        },1200);
+
+    },1800);
+
+});
+
+</script>
+
+</body>
+</html>
