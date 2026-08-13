@@ -7,12 +7,12 @@
 <title>YOUTH OF THE NATION | Freedom Festival 2026</title>
 
 <!-- SEO -->
-<meta name="description" content="Youth Of The Nation - Freedom Festival 2026. An ultra-premium youth worship festival in Rajahmundry.">
+<meta name="description" content="Youth Of The Nation - Freedom Festival 2026. A premier international youth worship festival in Rajahmundry organized by Alpha Omega Ministries.">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="YOUTH OF THE NATION | Freedom Festival 2026">
-<meta property="og:description" content="Freedom Festival 2026 in Rajahmundry. Experience worship, music, and God's presence.">
+<meta property="og:description" content="Freedom Festival 2026 in Rajahmundry. An unforgettable night of worship, music, and God's presence.">
 
 <meta name="theme-color" content="#050505">
 
@@ -38,9 +38,10 @@
 :root{
   --bg:#050505;
   --bg-subtle:#0a0a0c;
-  --gold:#D4AF37;
-  --white:#ffffff;
-  --text-muted:#94a3b8;
+  --gold:#D6A041;
+  --gold-deep:#9B6A1D;
+  --white:#F5F5F5;
+  --text-muted:#888888;
   --border-light:rgba(255, 255, 255, 0.12);
 }
 
@@ -101,8 +102,8 @@ body{
   border-radius: 50%;
   object-fit: contain;
   margin-bottom: 24px;
-  box-shadow: 0 0 50px rgba(212, 175, 55, 0.25);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 50px rgba(214, 160, 65, 0.25);
+  border: 1px solid rgba(214, 160, 65, 0.4);
 }
 
 .seq-logo-band {
@@ -144,7 +145,7 @@ body{
 }
 
 /* ============================================================ */
-/* EDITORIAL HEADER / NAVIGATION (AAM Inspired) */
+/* FLOATING NAVIGATION */
 /* ============================================================ */
 .header-nav {
   position: fixed;
@@ -155,10 +156,16 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 56px;
-  background: linear-gradient(to bottom, rgba(5,5,5,0.95), rgba(5,5,5,0));
+  padding: 28px 48px;
+  background: transparent;
+  transition: background 0.4s ease, border-color 0.4s ease, padding 0.4s ease;
+}
+
+.header-nav.scrolled {
+  background: rgba(5, 5, 5, 0.92);
   backdrop-filter: blur(12px);
-  border-b: 1px solid rgba(255,255,255,0.05);
+  padding: 20px 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .nav-brand {
@@ -184,7 +191,7 @@ body{
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 36px;
 }
 
 .nav-link {
@@ -220,7 +227,7 @@ body{
 }
 
 /* ============================================================ */
-/* SECTION 1: HERO (Full Viewport Edge-to-Edge) */
+/* SECTION 1: HERO (100vh Full Viewport Edge-to-Edge) */
 /* ============================================================ */
 .hero-section {
   min-height: 100vh;
@@ -249,7 +256,7 @@ body{
   transform: translateX(-50%);
   width: 900px;
   height: 900px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.14) 0%, rgba(5, 5, 5, 0) 70%);
+  background: radial-gradient(circle, rgba(214, 160, 65, 0.14) 0%, rgba(5, 5, 5, 0) 70%);
   pointer-events: none;
 }
 
@@ -287,7 +294,7 @@ body{
   font-size: clamp(2.8rem, 7vw, 5rem);
   color: var(--gold);
   margin-bottom: 36px;
-  text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+  text-shadow: 0 0 25px rgba(214, 160, 65, 0.4);
 }
 
 .hero-desc-short {
@@ -321,9 +328,9 @@ body{
 .hero-editorial-link:hover {
   border-color: var(--gold);
   color: var(--gold);
-  background: rgba(212, 175, 55, 0.08);
+  background: rgba(214, 160, 65, 0.08);
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 10px 30px rgba(214, 160, 65, 0.15);
 }
 
 .hero-editorial-link .arrow {
@@ -335,44 +342,12 @@ body{
 }
 
 /* ============================================================ */
-/* SECTION 2: EDITORIAL STATEMENT BANNER (AAM Inspired) */
-/* ============================================================ */
-.statement-section {
-  padding: 160px 24px;
-  background: #08080c;
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.statement-text-huge {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(2rem, 5vw, 4.2rem);
-  font-weight: 800;
-  line-height: 1.25;
-  color: #ffffff;
-  max-width: 1100px;
-  margin: 0 auto 28px;
-  letter-spacing: -0.01em;
-}
-
-.statement-tag-bracket {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.35em;
-  color: var(--gold);
-  text-transform: uppercase;
-}
-
-/* ============================================================ */
-/* SECTION 3: ASYMMETRICAL EDITORIAL ABOUT & ARTWORK SHOWCASE */
+/* SECTION 2: EDITORIAL ABOUT & ARTWORK SHOWCASE */
 /* ============================================================ */
 .about-section {
   padding: 180px 0;
-  background: #050505;
+  background: #08080c;
+  border-top: 1px solid var(--border-light);
 }
 
 .about-container-editorial {
@@ -385,12 +360,11 @@ body{
   align-items: center;
 }
 
-/* Frameless Artwork Showcase */
 .artwork-frame-editorial {
   position: relative;
   background: #000;
   box-shadow: 0 40px 100px rgba(0,0,0,0.95);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .artwork-img-editorial {
@@ -428,10 +402,9 @@ body{
 .art-switch-btn.active {
   color: #ffffff;
   border-color: var(--gold);
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(214, 160, 65, 0.1);
 }
 
-/* Right Editorial Content */
 .about-editorial-text-col {
   padding-left: 10px;
 }
@@ -465,7 +438,6 @@ body{
   margin-bottom: 28px;
 }
 
-/* Minimalist Meta Details Table */
 .editorial-meta-table {
   margin-top: 56px;
   padding-top: 40px;
@@ -493,7 +465,65 @@ body{
 }
 
 /* ============================================================ */
-/* SECTION 4: PHOTOGRAPHY PORTFOLIO GALLERY (AAM Style) */
+/* SECTION 3: THE PSALMS BAND FEATURE SECTION */
+/* ============================================================ */
+.band-section {
+  padding: 180px 0;
+  background: #050505;
+  border-top: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.band-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.band-logo-display {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  padding: 48px;
+  border-radius: 12px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.band-logo-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.band-story-col {
+  padding-left: 20px;
+}
+
+.band-headline {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.band-quote-gold {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+/* ============================================================ */
+/* SECTION 4: PHOTOGRAPHY PORTFOLIO GALLERY */
 /* ============================================================ */
 .gallery-section-portfolio {
   padding: 180px 0;
@@ -606,7 +636,42 @@ body{
 }
 
 /* ============================================================ */
-/* SECTION 5: MASSIVE LUXURY FOOTER (AAM Inspired) */
+/* SECTION 5: LOCATION & DARK MAP SECTION */
+/* ============================================================ */
+.location-section {
+  padding: 180px 0;
+  background: #050505;
+  border-top: 1px solid var(--border-light);
+}
+
+.location-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 56px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.map-frame-container {
+  width: 100%;
+  height: 480px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+}
+
+.map-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: grayscale(100%) invert(92%) contrast(85%);
+}
+
+/* ============================================================ */
+/* SECTION 6: MASSIVE LUXURY FOOTER */
 /* ============================================================ */
 .footer-luxury {
   padding: 140px 0 80px;
@@ -636,7 +701,7 @@ body{
   height: 72px;
   border-radius: 50%;
   object-fit: contain;
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(214, 160, 65, 0.4);
 }
 
 .footer-band-seal {
@@ -687,10 +752,11 @@ body{
 
 /* RESPONSIVE BREAKPOINTS */
 @media (max-width: 960px) {
-  .header-nav { padding: 24px 28px; }
-  .nav-menu { gap: 24px; }
-  .about-container-editorial { grid-template-columns: 1fr; gap: 56px; padding: 0 28px; }
-  .about-editorial-text-col { padding-left: 0; }
+  .header-nav { padding: 20px 24px; }
+  .header-nav.scrolled { padding: 16px 24px; }
+  .nav-menu { gap: 20px; }
+  .about-container-editorial, .band-container, .location-container { grid-template-columns: 1fr; gap: 48px; padding: 0 28px; }
+  .about-editorial-text-col, .band-story-col { padding-left: 0; }
   .gallery-container-portfolio { padding: 0 28px; }
   .gallery-portfolio-grid { grid-template-columns: 1fr; gap: 28px; }
   .footer-luxury-container { padding: 0 28px; }
@@ -700,19 +766,17 @@ body{
 </head>
 <body>
 
-<!-- ============================================================ -->
-/* MANDATORY CINEMATIC PRELOADER (GSAP) */
-<!-- ============================================================ -->
+<!-- MANDATORY CINEMATIC PRELOADER -->
 <div id="preloader">
   <canvas id="preloaderCanvas"></canvas>
 
-  <!-- Sequence 1: Alpha Omega Ministries -->
+  <!-- Sequence 1: Alpha Omega Logo -->
   <div id="seq1" class="preloader-seq">
     <img id="seq1-logo" src="./assets/Church Logo.jpeg" alt="Alpha Omega Ministries" class="seq-logo-church">
     <div id="seq1-text" class="seq-tag">ALPHA OMEGA MINISTRIES</div>
   </div>
 
-  <!-- Sequence 2: The Psalms Band -->
+  <!-- Sequence 2: The Psalms Band Logo -->
   <div id="seq2" class="preloader-seq">
     <img id="seq2-logo" src="./assets/Band Logo.jpeg" alt="The Psalms Band" class="seq-logo-band">
     <div id="seq2-text">
@@ -730,9 +794,7 @@ body{
   </div>
 </div>
 
-<!-- ============================================================ -->
-/* FLOATING EDITORIAL HEADER / NAVIGATION */
-<!-- ============================================================ -->
+<!-- FLOATING EDITORIAL NAVIGATION -->
 <header className="header-nav" id="headerNav">
   <a href="../" class="nav-brand">
     <span>YOUTH OF THE NATION</span>
@@ -740,16 +802,15 @@ body{
   </a>
 
   <nav class="nav-menu">
-    <a href="#about" class="nav-link">About</a>
-    <a href="#gallery" class="nav-link">Gallery</a>
+    <a href="./about" class="nav-link">About</a>
+    <a href="./gallery" class="nav-link">Gallery</a>
     <a href="./lyrics" class="nav-link">Lyrics</a>
     <a href="./polls" class="nav-link">Polls</a>
+    <a href="../" class="nav-link">Main Website</a>
   </nav>
 </header>
 
-<!-- ============================================================ -->
-/* SECTION 1: HERO (100vh Full Viewport Edge-to-Edge) */
-<!-- ============================================================ -->
+<!-- SECTION 1: HERO -->
 <section class="hero-section" id="hero">
   <canvas id="heroCanvas" class="hero-canvas"></canvas>
   <div class="hero-spotlight"></div>
@@ -763,27 +824,15 @@ body{
     </p>
     <a href="#about" class="hero-editorial-link">
       <span>EXPLORE THE EXPERIENCE</span>
-      <span class="arrow">→</span>
+      <span class="arrow">↓</span>
     </a>
   </div>
 </section>
 
-<!-- ============================================================ -->
-/* SECTION 2: EDITORIAL STATEMENT BANNER (AAM Inspired) */
-<!-- ============================================================ -->
-<section class="statement-section">
-  <h2 class="statement-text-huge">
-    IF WORSHIP IS THE LANGUAGE OF YOUR SOUL — YOU BELONG AT FREEDOM FESTIVAL.
-  </h2>
-  <div class="statement-tag-bracket">[ WE ARE THE FUTURE OF OUR NATION ]</div>
-</section>
-
-<!-- ============================================================ -->
-/* SECTION 3: ASYMMETRICAL EDITORIAL ABOUT & ARTWORK SHOWCASE */
-<!-- ============================================================ -->
+<!-- SECTION 2: ABOUT THE FESTIVAL -->
 <section id="about" class="about-section">
   <div class="about-container-editorial">
-    <!-- Left Frameless Artwork Frame -->
+    <!-- Left Poster Artwork -->
     <div>
       <div class="artwork-frame-editorial">
         <img id="artworkDisplay" src="./assets/1.jpeg" alt="Freedom Festival Official Poster" class="artwork-img-editorial">
@@ -794,7 +843,7 @@ body{
       </div>
     </div>
 
-    <!-- Right Editorial Text -->
+    <!-- Right Editorial Description -->
     <div class="about-editorial-text-col">
       <span class="editorial-tag-header">[ ABOUT THE FESTIVAL ]</span>
       <h2 class="editorial-heading-title">WE ARE THE FUTURE OF OUR NATION</h2>
@@ -827,9 +876,27 @@ body{
   </div>
 </section>
 
-<!-- ============================================================ -->
-/* SECTION 4: PHOTOGRAPHY PORTFOLIO GALLERY (AAM Inspired) */
-<!-- ============================================================ -->
+<!-- SECTION 3: THE PSALMS BAND -->
+<section id="band" class="band-section">
+  <div class="band-container">
+    <div class="band-logo-display">
+      <img src="./assets/Band Logo.jpeg" alt="The Psalms Band Emblem" class="band-logo-img">
+    </div>
+
+    <div class="band-story-col">
+      <span class="editorial-tag-header">[ HEADLINE WORSHIP BAND ]</span>
+      <h2 class="band-headline">THE PSALMS BAND</h2>
+      <p class="band-quote-gold">
+        "Igniting high-octane rock worship, heavy rhythm guitars, and prophetic praise across our nation."
+      </p>
+      <p class="editorial-body-para">
+        The Psalms Band is a dynamic Christian worship collective dedicated to leading young believers into deep spiritual encounter and holy boldness through music.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: EDITORIAL GALLERY -->
 <section id="gallery" class="gallery-section-portfolio">
   <div class="gallery-container-portfolio">
     <div class="gallery-heading-block">
@@ -875,9 +942,27 @@ body{
   <img id="lightboxImg" src="" alt="Enlarged gallery view" class="lightbox-full-img" onclick="event.stopPropagation()">
 </div>
 
-<!-- ============================================================ -->
-/* SECTION 5: MASSIVE LUXURY FOOTER (AAM Inspired) */
-<!-- ============================================================ -->
+<!-- SECTION 5: LOCATION -->
+<section id="location" class="location-section">
+  <div class="location-container">
+    <div>
+      <span class="editorial-tag-header">[ FESTIVAL LOCATION ]</span>
+      <h2 class="editorial-heading-title">DEV I CHOWK, RAJAHMUNDRY</h2>
+      <p class="editorial-body-para">
+        Balloon Room, Beside Lalitha Jewellery, Devi Chowk, Rajahmundry, Andhra Pradesh.
+      </p>
+      <p class="editorial-body-para">
+        Helpline & Enquiries: <strong>8897972424</strong>
+      </p>
+    </div>
+
+    <div class="map-frame-container">
+      <iframe className="map-iframe" src="https://maps.google.com/maps?q=Devi+Chowk+Rajahmundry&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: MASSIVE LUXURY FOOTER -->
 <footer class="footer-luxury">
   <div class="footer-luxury-container">
     <div class="footer-brand-emblems">
@@ -900,9 +985,17 @@ body{
 </footer>
 
 <script>
-/* ============================================================ */
-/* CANVAS STAGE PARTICLES & LIGHTING */
-/* ============================================================ */
+/* NAVBAR TRANSPARENT TO SOLID ON SCROLL */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('headerNav');
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+/* CANVAS PARTICLES */
 function initCanvas(canvasId, particleColor) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
@@ -938,12 +1031,10 @@ function initCanvas(canvasId, particleColor) {
   animate();
 }
 
-initCanvas('preloaderCanvas', 'rgba(212, 175, 55, ALPHA)');
+initCanvas('preloaderCanvas', 'rgba(214, 160, 65, ALPHA)');
 initCanvas('heroCanvas', 'rgba(255, 255, 255, ALPHA)');
 
-/* ============================================================ */
 /* GSAP MANDATORY CINEMATIC PRELOADER TIMELINE */
-/* ============================================================ */
 window.addEventListener('DOMContentLoaded', () => {
   const tl = gsap.timeline({
     onComplete: () => {
@@ -954,7 +1045,6 @@ window.addEventListener('DOMContentLoaded', () => {
         onComplete: () => {
           document.getElementById('preloader').style.display = 'none';
 
-          // Trigger smooth hero entrance animations
           gsap.from('.hero-bracket-tag', { opacity: 0, y: 20, duration: 1, ease: 'power3.out' });
           gsap.from('.hero-title-giant', { opacity: 0, y: 30, duration: 1.2, delay: 0.2, ease: 'power3.out' });
           gsap.from('.hero-script-subtitle', { opacity: 0, duration: 1, delay: 0.4 });
@@ -965,23 +1055,21 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Sequence 1 — Alpha Omega Ministries (0s to 1.8s)
+  // Seq 1: Alpha Omega
   tl.to('#seq1', { opacity: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' })
     .to('#seq1-logo', { scale: 1.06, duration: 1.2, ease: 'power1.inOut' }, '-=0.6')
     .to('#seq1', { opacity: 0, duration: 0.6, ease: 'power2.in' }, '+=0.4')
 
-  // Sequence 2 — The Psalms Band (1.8s to 3.6s)
+  // Seq 2: The Psalms Band
     .to('#seq2', { opacity: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' })
     .to('#seq2', { opacity: 0, duration: 0.6, ease: 'power2.in' }, '+=0.6')
 
-  // Sequence 3 — Event Reveal (3.6s to 5.4s)
+  // Seq 3: Event Reveal
     .to('#seq3', { opacity: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' })
     .to('#seq3-content', { opacity: 0, duration: 0.6, ease: 'power2.in' }, '+=0.8');
 });
 
-/* ============================================================ */
 /* ARTWORK SWITCHER & LIGHTBOX LOGIC */
-/* ============================================================ */
 function switchArtwork(src, btn) {
   document.getElementById('artworkDisplay').src = src;
   document.querySelectorAll('.art-switch-btn').forEach(b => b.classList.remove('active'));
