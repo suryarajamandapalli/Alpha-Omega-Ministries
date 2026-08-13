@@ -7,24 +7,25 @@
 <title>YOUTH OF THE NATION | Freedom Festival 2026</title>
 
 <!-- SEO -->
-<meta name="description" content="Youth Of The Nation - Freedom Festival 2026. A premier youth worship gathering in Rajahmundry.">
+<meta name="description" content="Youth Of The Nation - Freedom Festival 2026. An ultra-premium youth worship festival in Rajahmundry.">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="YOUTH OF THE NATION | Freedom Festival 2026">
-<meta property="og:description" content="Freedom Festival 2026 in Rajahmundry. An unforgettable night of worship, music, and God's presence.">
+<meta property="og:description" content="Freedom Festival 2026 in Rajahmundry. Experience worship, music, and God's presence.">
 
 <meta name="theme-color" content="#050505">
 
 <link rel="icon" href="../logo.jpg">
 
-<!-- Google Fonts: Cinzel & Cormorant Garamond & Figtree & Inter & Alex Brush -->
+<!-- Google Fonts: Cinzel & Bebas Neue & Cormorant Garamond & Figtree & Inter & Alex Brush -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Figtree:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bebas+Neue&family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Figtree:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- GSAP Animation Engine -->
+<!-- GSAP Animation Engine & ScrollTrigger -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <style>
 
@@ -36,11 +37,11 @@
 
 :root{
   --bg:#050505;
-  --bg-subtle:#0a0a0a;
+  --bg-subtle:#0a0a0c;
   --gold:#D4AF37;
   --white:#ffffff;
-  --text-muted:#888888;
-  --border:rgba(255, 255, 255, 0.1);
+  --text-muted:#94a3b8;
+  --border-light:rgba(255, 255, 255, 0.12);
 }
 
 html{
@@ -52,18 +53,19 @@ body{
   font-family: 'Figtree', sans-serif;
   background-color: var(--bg);
   color: var(--white);
-  line-height: 1.7;
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
 .font-cinzel { font-family: 'Cinzel', serif; }
+.font-bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
 .font-garamond { font-family: 'Cormorant Garamond', serif; }
 .font-script { font-family: 'Alex Brush', cursive; }
-.font-nav { font-family: 'Inter', sans-serif; }
+.font-inter { font-family: 'Inter', sans-serif; }
 
 /* ============================================================ */
-/* CINEMATIC PRELOADER STYLES */
+/* MANDATORY CINEMATIC PRELOADER STYLES */
 /* ============================================================ */
 #preloader {
   position: fixed;
@@ -94,24 +96,24 @@ body{
 }
 
 .seq-logo-church {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: contain;
   margin-bottom: 24px;
-  box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.25);
   border: 1px solid rgba(212, 175, 55, 0.4);
 }
 
 .seq-logo-band {
-  width: 120px;
-  height: 120px;
-  border-radius: 20px;
+  width: 130px;
+  height: 130px;
+  border-radius: 16px;
   object-fit: contain;
   background: #ffffff;
-  padding: 12px;
+  padding: 14px;
   margin-bottom: 24px;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
 }
 
 .seq-tag {
@@ -126,23 +128,23 @@ body{
 
 .seq-title-huge {
   font-family: 'Cinzel', serif;
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
   font-weight: 900;
   letter-spacing: 0.05em;
   color: #ffffff;
-  line-height: 1.1;
-  text-shadow: 0 0 30px rgba(255,255,255,0.2);
+  line-height: 1.05;
+  text-shadow: 0 0 35px rgba(255,255,255,0.2);
 }
 
 .seq-subtitle-script {
   font-family: 'Alex Brush', cursive;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
   color: var(--gold);
   margin-top: 8px;
 }
 
 /* ============================================================ */
-/* NAVIGATION */
+/* EDITORIAL HEADER / NAVIGATION (AAM Inspired) */
 /* ============================================================ */
 .header-nav {
   position: fixed;
@@ -153,21 +155,22 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 28px 48px;
+  padding: 32px 56px;
   background: linear-gradient(to bottom, rgba(5,5,5,0.95), rgba(5,5,5,0));
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  border-b: 1px solid rgba(255,255,255,0.05);
 }
 
 .nav-brand {
   font-family: 'Cinzel', serif;
   font-size: 0.95rem;
   font-weight: 800;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   color: #ffffff;
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .nav-dot {
@@ -181,14 +184,14 @@ body{
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 40px;
 }
 
 .nav-link {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #cccccc;
   text-decoration: none;
@@ -217,7 +220,7 @@ body{
 }
 
 /* ============================================================ */
-/* HERO SECTION */
+/* SECTION 1: HERO (Full Viewport Edge-to-Edge) */
 /* ============================================================ */
 .hero-section {
   min-height: 100vh;
@@ -227,7 +230,7 @@ body{
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 120px 24px;
+  padding: 140px 24px 80px;
   background: #050505;
   overflow: hidden;
 }
@@ -236,149 +239,184 @@ body{
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 .hero-spotlight {
   position: absolute;
-  top: -20%;
+  top: -25%;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(5, 5, 5, 0) 70%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.14) 0%, rgba(5, 5, 5, 0) 70%);
   pointer-events: none;
 }
 
 .hero-content {
   position: relative;
   z-index: 10;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1200px;
 }
 
-.hero-tag {
+.hero-bracket-tag {
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.35em;
   color: var(--gold);
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
-.hero-title-main {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(3.2rem, 9vw, 7.5rem);
+.hero-title-giant {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.8rem, 12vw, 9.8rem);
   font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.01em;
+  line-height: 0.9;
+  letter-spacing: 0.03em;
   color: #ffffff;
   text-transform: uppercase;
   margin-bottom: 12px;
+  text-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
 }
 
-.hero-script-sub {
+.hero-script-subtitle {
   font-family: 'Alex Brush', cursive;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.8rem, 7vw, 5rem);
   color: var(--gold);
-  margin-bottom: 32px;
+  margin-bottom: 36px;
+  text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
 }
 
-.hero-editorial-desc {
+.hero-desc-short {
   font-family: 'Figtree', sans-serif;
-  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
   font-weight: 300;
   color: #a1a1aa;
-  max-width: 600px;
-  margin: 0 auto 48px;
+  max-width: 620px;
+  margin: 0 auto 52px;
   line-height: 1.7;
 }
 
-.cta-editorial {
+.hero-editorial-link {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: #ffffff;
   text-decoration: none;
-  padding: 16px 36px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 18px 40px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 999px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.cta-editorial:hover {
+.hero-editorial-link:hover {
   border-color: var(--gold);
   color: var(--gold);
-  background: rgba(212, 175, 55, 0.05);
-  transform: translateY(-2px);
+  background: rgba(212, 175, 55, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
 }
 
-.cta-editorial .arrow {
+.hero-editorial-link .arrow {
   transition: transform 0.3s ease;
 }
 
-.cta-editorial:hover .arrow {
+.hero-editorial-link:hover .arrow {
   transform: translateX(6px);
 }
 
 /* ============================================================ */
-/* EDITORIAL ABOUT SECTION */
+/* SECTION 2: EDITORIAL STATEMENT BANNER (AAM Inspired) */
 /* ============================================================ */
-.about-section {
-  padding: 160px 0;
-  background: #0a0a0a;
-  border-top: 1px solid var(--border);
+.statement-section {
+  padding: 160px 24px;
+  background: #08080c;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.about-container {
-  max-width: 1200px;
+.statement-text-huge {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+  max-width: 1100px;
+  margin: 0 auto 28px;
+  letter-spacing: -0.01em;
+}
+
+.statement-tag-bracket {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* ============================================================ */
+/* SECTION 3: ASYMMETRICAL EDITORIAL ABOUT & ARTWORK SHOWCASE */
+/* ============================================================ */
+.about-section {
+  padding: 180px 0;
+  background: #050505;
+}
+
+.about-container-editorial {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0 56px;
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 80px;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 90px;
   align-items: center;
 }
 
-.editorial-poster-frame {
+/* Frameless Artwork Showcase */
+.artwork-frame-editorial {
   position: relative;
   background: #000;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.editorial-poster-img {
+.artwork-img-editorial {
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.editorial-poster-frame:hover .editorial-poster-img {
-  transform: scale(1.04);
+.artwork-frame-editorial:hover .artwork-img-editorial {
+  transform: scale(1.03);
 }
 
-.poster-switch-bar {
+.artwork-switcher-bar {
   display: flex;
-  gap: 12px;
-  margin-top: 20px;
+  gap: 16px;
+  margin-top: 24px;
 }
 
-.switch-btn {
+.art-switch-btn {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  padding: 8px 18px;
+  padding: 10px 22px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: transparent;
@@ -387,146 +425,147 @@ body{
   transition: all 0.3s ease;
 }
 
-.switch-btn.active {
+.art-switch-btn.active {
   color: #ffffff;
   border-color: var(--gold);
   background: rgba(212, 175, 55, 0.1);
 }
 
-.about-editorial-content {
-  padding-left: 20px;
+/* Right Editorial Content */
+.about-editorial-text-col {
+  padding-left: 10px;
 }
 
-.editorial-section-tag {
+.editorial-tag-header {
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 700;
   letter-spacing: 0.3em;
   color: var(--gold);
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   display: block;
 }
 
-.editorial-heading {
+.editorial-heading-title {
   font-family: 'Cinzel', serif;
-  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-size: clamp(2.4rem, 4.8vw, 3.8rem);
   font-weight: 800;
   line-height: 1.15;
   color: #ffffff;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
-.editorial-paragraph {
+.editorial-body-para {
   font-family: 'Figtree', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 300;
   color: #a1a1aa;
   line-height: 1.85;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
-.meta-details-grid {
-  margin-top: 48px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border);
+/* Minimalist Meta Details Table */
+.editorial-meta-table {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border-light);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 28px;
+  gap: 36px;
 }
 
-.meta-item-title {
+.meta-label-top {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.meta-item-val {
+.meta-val-text {
   font-family: 'Figtree', sans-serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   color: #ffffff;
 }
 
 /* ============================================================ */
-/* PHOTOGRAPHY GALLERY SECTION */
+/* SECTION 4: PHOTOGRAPHY PORTFOLIO GALLERY (AAM Style) */
 /* ============================================================ */
-.gallery-section {
-  padding: 160px 0;
-  background: #050505;
-  border-top: 1px solid var(--border);
+.gallery-section-portfolio {
+  padding: 180px 0;
+  background: #08080c;
+  border-top: 1px solid var(--border-light);
 }
 
-.gallery-container {
-  max-width: 1200px;
+.gallery-container-portfolio {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0 56px;
 }
 
-.gallery-header-editorial {
-  margin-bottom: 64px;
+.gallery-heading-block {
+  margin-bottom: 72px;
 }
 
-.gallery-masonry {
+.gallery-portfolio-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+  gap: 40px;
 }
 
-.portfolio-card {
+.portfolio-panel {
   position: relative;
-  border-radius: 4px;
   overflow: hidden;
-  background: #0a0a0a;
-  border: 1px solid var(--border);
+  background: #000;
+  border: 1px solid var(--border-light);
   cursor: pointer;
   aspect-ratio: 4/5;
 }
 
-.portfolio-img {
+.portfolio-panel-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.portfolio-card:hover .portfolio-img {
-  transform: scale(1.05);
+.portfolio-panel:hover .portfolio-panel-img {
+  transform: scale(1.06);
 }
 
-.portfolio-overlay {
+.portfolio-panel-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(5,5,5,0.9), transparent 60%);
+  background: linear-gradient(to top, rgba(5,5,5,0.92) 0%, transparent 60%);
   opacity: 0;
   display: flex;
   align-items: flex-end;
-  padding: 32px;
+  padding: 40px;
   transition: opacity 0.4s ease;
 }
 
-.portfolio-card:hover .portfolio-overlay {
+.portfolio-panel:hover .portfolio-panel-overlay {
   opacity: 1;
 }
 
-.portfolio-caption {
+.portfolio-panel-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #ffffff;
 }
 
 /* LIGHTBOX MODAL */
-.lightbox-modal {
+.lightbox-modal-full {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(16px);
   z-index: 999999;
   display: flex;
   justify-content: center;
@@ -537,25 +576,24 @@ body{
   padding: 40px;
 }
 
-.lightbox-modal.active {
+.lightbox-modal-full.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-.lightbox-content-img {
+.lightbox-full-img {
   max-width: 90vw;
   max-height: 85vh;
   object-fit: contain;
-  border-radius: 4px;
-  box-shadow: 0 0 60px rgba(0,0,0,0.9);
+  box-shadow: 0 0 80px rgba(0,0,0,0.95);
 }
 
-.lightbox-close-btn {
+.lightbox-close-icon {
   position: absolute;
-  top: 36px;
-  right: 48px;
+  top: 40px;
+  right: 56px;
   font-family: 'Inter', sans-serif;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   color: #ffffff;
   background: none;
   border: none;
@@ -563,88 +601,99 @@ body{
   transition: color 0.3s ease;
 }
 
-.lightbox-close-btn:hover {
+.lightbox-close-icon:hover {
   color: var(--gold);
 }
 
 /* ============================================================ */
-/* EDITORIAL FOOTER */
+/* SECTION 5: MASSIVE LUXURY FOOTER (AAM Inspired) */
 /* ============================================================ */
-.footer-editorial {
-  padding: 100px 0 60px;
+.footer-luxury {
+  padding: 140px 0 80px;
   background: #020202;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-light);
 }
 
-.footer-container {
-  max-width: 1200px;
+.footer-luxury-container {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0 56px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.footer-logos-row {
+.footer-brand-emblems {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-bottom: 36px;
+  gap: 32px;
+  margin-bottom: 48px;
 }
 
-.footer-logo-img {
-  width: 64px;
-  height: 64px;
+.footer-church-seal {
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   object-fit: contain;
   border: 1px solid rgba(212, 175, 55, 0.4);
 }
 
-.footer-band-logo-img {
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
+.footer-band-seal {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
   object-fit: contain;
   background: #ffffff;
-  padding: 6px;
+  padding: 8px;
 }
 
-.footer-meta-text {
+.footer-title-huge {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  margin-bottom: 40px;
+  line-height: 1.05;
+}
+
+.footer-info-line {
   font-family: 'Figtree', sans-serif;
-  font-size: 0.95rem;
-  color: #888888;
-  margin-bottom: 10px;
+  font-size: 1.05rem;
+  color: #a1a1aa;
+  margin-bottom: 12px;
 }
 
-.footer-link-gold {
+.footer-link-gold-accent {
   color: var(--gold);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: opacity 0.3s ease;
 }
 
-.footer-link-gold:hover {
+.footer-link-gold-accent:hover {
   opacity: 0.8;
 }
 
-.footer-copyright {
-  margin-top: 48px;
+.footer-copyright-bottom {
+  margin-top: 64px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: #555555;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 /* RESPONSIVE BREAKPOINTS */
-@media (max-width: 900px) {
-  .header-nav { padding: 20px 24px; }
-  .nav-menu { gap: 20px; }
-  .about-container { grid-template-columns: 1fr; gap: 48px; padding: 0 24px; }
-  .about-editorial-content { padding-left: 0; }
-  .gallery-container { padding: 0 24px; }
-  .gallery-masonry { grid-template-columns: 1fr; }
-  .footer-container { padding: 0 24px; }
+@media (max-width: 960px) {
+  .header-nav { padding: 24px 28px; }
+  .nav-menu { gap: 24px; }
+  .about-container-editorial { grid-template-columns: 1fr; gap: 56px; padding: 0 28px; }
+  .about-editorial-text-col { padding-left: 0; }
+  .gallery-container-portfolio { padding: 0 28px; }
+  .gallery-portfolio-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-luxury-container { padding: 0 28px; }
 }
 
 </style>
@@ -652,7 +701,7 @@ body{
 <body>
 
 <!-- ============================================================ -->
-/* MANDATORY CINEMATIC PRELOADER */
+/* MANDATORY CINEMATIC PRELOADER (GSAP) */
 <!-- ============================================================ -->
 <div id="preloader">
   <canvas id="preloaderCanvas"></canvas>
@@ -667,8 +716,8 @@ body{
   <div id="seq2" class="preloader-seq">
     <img id="seq2-logo" src="./assets/Band Logo.jpeg" alt="The Psalms Band" class="seq-logo-band">
     <div id="seq2-text">
-      <div class="seq-title-huge" style="font-size:2rem;">THE PSALMS</div>
-      <div class="seq-subtitle-script" style="font-size:2.2rem; margin-top:-6px;">Band</div>
+      <div class="seq-title-huge" style="font-size:2.2rem;">THE PSALMS</div>
+      <div class="seq-subtitle-script" style="font-size:2.4rem; margin-top:-6px;">Band</div>
     </div>
   </div>
 
@@ -682,7 +731,7 @@ body{
 </div>
 
 <!-- ============================================================ -->
-/* FLOATING EDITORIAL NAVIGATION */
+/* FLOATING EDITORIAL HEADER / NAVIGATION */
 <!-- ============================================================ -->
 <header className="header-nav" id="headerNav">
   <a href="../" class="nav-brand">
@@ -699,20 +748,20 @@ body{
 </header>
 
 <!-- ============================================================ -->
-/* SECTION 1: HERO */
+/* SECTION 1: HERO (100vh Full Viewport Edge-to-Edge) */
 <!-- ============================================================ -->
 <section class="hero-section" id="hero">
   <canvas id="heroCanvas" class="hero-canvas"></canvas>
   <div class="hero-spotlight"></div>
 
   <div class="hero-content">
-    <div class="hero-tag">[ ALPHA OMEGA MINISTRIES PRESENTS ]</div>
-    <h1 class="hero-title-main">YOUTH OF THE NATION</h1>
-    <div class="hero-script-sub">Freedom Festival 2026</div>
-    <p class="hero-editorial-desc">
+    <div class="hero-bracket-tag">[ ALPHA OMEGA MINISTRIES PRESENTS ]</div>
+    <h1 class="hero-title-giant">YOUTH OF THE NATION</h1>
+    <div class="hero-script-subtitle">Freedom Festival 2026</div>
+    <p class="hero-desc-short">
       A sacred gathering of youth, worship, and God's presence.
     </p>
-    <a href="#about" class="cta-editorial">
+    <a href="#about" class="hero-editorial-link">
       <span>EXPLORE THE EXPERIENCE</span>
       <span class="arrow">→</span>
     </a>
@@ -720,48 +769,58 @@ body{
 </section>
 
 <!-- ============================================================ -->
-/* SECTION 2: EDITORIAL ABOUT */
+/* SECTION 2: EDITORIAL STATEMENT BANNER (AAM Inspired) */
+<!-- ============================================================ -->
+<section class="statement-section">
+  <h2 class="statement-text-huge">
+    IF WORSHIP IS THE LANGUAGE OF YOUR SOUL — YOU BELONG AT FREEDOM FESTIVAL.
+  </h2>
+  <div class="statement-tag-bracket">[ WE ARE THE FUTURE OF OUR NATION ]</div>
+</section>
+
+<!-- ============================================================ -->
+/* SECTION 3: ASYMMETRICAL EDITORIAL ABOUT & ARTWORK SHOWCASE */
 <!-- ============================================================ -->
 <section id="about" class="about-section">
-  <div class="about-container">
-    <!-- Left Poster Frame -->
+  <div class="about-container-editorial">
+    <!-- Left Frameless Artwork Frame -->
     <div>
-      <div class="editorial-poster-frame">
-        <img id="posterDisplay" src="./assets/1.jpeg" alt="Freedom Festival Official Poster" class="editorial-poster-img">
+      <div class="artwork-frame-editorial">
+        <img id="artworkDisplay" src="./assets/1.jpeg" alt="Freedom Festival Official Poster" class="artwork-img-editorial">
       </div>
-      <div class="poster-switch-bar">
-        <button class="switch-btn active" onclick="switchPoster('./assets/1.jpeg', this)">English Poster</button>
-        <button class="switch-btn" onclick="switchPoster('./assets/2.jpeg', this)">Telugu Poster (తెలుగు)</button>
+      <div class="artwork-switcher-bar">
+        <button class="art-switch-btn active" onclick="switchArtwork('./assets/1.jpeg', this)">[ ENGLISH ARTWORK ]</button>
+        <button class="art-switch-btn" onclick="switchArtwork('./assets/2.jpeg', this)">[ TELUGU ARTWORK ]</button>
       </div>
     </div>
 
-    <!-- Right Editorial Description -->
-    <div class="about-editorial-content">
-      <span class="editorial-section-tag">[ ABOUT THE FESTIVAL ]</span>
-      <h2 class="editorial-heading">WE ARE THE FUTURE OF OUR NATION</h2>
-      <p class="editorial-paragraph">
+    <!-- Right Editorial Text -->
+    <div class="about-editorial-text-col">
+      <span class="editorial-tag-header">[ ABOUT THE FESTIVAL ]</span>
+      <h2 class="editorial-heading-title">WE ARE THE FUTURE OF OUR NATION</h2>
+      <p class="editorial-body-para">
         Freedom Festival is a youth worship gathering bringing together students, musicians, worship leaders, and believers to experience God's presence through worship, prayer, and fellowship.
       </p>
-      <p class="editorial-paragraph">
+      <p class="editorial-body-para">
         Join us in Rajahmundry for an unforgettable evening of spirit-filled praise and revival. Step into an atmosphere where faith meets destiny.
       </p>
 
-      <div class="meta-details-grid">
+      <div class="editorial-meta-table">
         <div>
-          <div class="meta-item-title">DATE & TIME</div>
-          <div class="meta-item-val">Sat, 15 August 2026 • 06:00 PM</div>
+          <div class="meta-label-top">DATE & TIME</div>
+          <div class="meta-val-text">Sat, 15 August 2026 • 06:00 PM</div>
         </div>
         <div>
-          <div class="meta-item-title">VENUE</div>
-          <div class="meta-item-val">Balloon Room, Rajahmundry</div>
+          <div class="meta-label-top">VENUE</div>
+          <div class="meta-val-text">Balloon Room, Rajahmundry</div>
         </div>
         <div>
-          <div class="meta-item-title">HELPLINE</div>
-          <div class="meta-item-val">8897972424</div>
+          <div class="meta-label-top">HELPLINE</div>
+          <div class="meta-val-text">8897972424</div>
         </div>
         <div>
-          <div class="meta-item-title">ENTRY</div>
-          <div class="meta-item-val">Free Entry (All Are Welcome)</div>
+          <div class="meta-label-top">ENTRY</div>
+          <div class="meta-val-text">Free Entry (All Are Welcome)</div>
         </div>
       </div>
     </div>
@@ -769,41 +828,41 @@ body{
 </section>
 
 <!-- ============================================================ -->
-/* SECTION 3: PHOTOGRAPHY GALLERY */
+/* SECTION 4: PHOTOGRAPHY PORTFOLIO GALLERY (AAM Inspired) */
 <!-- ============================================================ -->
-<section id="gallery" class="gallery-section">
-  <div class="gallery-container">
-    <div class="gallery-header-editorial">
-      <span class="editorial-section-tag">[ FESTIVAL VISUALS ]</span>
-      <h2 class="editorial-heading" style="margin-bottom:0;">EDITORIAL GALLERY</h2>
+<section id="gallery" class="gallery-section-portfolio">
+  <div class="gallery-container-portfolio">
+    <div class="gallery-heading-block">
+      <span class="editorial-tag-header">[ FESTIVAL VISUALS ]</span>
+      <h2 class="editorial-heading-title" style="margin-bottom:0;">EDITORIAL GALLERY</h2>
     </div>
 
-    <div class="gallery-masonry">
-      <div class="portfolio-card" onclick="openLightbox('./assets/1.jpeg')">
-        <img src="./assets/1.jpeg" alt="Freedom Festival English Poster" class="portfolio-img">
-        <div class="portfolio-overlay">
-          <div class="portfolio-caption">English Festival Poster</div>
+    <div class="gallery-portfolio-grid">
+      <div class="portfolio-panel" onclick="openLightbox('./assets/1.jpeg')">
+        <img src="./assets/1.jpeg" alt="Freedom Festival English Poster" class="portfolio-panel-img">
+        <div class="portfolio-panel-overlay">
+          <div class="portfolio-panel-title">English Festival Artwork</div>
         </div>
       </div>
 
-      <div class="portfolio-card" onclick="openLightbox('./assets/2.jpeg')">
-        <img src="./assets/2.jpeg" alt="Freedom Festival Telugu Poster" class="portfolio-img">
-        <div class="portfolio-overlay">
-          <div class="portfolio-caption">Telugu Regional Poster</div>
+      <div class="portfolio-panel" onclick="openLightbox('./assets/2.jpeg')">
+        <img src="./assets/2.jpeg" alt="Freedom Festival Telugu Poster" class="portfolio-panel-img">
+        <div class="portfolio-panel-overlay">
+          <div class="portfolio-panel-title">Telugu Regional Artwork</div>
         </div>
       </div>
 
-      <div class="portfolio-card" onclick="openLightbox('./assets/Band Logo.jpeg')">
-        <img src="./assets/Band Logo.jpeg" alt="The Psalms Band Emblem" class="portfolio-img" style="object-fit:contain; background:#ffffff; padding:24px;">
-        <div class="portfolio-overlay">
-          <div class="portfolio-caption">The Psalms Band Emblem</div>
+      <div class="portfolio-panel" onclick="openLightbox('./assets/Band Logo.jpeg')">
+        <img src="./assets/Band Logo.jpeg" alt="The Psalms Band Emblem" class="portfolio-panel-img" style="object-fit:contain; background:#ffffff; padding:32px;">
+        <div class="portfolio-panel-overlay">
+          <div class="portfolio-panel-title">The Psalms Band Emblem</div>
         </div>
       </div>
 
-      <div class="portfolio-card" onclick="openLightbox('./assets/Church Logo.jpeg')">
-        <img src="./assets/Church Logo.jpeg" alt="Alpha Omega Seal" class="portfolio-img" style="object-fit:contain; background:#ffffff; padding:24px;">
-        <div class="portfolio-overlay">
-          <div class="portfolio-caption">Alpha Omega Ministries Seal</div>
+      <div class="portfolio-panel" onclick="openLightbox('./assets/Church Logo.jpeg')">
+        <img src="./assets/Church Logo.jpeg" alt="Alpha Omega Seal" class="portfolio-panel-img" style="object-fit:contain; background:#ffffff; padding:32px;">
+        <div class="portfolio-panel-overlay">
+          <div class="portfolio-panel-title">Alpha Omega Ministries Seal</div>
         </div>
       </div>
     </div>
@@ -811,28 +870,30 @@ body{
 </section>
 
 <!-- LIGHTBOX MODAL -->
-<div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
-  <button class="lightbox-close-btn" onclick="closeLightbox()">&times;</button>
-  <img id="lightboxImg" src="" alt="Enlarged gallery view" class="lightbox-content-img" onclick="event.stopPropagation()">
+<div id="lightbox" class="lightbox-modal-full" onclick="closeLightbox()">
+  <button class="lightbox-close-icon" onclick="closeLightbox()">&times;</button>
+  <img id="lightboxImg" src="" alt="Enlarged gallery view" class="lightbox-full-img" onclick="event.stopPropagation()">
 </div>
 
 <!-- ============================================================ -->
-/* SECTION 4: EDITORIAL FOOTER */
+/* SECTION 5: MASSIVE LUXURY FOOTER (AAM Inspired) */
 <!-- ============================================================ -->
-<footer class="footer-editorial">
-  <div class="footer-container">
-    <div class="footer-logos-row">
-      <img src="./assets/Church Logo.jpeg" alt="Alpha Omega Ministries" class="footer-logo-img">
-      <img src="./assets/Band Logo.jpeg" alt="The Psalms Band" class="footer-band-logo-img">
+<footer class="footer-luxury">
+  <div class="footer-luxury-container">
+    <div class="footer-brand-emblems">
+      <img src="./assets/Church Logo.jpeg" alt="Alpha Omega Ministries" class="footer-church-seal">
+      <img src="./assets/Band Logo.jpeg" alt="The Psalms Band" class="footer-band-seal">
     </div>
 
-    <div class="footer-meta-text">Balloon Room, Beside Lalitha Jewellery, Devi Chowk, Rajahmundry</div>
-    <div class="footer-meta-text">Helpline: <strong>8897972424</strong></div>
-    <div class="footer-meta-text">
-      Website: <a href="https://www.alphaomegaministries.in" target="_blank" class="footer-link-gold">www.alphaomegaministries.in</a>
+    <h2 class="footer-title-huge">CONTACT & LOCATION</h2>
+
+    <div class="footer-info-line">Balloon Room, Beside Lalitha Jewellery, Devi Chowk, Rajahmundry</div>
+    <div class="footer-info-line">Helpline: <strong>8897972424</strong></div>
+    <div class="footer-info-line">
+      Website: <a href="https://www.alphaomegaministries.in" target="_blank" class="footer-link-gold-accent">www.alphaomegaministries.in</a>
     </div>
 
-    <div class="footer-copyright">
+    <div class="footer-copyright-bottom">
       © 2026 Alpha Omega Ministries. All Rights Reserved. Youth Of The Nation Freedom Festival.
     </div>
   </div>
@@ -840,39 +901,45 @@ body{
 
 <script>
 /* ============================================================ */
-/* PRELOADER CANVAS PARTICLES */
+/* CANVAS STAGE PARTICLES & LIGHTING */
 /* ============================================================ */
-const canvas = document.getElementById('preloaderCanvas');
-const ctx = canvas.getContext('2d');
-let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight;
+function initCanvas(canvasId, particleColor) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
 
-window.addEventListener('resize', () => {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
-});
-
-const particles = Array.from({ length: 45 }, () => ({
-  x: Math.random() * width,
-  y: Math.random() * height,
-  r: Math.random() * 2 + 0.5,
-  vy: -Math.random() * 0.4 - 0.1,
-  alpha: Math.random() * 0.6 + 0.2
-}));
-
-function drawParticles() {
-  ctx.clearRect(0, 0, width, height);
-  particles.forEach(p => {
-    p.y += p.vy;
-    if (p.y < 0) p.y = height;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
-    ctx.fill();
+  window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
   });
-  requestAnimationFrame(drawParticles);
+
+  const particles = Array.from({ length: 45 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 2 + 0.5,
+    vy: -Math.random() * 0.4 - 0.1,
+    alpha: Math.random() * 0.6 + 0.2
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.y += p.vy;
+      if (p.y < 0) p.y = h;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = particleColor.replace('ALPHA', p.alpha);
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
 }
-drawParticles();
+
+initCanvas('preloaderCanvas', 'rgba(212, 175, 55, ALPHA)');
+initCanvas('heroCanvas', 'rgba(255, 255, 255, ALPHA)');
 
 /* ============================================================ */
 /* GSAP MANDATORY CINEMATIC PRELOADER TIMELINE */
@@ -886,18 +953,19 @@ window.addEventListener('DOMContentLoaded', () => {
         ease: 'power2.inOut',
         onComplete: () => {
           document.getElementById('preloader').style.display = 'none';
+
           // Trigger smooth hero entrance animations
-          gsap.from('.hero-tag', { opacity: 0, y: 20, duration: 1, ease: 'power3.out' });
-          gsap.from('.hero-title-main', { opacity: 0, y: 30, duration: 1.2, delay: 0.2, ease: 'power3.out' });
-          gsap.from('.hero-script-sub', { opacity: 0, duration: 1, delay: 0.4 });
-          gsap.from('.hero-editorial-desc', { opacity: 0, y: 20, duration: 1, delay: 0.6 });
-          gsap.from('.cta-editorial', { opacity: 0, y: 20, duration: 1, delay: 0.8 });
+          gsap.from('.hero-bracket-tag', { opacity: 0, y: 20, duration: 1, ease: 'power3.out' });
+          gsap.from('.hero-title-giant', { opacity: 0, y: 30, duration: 1.2, delay: 0.2, ease: 'power3.out' });
+          gsap.from('.hero-script-subtitle', { opacity: 0, duration: 1, delay: 0.4 });
+          gsap.from('.hero-desc-short', { opacity: 0, y: 20, duration: 1, delay: 0.6 });
+          gsap.from('.hero-editorial-link', { opacity: 0, y: 20, duration: 1, delay: 0.8 });
         }
       });
     }
   });
 
-  // Sequence 1 — Alpha Omega (0s to 1.8s)
+  // Sequence 1 — Alpha Omega Ministries (0s to 1.8s)
   tl.to('#seq1', { opacity: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' })
     .to('#seq1-logo', { scale: 1.06, duration: 1.2, ease: 'power1.inOut' }, '-=0.6')
     .to('#seq1', { opacity: 0, duration: 0.6, ease: 'power2.in' }, '+=0.4')
@@ -912,11 +980,11 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ============================================================ */
-/* POSTER SWITCHER & LIGHTBOX LOGIC */
+/* ARTWORK SWITCHER & LIGHTBOX LOGIC */
 /* ============================================================ */
-function switchPoster(src, btn) {
-  document.getElementById('posterDisplay').src = src;
-  document.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
+function switchArtwork(src, btn) {
+  document.getElementById('artworkDisplay').src = src;
+  document.querySelectorAll('.art-switch-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
 
