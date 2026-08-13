@@ -7,19 +7,19 @@
 <title>Alpha Omega Ministries | Coming Soon</title>
 
 <!-- SEO -->
-<meta name="description" content="Alpha Omega Ministries - Our website is coming soon.">
+<meta name="description" content="Alpha Omega Ministries - Our website is coming soon. Experience Youth Of The Nation 2026 Freedom Festival.">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Alpha Omega Ministries">
-<meta property="og:description" content="Our website is coming soon. Stay connected with Alpha Omega Ministries.">
+<meta property="og:description" content="Our website is coming soon. Stay connected with Alpha Omega Ministries and join Youth Of The Nation 2026.">
 <meta property="og:url" content="https://suryarajamandapalli.github.io/Alpha-Omega-Ministries/">
 <meta property="og:image" content="https://suryarajamandapalli.github.io/Alpha-Omega-Ministries/logo.jpg">
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Alpha Omega Ministries">
-<meta name="twitter:description" content="Our website is coming soon.">
+<meta name="twitter:description" content="Our website is coming soon. Join Youth Of The Nation 2026 Freedom Festival.">
 <meta name="twitter:image" content="https://suryarajamandapalli.github.io/Alpha-Omega-Ministries/logo.jpg">
 
 <meta name="theme-color" content="#0d5c63">
@@ -27,7 +27,7 @@
 <link rel="icon" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
 
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -217,6 +217,106 @@ margin-top:14px;
 font-weight:700;
 }
 
+/* YOTN 2026 SPECIAL EVENT CTA STYLES */
+
+.yotn-event-box {
+  margin-top: 40px;
+  padding: 40px 28px;
+  border-radius: 24px;
+  background: radial-gradient(circle at top, #141418 0%, #060608 100%);
+  border: 1px solid rgba(245, 193, 74, 0.35);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.4), 0 0 30px rgba(255, 122, 26, 0.15);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.yotn-event-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255, 122, 26, 0.25);
+}
+
+.yotn-fire-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 18px;
+  background: rgba(255, 122, 26, 0.15);
+  border: 1px solid rgba(255, 122, 26, 0.4);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #ff7a1a;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.yotn-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.yotn-subtitle {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-family: 'Alex Brush', cursive, sans-serif;
+  color: #f5c14a;
+  margin-bottom: 16px;
+  text-shadow: 0 0 15px rgba(245, 193, 74, 0.4);
+}
+
+.yotn-desc {
+  font-size: 0.98rem;
+  color: #cbd5e1;
+  max-width: 580px;
+  margin: 0 auto 28px;
+  line-height: 1.7;
+}
+
+.yotn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff7a1a 0%, #f5c14a 100%);
+  color: #050505;
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 25px rgba(255, 122, 26, 0.5), 0 8px 25px rgba(0,0,0,0.3);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.yotn-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 0 40px rgba(255, 122, 26, 0.8), 0 12px 30px rgba(0,0,0,0.4);
+}
+
+.yotn-btn .yotn-arrow {
+  display: inline-block;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.yotn-btn:hover .yotn-arrow {
+  transform: translateX(6px);
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 122, 26, 0.4); }
+  50% { box-shadow: 0 0 35px rgba(255, 122, 26, 0.7), 0 0 15px rgba(245, 193, 74, 0.5); }
+}
+
 .footer{
 margin-top:28px;
 font-size:.9rem;
@@ -250,6 +350,10 @@ font-size:.95rem;
 
 .quote{
 font-size:1rem;
+}
+
+.yotn-event-box {
+padding: 28px 18px;
 }
 
 }
@@ -304,6 +408,20 @@ the First and the Last.”
 Revelation 22:13
 </span>
 
+</div>
+
+<!-- SPECIAL EVENT CONCERT ANNOUNCEMENT CTA SECTION -->
+<div class="yotn-event-box">
+  <div class="yotn-fire-badge">🔥 SPECIAL EVENT</div>
+  <h2 class="yotn-title">Youth Of The Nation 2026</h2>
+  <div class="yotn-subtitle">Freedom Festival</div>
+  <p class="yotn-desc">
+    Experience an unforgettable night of worship, music, God's presence, and youth revival.
+  </p>
+  <a href="./YOTN2026" class="yotn-btn">
+    <span>Explore YOTN 2026</span>
+    <span class="yotn-arrow">→</span>
+  </a>
 </div>
 
 <div class="footer">
