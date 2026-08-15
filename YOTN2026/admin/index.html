@@ -786,6 +786,9 @@ body {
       <span class="admin-tag-badge">ADMIN</span>
     </div>
     <div class="admin-nav-actions">
+      <button type="button" id="resetVotesBtn" class="reset-votes-nav-btn" style="font-family:'Inter',sans-serif; font-size:0.75rem; font-weight:700; color:#f87171; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:999px; padding:6px 14px; cursor:pointer; transition:all 0.25s ease;">
+        ↺ Reset All Votes
+      </button>
       <a href="../polls/" target="_blank" class="view-polls-link">
         <span>Public Polls ↗</span>
       </a>
@@ -1212,6 +1215,46 @@ modalConfirmBtn.addEventListener('click', async () => {
   }
   pendingAction = null;
 });
+
+/* ============================================================ */
+/* RESET ALL VOTES HANDLER */
+/* ============================================================ */
+const resetVotesBtn = document.getElementById('resetVotesBtn');
+
+if (resetVotesBtn) {
+  resetVotesBtn.addEventListener('click', () => {
+    confirmAction(
+      'RESET ALL POLL VOTES?',
+      'This will permanently delete all audience votes from the database and reset the vote counts for all 5 questions back to 0. This cannot be undone.',
+      async () => {
+        try {
+          const res = await fetch('/api/admin-poll', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${adminToken}`
+            },
+            body: JSON.stringify({ action: 'reset-votes' })
+          });
+
+          if (!res.ok && supabaseClient) {
+            await supabaseClient.from('poll_votes').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+          }
+
+          allVotesData = [];
+          await fetchAndRenderDashboard();
+        } catch (err) {
+          console.error('Reset votes error:', err);
+          if (supabaseClient) {
+            await supabaseClient.from('poll_votes').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+            allVotesData = [];
+            await fetchAndRenderDashboard();
+          }
+        }
+      }
+    );
+  });
+}
 
 /* ============================================================ */
 /* SET POLL STATUS VIA API / SUPABASE */

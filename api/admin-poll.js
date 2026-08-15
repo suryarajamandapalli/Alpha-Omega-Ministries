@@ -96,6 +96,18 @@ module.exports = async (req, res) => {
         const updatedData = await updateCloseReq.json();
         return res.status(200).json({ success: true, updated: updatedData });
       }
+    } else if (action === 'reset-votes') {
+      // Delete all records from poll_votes table
+      const deleteVotesReq = await fetch(`${SUPABASE_URL}/rest/v1/poll_votes?id=not.is.null`, {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        }
+      });
+
+      return res.status(200).json({ success: true, message: 'All votes reset successfully' });
     }
 
     return res.status(400).json({ error: 'Invalid action specified' });
