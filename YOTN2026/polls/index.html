@@ -1356,16 +1356,8 @@ function updateResultsBars(q) {
 }
 
 /* ============================================================ */
-/* NAVIGATION */
+/* SCREEN COMPLETION & ALERTS */
 /* ============================================================ */
-nextQuestionBtn.addEventListener('click', () => {
-  if (currentQuestionIndex < POLL_QUESTIONS.length - 1) {
-    loadQuestion(currentQuestionIndex + 1);
-  } else {
-    showCompletionScreen();
-  }
-});
-
 function showCompletionScreen() {
   if (votesRealtimeChannel && supabaseClient) {
     supabaseClient.removeChannel(votesRealtimeChannel);
@@ -1378,10 +1370,12 @@ function showCompletionScreen() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-reviewPollsBtn.addEventListener('click', () => {
-  completionView.style.display = 'none';
-  syncActivePollFromDatabase();
-});
+if (reviewPollsBtn) {
+  reviewPollsBtn.addEventListener('click', () => {
+    completionView.style.display = 'none';
+    syncActivePollFromDatabase();
+  });
+}
 
 function showAlert(message, type = 'info') {
   alertBanner.className = `alert-banner alert-${type} show`;
