@@ -771,6 +771,19 @@ body {
     </section>
   </div>
 
+  <!-- Waiting for Admin to activate Poll View -->
+  <section id="waitingForPollView" class="waiting-poll-view" style="display:none; text-align:center; padding:40px 20px;">
+    <div style="width:68px; height:68px; border-radius:50%; background:rgba(214,160,65,0.1); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+      <span class="live-pulse-dot" style="width:12px; height:12px; background:var(--gold); box-shadow:0 0 16px var(--gold);"></span>
+    </div>
+    <h2 style="font-family:'Cinzel',serif; font-size:clamp(1.4rem, 3.5vw, 1.8rem); color:#ffffff; margin-bottom:8px;">
+      WAITING FOR LIVE POLL...
+    </h2>
+    <p style="font-size:0.95rem; color:var(--text-muted); max-width:440px; margin:0 auto 24px; line-height:1.7;">
+      The active question will automatically appear on your screen once announced live by the stage host.
+    </p>
+  </section>
+
   <!-- Final Screen: Completion -->
   <section id="completionView" class="completion-view" aria-live="polite">
     <div class="completion-icon-wrap">
@@ -791,7 +804,7 @@ body {
         <span>→</span>
       </a>
       <button type="button" id="reviewPollsBtn" class="completion-restart-btn">
-        ↺ Review Poll Responses
+        ↺ Refresh Live Status
       </button>
     </div>
   </section>
@@ -884,7 +897,8 @@ function setStoredVote(qNum, optionKey) {
 /* SUPABASE CLIENT & REALTIME SYNC */
 /* ============================================================ */
 let supabaseClient = null;
-let realtimeChannel = null;
+let votesRealtimeChannel = null;
+let pollsRealtimeChannel = null;
 
 try {
   const config = window.SUPABASE_CONFIG || {
@@ -903,6 +917,7 @@ try {
 /* APPLICATION STATE & DOM REFERENCES */
 /* ============================================================ */
 let currentQuestionIndex = 0;
+let currentPollStatus = 'LIVE'; // 'LIVE' | 'CLOSED'
 let selectedOptionKey = null;
 let isSubmitting = false;
 let currentPollId = null; // Supabase poll UUID if available
@@ -910,6 +925,7 @@ let pollOptionsMap = {};  // Maps optionKey -> option UUID
 let currentVoteCounts = {}; // Key -> vote count
 
 const pollActiveArea = document.getElementById('pollActiveArea');
+const waitingForPollView = document.getElementById('waitingForPollView');
 const stepCounterLabel = document.getElementById('stepCounterLabel');
 const stepDots = document.querySelectorAll('.step-dot');
 const questionText = document.getElementById('questionText');
@@ -928,10 +944,69 @@ const alertBanner = document.getElementById('alertBanner');
 const alertMessage = document.getElementById('alertMessage');
 
 /* ============================================================ */
+/* SYNC ACTIVE POLL CONTROL FROM DATABASE */
+/* ============================================================ */
+async function syncActivePollFromDatabase() {
+  if (!supabaseClient) return;
+
+  try {
+    const { data: polls } = await supabaseClient
+      .from('polls')
+      .select('*')
+      .order('question_number', { ascending: true });
+
+    if (polls && polls.length > 0) {
+      const activePoll = polls.find(p => p.is_active === true);
+
+      if (activePoll) {
+        waitingForPollView.style.display = 'none';
+        pollActiveArea.style.display = 'block';
+
+        const qIdx = activePoll.question_number - 1;
+        if (currentQuestionIndex !== qIdx || currentPollId !== activePoll.id) {
+          loadQuestion(qIdx, activePoll.status || 'LIVE');
+        } else {
+          currentPollStatus = activePoll.status || 'LIVE';
+          handleStatusChange(currentPollStatus);
+        }
+      } else {
+        // Check if all polls are closed vs no poll started
+        const anyClosed = polls.some(p => p.status === 'CLOSED');
+        if (anyClosed) {
+          // Show results of last closed question or waiting view
+          showWaitingState();
+        } else {
+          showWaitingState();
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('Active poll sync notice:', err);
+  }
+}
+
+function showWaitingState() {
+  pollActiveArea.style.display = 'none';
+  resultsView.style.display = 'none';
+  voteView.style.display = 'none';
+  completionView.style.display = 'none';
+  waitingForPollView.style.display = 'block';
+}
+
+function handleStatusChange(status) {
+  if (status === 'CLOSED') {
+    const q = POLL_QUESTIONS[currentQuestionIndex];
+    showResultsView(q, getStoredVotes()[q.number] || null);
+    showAlert('This poll is closed. Final live results are displayed below.', 'info');
+  }
+}
+
+/* ============================================================ */
 /* RENDER CURRENT QUESTION */
 /* ============================================================ */
-async function loadQuestion(index) {
+async function loadQuestion(index, status = 'LIVE') {
   currentQuestionIndex = index;
+  currentPollStatus = status;
   selectedOptionKey = null;
   currentVoteCounts = {};
   pollOptionsMap = {};
@@ -988,14 +1063,25 @@ async function loadQuestion(index) {
   // Fetch Supabase poll definition and votes
   await fetchPollDataAndVotes(q);
 
-  // Setup Realtime Subscription for this question
-  setupRealtimeSubscription(q.number);
+  // Setup Realtime Subscription for votes on this question
+  setupVotesRealtimeSubscription(q.number);
 
-  // Always show voting options first for anticipation
-  voteView.style.display = 'block';
-  resultsView.style.display = 'none';
-  completionView.style.display = 'none';
-  pollActiveArea.style.display = 'block';
+  const storedVotes = getStoredVotes();
+  const alreadyVotedKey = storedVotes[q.number];
+
+  if (currentPollStatus === 'CLOSED' || alreadyVotedKey) {
+    showResultsView(q, alreadyVotedKey || null);
+    if (currentPollStatus === 'CLOSED') {
+      showAlert('This poll is closed. Final live results are displayed below.', 'info');
+    }
+  } else {
+    // Show voting options first for anticipation
+    voteView.style.display = 'block';
+    resultsView.style.display = 'none';
+    completionView.style.display = 'none';
+    waitingForPollView.style.display = 'none';
+    pollActiveArea.style.display = 'block';
+  }
 }
 
 function selectOption(key) {
@@ -1029,12 +1115,15 @@ async function fetchPollDataAndVotes(q) {
     // 1. Fetch Poll ID from Supabase
     const { data: pollData } = await supabaseClient
       .from('polls')
-      .select('id')
+      .select('id, status, is_active')
       .eq('question_number', q.number)
       .maybeSingle();
 
     if (pollData) {
       currentPollId = pollData.id;
+      if (pollData.status) {
+        currentPollStatus = pollData.status;
+      }
 
       // 2. Fetch Options map
       const { data: optionsData } = await supabaseClient
@@ -1073,15 +1162,14 @@ async function fetchPollDataAndVotes(q) {
 }
 
 /* ============================================================ */
-/* SUPABASE REALTIME SUBSCRIPTION & LIVE HEARTBEAT */
+/* SUPABASE REALTIME SUBSCRIPTIONS (VOTES & POLL CONTROL) */
 /* ============================================================ */
 let liveSyncInterval = null;
 
-function setupRealtimeSubscription(questionNumber) {
-  // Clean up previous subscription
-  if (realtimeChannel && supabaseClient) {
-    try { supabaseClient.removeChannel(realtimeChannel); } catch (e) {}
-    realtimeChannel = null;
+function setupVotesRealtimeSubscription(questionNumber) {
+  if (votesRealtimeChannel && supabaseClient) {
+    try { supabaseClient.removeChannel(votesRealtimeChannel); } catch (e) {}
+    votesRealtimeChannel = null;
   }
 
   if (liveSyncInterval) {
@@ -1091,28 +1179,21 @@ function setupRealtimeSubscription(questionNumber) {
 
   if (!supabaseClient) return;
 
-  const channelName = `poll_channel_global_${questionNumber}_${Date.now()}`;
-  realtimeChannel = supabaseClient
+  const channelName = `poll_channel_votes_${questionNumber}_${Date.now()}`;
+  votesRealtimeChannel = supabaseClient
     .channel(channelName)
     .on(
       'postgres_changes',
-      {
-        event: '*',
-        schema: 'public',
-        table: 'poll_votes'
-      },
-      async (payload) => {
-        console.log('Live vote event detected:', payload);
+      { event: '*', schema: 'public', table: 'poll_votes' },
+      async () => {
         const q = POLL_QUESTIONS[currentQuestionIndex];
         await fetchPollDataAndVotes(q);
         updateResultsBars(q);
       }
     )
-    .subscribe((status) => {
-      console.log('Realtime subscription status:', status);
-    });
+    .subscribe();
 
-  // Secondary live sync heartbeat every 3 seconds while viewing results
+  // Live sync heartbeat
   liveSyncInterval = setInterval(async () => {
     if (resultsView.style.display !== 'none') {
       const q = POLL_QUESTIONS[currentQuestionIndex];
@@ -1120,6 +1201,30 @@ function setupRealtimeSubscription(questionNumber) {
       updateResultsBars(q);
     }
   }, 3000);
+}
+
+function setupGlobalPollStateRealtime() {
+  if (!supabaseClient) return;
+
+  if (pollsRealtimeChannel) {
+    try { supabaseClient.removeChannel(pollsRealtimeChannel); } catch (e) {}
+  }
+
+  pollsRealtimeChannel = supabaseClient
+    .channel(`public_poll_state_channel_${Date.now()}`)
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'polls' },
+      () => {
+        syncActivePollFromDatabase();
+      }
+    )
+    .subscribe();
+
+  // Periodic poll check
+  setInterval(() => {
+    syncActivePollFromDatabase();
+  }, 4000);
 }
 
 /* ============================================================ */
@@ -1136,7 +1241,6 @@ submitVoteBtn.addEventListener('click', async () => {
 
   try {
     if (supabaseClient) {
-      // Ensure we have current poll ID & options
       if (!currentPollId) {
         await fetchPollDataAndVotes(q);
       }
@@ -1157,13 +1261,8 @@ submitVoteBtn.addEventListener('click', async () => {
       }
     }
 
-    // Refresh database votes
     await fetchPollDataAndVotes(q);
-
-    // Save vote in local storage
     setStoredVote(q.number, selectedOptionKey);
-
-    // Show live results with animated bars
     showResultsView(q, selectedOptionKey);
 
   } catch (err) {
@@ -1180,6 +1279,7 @@ submitVoteBtn.addEventListener('click', async () => {
 /* ============================================================ */
 function showResultsView(q, userVotedKey) {
   voteView.style.display = 'none';
+  waitingForPollView.style.display = 'none';
   resultsView.style.display = 'block';
 
   // Configure Next Button text (Next vs Finish)
@@ -1250,7 +1350,7 @@ function updateResultsBars(q) {
 }
 
 /* ============================================================ */
-/* NAVIGATION: NEXT QUESTION / FINISH */
+/* NAVIGATION */
 /* ============================================================ */
 nextQuestionBtn.addEventListener('click', () => {
   if (currentQuestionIndex < POLL_QUESTIONS.length - 1) {
@@ -1261,20 +1361,26 @@ nextQuestionBtn.addEventListener('click', () => {
 });
 
 function showCompletionScreen() {
-  if (realtimeChannel && supabaseClient) {
-    supabaseClient.removeChannel(realtimeChannel);
-    realtimeChannel = null;
+  if (votesRealtimeChannel && supabaseClient) {
+    supabaseClient.removeChannel(votesRealtimeChannel);
+    votesRealtimeChannel = null;
   }
 
   pollActiveArea.style.display = 'none';
+  waitingForPollView.style.display = 'none';
   completionView.style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 reviewPollsBtn.addEventListener('click', () => {
   completionView.style.display = 'none';
-  loadQuestion(0);
+  syncActivePollFromDatabase();
 });
+
+function showAlert(message, type = 'info') {
+  alertBanner.className = `alert-banner alert-${type} show`;
+  alertMessage.textContent = message;
+}
 
 function hideAlert() {
   alertBanner.className = 'alert-banner';
@@ -1323,7 +1429,8 @@ function hideAlert() {
 /* INITIALIZATION */
 /* ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
-  loadQuestion(0);
+  syncActivePollFromDatabase();
+  setupGlobalPollStateRealtime();
 });
 </script>
 

@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Poll Control | Youth Of The Nation 2026</title>
+
+<!-- SEO -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#050505">
+<link rel="icon" href="../../logo.jpg">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Figtree:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Supabase Client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../polls/supabase-config.js"></script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #050505;
+  --bg-card: rgba(14, 14, 18, 0.92);
+  --gold: #D6A041;
+  --gold-light: #F3CA7E;
+  --gold-deep: #9B6A1D;
+  --white: #F5F5F5;
+  --text-muted: #9ca3af;
+  --text-subtle: #71717a;
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --border-gold: rgba(214, 160, 65, 0.35);
+  --error: #f87171;
+  --error-bg: rgba(248, 113, 113, 0.12);
+  --success: #34d399;
+}
+
+html {
+  background-color: var(--bg);
+}
+
+body {
+  font-family: 'Figtree', sans-serif;
+  background-color: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 32px 20px 80px;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Background Atmosphere */
+.bg-spotlight {
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(214, 160, 65, 0.08) 0%, rgba(5, 5, 5, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================ */
+/* LOGIN SCREEN */
+/* ============================================================ */
+.login-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 48px 36px;
+  margin-top: 6vh;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(214, 160, 65, 0.05);
+  text-align: center;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.login-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border-gold);
+  background: rgba(214, 160, 65, 0.06);
+}
+
+.login-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.login-subtitle {
+  font-family: 'Alex Brush', cursive;
+  font-size: 1.6rem;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.form-input:focus {
+  border-color: var(--gold);
+  background: rgba(214, 160, 65, 0.05);
+  box-shadow: 0 0 0 3px rgba(214, 160, 65, 0.15);
+}
+
+.login-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #050505;
+  background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
+  border: 1px solid #E5B25D;
+  border-radius: 999px;
+  padding: 15px 32px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 25px rgba(214, 160, 65, 0.3);
+  margin-top: 8px;
+}
+
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 35px rgba(214, 160, 65, 0.45);
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-banner {
+  display: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--error-bg);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: var(--error);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.error-banner.show {
+  display: block;
+}
+
+/* ============================================================ */
+/* DASHBOARD LAYOUT */
+/* ============================================================ */
+.dashboard-container {
+  display: none;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 860px;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.admin-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 16px;
+}
+
+.admin-brand-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-tag-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #050505;
+  background: var(--gold);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.admin-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.view-polls-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.25s ease;
+}
+
+.view-polls-link:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.logout-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 999px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* ============================================================ */
+/* CURRENTLY LIVE QUESTION HERO CARD */
+/* ============================================================ */
+.live-hero-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 32px 28px;
+  margin-bottom: 36px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(214, 160, 65, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.live-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.live-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.live-dot-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+  animation: livePulse 1.8s infinite;
+}
+
+.live-total-votes {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+
+.live-question-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+/* Live Result Bars inside Hero Card */
+.live-options-tally {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.tally-row {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 16px;
+  overflow: hidden;
+}
+
+.tally-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(155, 106, 29, 0.4) 0%, rgba(214, 160, 65, 0.4) 100%);
+  border-right: 2px solid var(--gold);
+  border-radius: 10px 0 0 10px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.tally-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.tally-text {
+  font-size: 0.88rem;
+  color: #f4f4f5;
+  font-weight: 600;
+}
+
+.tally-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.tally-pct {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--gold-light);
+}
+
+.tally-count {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.live-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.end-poll-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  border-radius: 999px;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.end-poll-btn:hover {
+  background: rgba(239, 68, 68, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Empty Hero State */
+.no-live-poll {
+  text-align: center;
+  padding: 24px 0;
+  color: var(--text-muted);
+}
+
+.no-live-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+/* ============================================================ */
+/* ALL QUESTIONS LIST */
+/* ============================================================ */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.questions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.question-admin-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.25s ease;
+}
+
+.question-admin-card.is-live {
+  border-color: var(--gold);
+  background: rgba(214, 160, 65, 0.06);
+}
+
+.q-left-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.q-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.q-num-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  background: rgba(214, 160, 65, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(214, 160, 65, 0.2);
+}
+
+.q-status-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.status-upcoming {
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-live {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.status-closed {
+  color: #a1a1aa;
+  background: rgba(161, 161, 170, 0.1);
+  border: 1px solid rgba(161, 161, 170, 0.2);
+}
+
+.q-body-text {
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.q-actions-col {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.make-live-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #050505;
+  background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
+  border: 1px solid #E5B25D;
+  border-radius: 999px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.make-live-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(214, 160, 65, 0.4);
+}
+
+/* ============================================================ */
+/* CONFIRMATION MODAL */
+/* ============================================================ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-card {
+  background: #0f0f13;
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 32px 28px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+}
+
+.modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.modal-desc {
+  font-size: 0.92rem;
+  color: #d4d4d8;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.modal-cancel-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 10px 22px;
+  cursor: pointer;
+}
+
+.modal-confirm-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #050505;
+  background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
+  border: 1px solid #E5B25D;
+  border-radius: 999px;
+  padding: 10px 24px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes livePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+}
+
+/* Spinner */
+.spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(5, 5, 5, 0.3);
+  border-top-color: #050505;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  body {
+    padding: 20px 14px 60px;
+  }
+
+  .question-admin-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .q-actions-col {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-spotlight"></div>
+
+<!-- ============================================================ -->
+<!-- 1. LOGIN SCREEN -->
+<!-- ============================================================ -->
+<main class="login-container" id="loginScreen">
+  <div class="login-badge">YOTN 2026</div>
+  <h1 class="login-title">ADMIN CONTROL</h1>
+  <div class="login-subtitle">Festival Poll Control</div>
+
+  <div id="loginError" class="error-banner"></div>
+
+  <form id="loginForm" class="login-form" autocomplete="off">
+    <div class="form-group">
+      <label for="adminPassword" class="form-label">ADMIN PASSWORD</label>
+      <div class="input-wrap">
+        <input 
+          type="password" 
+          id="adminPassword" 
+          class="form-input" 
+          placeholder="Enter admin password" 
+          required
+          autofocus
+        >
+      </div>
+    </div>
+
+    <button type="submit" id="loginBtn" class="login-btn">
+      <span class="spinner" id="loginSpinner"></span>
+      <span id="loginBtnText">SIGN IN</span>
+    </button>
+  </form>
+</main>
+
+<!-- ============================================================ */
+<!-- 2. ADMIN DASHBOARD -->
+<!-- ============================================================ -->
+<div class="dashboard-container" id="dashboardScreen">
+  <!-- Nav Bar -->
+  <nav class="admin-nav">
+    <div class="admin-brand-title">
+      <span>YOTN 2026</span>
+      <span class="admin-tag-badge">ADMIN</span>
+    </div>
+    <div class="admin-nav-actions">
+      <a href="../polls/" target="_blank" class="view-polls-link">
+        <span>Public Polls ↗</span>
+      </a>
+      <button type="button" id="logoutBtn" class="logout-btn">Log Out</button>
+    </div>
+  </nav>
+
+  <!-- Currently Live Hero Card -->
+  <section class="live-hero-card" id="liveHeroCard">
+    <div id="liveHeroContent">
+      <div class="live-card-top">
+        <span class="live-status-pill">
+          <span class="live-dot-pulse"></span>
+          CURRENTLY LIVE
+        </span>
+        <span class="live-total-votes" id="liveTotalVotes">0 TOTAL VOTES</span>
+      </div>
+
+      <h2 class="live-question-title" id="liveQuestionTitle">Loading live poll...</h2>
+
+      <!-- Distribution Bars -->
+      <div class="live-options-tally" id="liveOptionsTally">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="live-card-actions">
+        <button type="button" class="end-poll-btn" id="endLivePollBtn">
+          <span>■ END POLL</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="noLiveContent" class="no-live-poll" style="display:none;">
+      <h3 class="no-live-title">NO QUESTION IS CURRENTLY LIVE</h3>
+      <p style="font-size:0.9rem; color:var(--text-muted);">
+        Select a question below to broadcast live to all audience screens.
+      </p>
+    </div>
+  </section>
+
+  <!-- All 5 Questions Management -->
+  <section>
+    <div class="section-header">
+      <h2 class="section-title">ALL POLL QUESTIONS</h2>
+    </div>
+
+    <div class="questions-grid" id="allQuestionsGrid">
+      <!-- 5 Question Cards rendered dynamically -->
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONFIRMATION MODAL -->
+<!-- ============================================================ -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-card">
+    <h3 class="modal-title" id="modalTitle">CONFIRM ACTION</h3>
+    <p class="modal-desc" id="modalDesc">Are you sure?</p>
+    <div class="modal-actions">
+      <button type="button" class="modal-cancel-btn" id="modalCancelBtn">Cancel</button>
+      <button type="button" class="modal-confirm-btn" id="modalConfirmBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================ */
+/* OFFICIAL 5 QUESTIONS DEFINITION */
+/* ============================================================ */
+const POLL_QUESTIONS = [
+  {
+    number: 1,
+    question: "India at 80 Years of Independence – Are We Truly Free?",
+    options: [
+      { key: "A", text: "Yes, completely free" },
+      { key: "B", text: "Free on paper, not in practice" },
+      { key: "C", text: "Free in some ways, restricted in others" },
+      { key: "D", text: "Not sure" }
+    ]
+  },
+  {
+    number: 2,
+    question: "Do you think every Indian citizen enjoys the same level of freedom, regardless of religion, gender, or class?",
+    options: [
+      { key: "A", text: "Yes, freedom is equal for all" },
+      { key: "B", text: "No, some enjoy more freedom than others" },
+      { key: "C", text: "It depends on where you live" },
+      { key: "D", text: "I've never really thought about it" }
+    ]
+  },
+  {
+    number: 3,
+    question: "Is freedom the same as doing whatever you want, whenever you want?",
+    options: [
+      { key: "A", text: "Yes" },
+      { key: "B", text: "No. Freedom comes with responsibility" },
+      { key: "C", text: "Freedom is more about having choices, not doing everything" },
+      { key: "D", text: "I'm not sure" }
+    ]
+  },
+  {
+    number: 4,
+    question: "How do you define the idea of freedom?",
+    options: [
+      { key: "A", text: "No one controlling my decisions" },
+      { key: "B", text: "Being able to speak my mind without fear" },
+      { key: "C", text: "Freedom from my own fears, guilt, and habits" },
+      { key: "D", text: "Something deeper than any of the above" }
+    ]
+  },
+  {
+    number: 5,
+    question: "Do you think that the youth can actually change the nation?",
+    options: [
+      { key: "A", text: "Yes" },
+      { key: "B", text: "No" }
+    ]
+  }
+];
+
+/* ============================================================ */
+/* SUPABASE CLIENT & STATE */
+/* ============================================================ */
+let supabaseClient = null;
+let realtimeChannel = null;
+let adminToken = sessionStorage.getItem('yotn_admin_session') || '';
+let pollsDbData = [];
+let allVotesData = [];
+let pendingAction = null;
+
+try {
+  const config = window.SUPABASE_CONFIG || {
+    url: 'https://yqdtvfsxffhrxfabstsk.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZHR2ZnN4ZmZocnhmYWJzdHNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3NjY1MTgsImV4cCI6MjEwMjM0MjUxOH0.586sYXYAnD5kiy3y9sASvOSOXWkP10jQVAhtjOTFlEI'
+  };
+  if (window.supabase && window.supabase.createClient) {
+    supabaseClient = window.supabase.createClient(config.url, config.anonKey);
+  }
+} catch (e) {
+  console.warn('Supabase client notice:', e);
+}
+
+/* ============================================================ */
+/* DOM REFERENCES */
+/* ============================================================ */
+const loginScreen = document.getElementById('loginScreen');
+const loginForm = document.getElementById('loginForm');
+const adminPassword = document.getElementById('adminPassword');
+const loginBtn = document.getElementById('loginBtn');
+const loginSpinner = document.getElementById('loginSpinner');
+const loginBtnText = document.getElementById('loginBtnText');
+const loginError = document.getElementById('loginError');
+
+const dashboardScreen = document.getElementById('dashboardScreen');
+const logoutBtn = document.getElementById('logoutBtn');
+const liveHeroContent = document.getElementById('liveHeroContent');
+const noLiveContent = document.getElementById('noLiveContent');
+const liveTotalVotes = document.getElementById('liveTotalVotes');
+const liveQuestionTitle = document.getElementById('liveQuestionTitle');
+const liveOptionsTally = document.getElementById('liveOptionsTally');
+const endLivePollBtn = document.getElementById('endLivePollBtn');
+const allQuestionsGrid = document.getElementById('allQuestionsGrid');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalCancelBtn = document.getElementById('modalCancelBtn');
+const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+
+/* ============================================================ */
+/* AUTHENTICATION FLOW */
+/* ============================================================ */
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginError.classList.remove('show');
+
+  const pwd = adminPassword.value;
+  if (!pwd) return;
+
+  loginBtn.disabled = true;
+  loginSpinner.style.display = 'inline-block';
+  loginBtnText.textContent = 'VERIFYING...';
+
+  try {
+    const res = await fetch('/api/admin-auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pwd })
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.token) {
+      adminToken = data.token;
+      sessionStorage.setItem('yotn_admin_session', adminToken);
+      showDashboard();
+    } else {
+      showLoginError(data.error || 'Invalid admin credentials.');
+    }
+  } catch (err) {
+    // Fallback: check against direct validation
+    showLoginError('Invalid admin credentials.');
+  } finally {
+    loginBtn.disabled = false;
+    loginSpinner.style.display = 'none';
+    loginBtnText.textContent = 'SIGN IN';
+  }
+});
+
+function showLoginError(msg) {
+  loginError.textContent = msg;
+  loginError.classList.add('show');
+}
+
+logoutBtn.addEventListener('click', () => {
+  sessionStorage.removeItem('yotn_admin_session');
+  adminToken = '';
+  if (realtimeChannel && supabaseClient) {
+    supabaseClient.removeChannel(realtimeChannel);
+  }
+  dashboardScreen.style.display = 'none';
+  loginScreen.style.display = 'block';
+  adminPassword.value = '';
+});
+
+/* ============================================================ */
+/* INITIAL CHECK */
+/* ============================================================ */
+async function init() {
+  if (adminToken) {
+    try {
+      const res = await fetch('/api/admin-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verify', token: adminToken })
+      });
+      const data = await res.json();
+      if (data.authenticated) {
+        showDashboard();
+        return;
+      }
+    } catch (e) {}
+  }
+  loginScreen.style.display = 'block';
+  dashboardScreen.style.display = 'none';
+}
+
+function showDashboard() {
+  loginScreen.style.display = 'none';
+  dashboardScreen.style.display = 'block';
+  fetchAndRenderDashboard();
+  setupAdminRealtime();
+}
+
+/* ============================================================ */
+/* DASHBOARD DATA SYNC */
+/* ============================================================ */
+async function fetchAndRenderDashboard() {
+  if (!supabaseClient) return;
+
+  try {
+    // 1. Fetch Polls
+    const { data: polls } = await supabaseClient
+      .from('polls')
+      .select('*')
+      .order('question_number', { ascending: true });
+
+    if (polls) {
+      pollsDbData = polls;
+    }
+
+    // 2. Fetch Options map
+    const { data: options } = await supabaseClient
+      .from('poll_options')
+      .select('*');
+
+    // 3. Fetch Votes
+    const { data: votes } = await supabaseClient
+      .from('poll_votes')
+      .select('*');
+
+    if (votes) {
+      allVotesData = votes;
+    }
+
+    renderDashboardUI(pollsDbData, options || [], allVotesData);
+
+  } catch (err) {
+    console.warn('Dashboard fetch notice:', err);
+  }
+}
+
+function renderDashboardUI(polls, options, votes) {
+  // Find currently live poll
+  const livePoll = polls.find(p => p.is_active === true);
+
+  if (livePoll) {
+    liveHeroContent.style.display = 'block';
+    noLiveContent.style.display = 'none';
+
+    liveQuestionTitle.textContent = `QUESTION 0${livePoll.question_number}: ${livePoll.question}`;
+
+    // Get options and votes for live poll
+    const pollOpts = options.filter(o => o.poll_id === livePoll.id);
+    const pollVotes = votes.filter(v => v.poll_id === livePoll.id);
+    const totalVotes = pollVotes.length;
+
+    liveTotalVotes.textContent = `${totalVotes} TOTAL ${totalVotes === 1 ? 'VOTE' : 'VOTES'}`;
+
+    // Render Distribution bars
+    liveOptionsTally.innerHTML = '';
+    const qMeta = POLL_QUESTIONS.find(q => q.number === livePoll.question_number) || { options: [] };
+
+    qMeta.options.forEach(optMeta => {
+      const optRecord = pollOpts.find(o => o.option_key === optMeta.key);
+      const optVotes = optRecord ? pollVotes.filter(v => v.option_id === optRecord.id).length : 0;
+      const pct = totalVotes > 0 ? Math.round((optVotes / totalVotes) * 100) : 0;
+
+      const row = document.createElement('div');
+      row.className = 'tally-row';
+      row.innerHTML = `
+        <div class="tally-bar-fill" style="width:${pct}%;"></div>
+        <div class="tally-content">
+          <span class="tally-text"><strong style="color:var(--gold);">${optMeta.key}</strong> • ${optMeta.text}</span>
+          <div class="tally-stats">
+            <span class="tally-pct">${pct}%</span>
+            <span class="tally-count">${optVotes} ${optVotes === 1 ? 'vote' : 'votes'}</span>
+          </div>
+        </div>
+      `;
+      liveOptionsTally.appendChild(row);
+    });
+
+    endLivePollBtn.onclick = () => {
+      confirmAction(
+        `END QUESTION 0${livePoll.question_number}?`,
+        'The audience will no longer be able to submit new votes on this question. Final results will remain visible.',
+        () => setPollStatus(livePoll.question_number, 'CLOSED')
+      );
+    };
+
+  } else {
+    liveHeroContent.style.display = 'none';
+    noLiveContent.style.display = 'block';
+  }
+
+  // Render All 5 Questions
+  allQuestionsGrid.innerHTML = '';
+  POLL_QUESTIONS.forEach(q => {
+    const dbPoll = polls.find(p => p.question_number === q.number);
+    const isLive = dbPoll && dbPoll.is_active === true;
+    const isClosed = dbPoll && dbPoll.status === 'CLOSED';
+    const statusText = isLive ? 'LIVE' : (isClosed ? 'CLOSED' : 'UPCOMING');
+    const statusClass = isLive ? 'status-live' : (isClosed ? 'status-closed' : 'status-upcoming');
+
+    // Votes for this question
+    const qVotes = dbPoll ? votes.filter(v => v.poll_id === dbPoll.id).length : 0;
+
+    const card = document.createElement('div');
+    card.className = `question-admin-card ${isLive ? 'is-live' : ''}`;
+
+    card.innerHTML = `
+      <div class="q-left-info">
+        <div class="q-header-row">
+          <span class="q-num-badge">QUESTION 0${q.number}</span>
+          <span class="q-status-badge ${statusClass}">● ${statusText}</span>
+          <span style="font-size:0.75rem; color:var(--text-muted);">${qVotes} ${qVotes === 1 ? 'vote' : 'votes'}</span>
+        </div>
+        <div class="q-body-text">${q.question}</div>
+      </div>
+      <div class="q-actions-col">
+        ${isLive ? `
+          <button type="button" class="end-poll-btn" onclick="triggerEndPoll(${q.number})">
+            ■ END POLL
+          </button>
+        ` : `
+          <button type="button" class="make-live-btn" onclick="triggerMakeLive(${q.number})">
+            ▶ MAKE LIVE
+          </button>
+        `}
+      </div>
+    `;
+
+    allQuestionsGrid.appendChild(card);
+  });
+}
+
+/* ============================================================ */
+/* ACTION TRIGGERS & MODAL */
+/* ============================================================ */
+window.triggerMakeLive = function(qNum) {
+  confirmAction(
+    `MAKE QUESTION 0${qNum} LIVE?`,
+    `This will immediately activate Question 0${qNum} and broadcast it to all connected public audience screens. Any other active question will become inactive.`,
+    () => setPollStatus(qNum, 'LIVE')
+  );
+};
+
+window.triggerEndPoll = function(qNum) {
+  confirmAction(
+    `END QUESTION 0${qNum}?`,
+    `The audience will no longer be able to submit votes on Question 0${qNum}. Final results will remain displayed.`,
+    () => setPollStatus(qNum, 'CLOSED')
+  );
+};
+
+function confirmAction(title, desc, onConfirm) {
+  modalTitle.textContent = title;
+  modalDesc.textContent = desc;
+  pendingAction = onConfirm;
+  confirmModal.classList.add('show');
+}
+
+modalCancelBtn.addEventListener('click', () => {
+  confirmModal.classList.remove('show');
+  pendingAction = null;
+});
+
+modalConfirmBtn.addEventListener('click', async () => {
+  confirmModal.classList.remove('show');
+  if (typeof pendingAction === 'function') {
+    await pendingAction();
+  }
+  pendingAction = null;
+});
+
+/* ============================================================ */
+/* SET POLL STATUS VIA API / SUPABASE */
+/* ============================================================ */
+async function setPollStatus(questionNumber, status) {
+  try {
+    const res = await fetch('/api/admin-poll', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${adminToken}`
+      },
+      body: JSON.stringify({
+        action: 'set-status',
+        questionNumber: questionNumber,
+        status: status
+      })
+    });
+
+    if (res.ok) {
+      await fetchAndRenderDashboard();
+    } else {
+      // Fallback: direct Supabase patch
+      if (status === 'LIVE') {
+        await supabaseClient.from('polls').update({ is_active: false }).neq('question_number', questionNumber);
+        await supabaseClient.from('polls').update({ is_active: true, status: 'LIVE' }).eq('question_number', questionNumber);
+      } else {
+        await supabaseClient.from('polls').update({ is_active: false, status: 'CLOSED' }).eq('question_number', questionNumber);
+      }
+      await fetchAndRenderDashboard();
+    }
+  } catch (err) {
+    console.error('Error updating poll status:', err);
+    // Direct Supabase fallback
+    if (status === 'LIVE') {
+      await supabaseClient.from('polls').update({ is_active: false }).neq('question_number', questionNumber);
+      await supabaseClient.from('polls').update({ is_active: true, status: 'LIVE' }).eq('question_number', questionNumber);
+    } else {
+      await supabaseClient.from('polls').update({ is_active: false, status: 'CLOSED' }).eq('question_number', questionNumber);
+    }
+    await fetchAndRenderDashboard();
+  }
+}
+
+/* ============================================================ */
+/* ADMIN REALTIME SUBSCRIPTION */
+/* ============================================================ */
+function setupAdminRealtime() {
+  if (!supabaseClient) return;
+
+  if (realtimeChannel) {
+    try { supabaseClient.removeChannel(realtimeChannel); } catch (e) {}
+  }
+
+  realtimeChannel = supabaseClient
+    .channel(`admin_dashboard_realtime_${Date.now()}`)
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'poll_votes' },
+      () => {
+        fetchAndRenderDashboard();
+      }
+    )
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'polls' },
+      () => {
+        fetchAndRenderDashboard();
+      }
+    )
+    .subscribe();
+
+  // Heartbeat refresh every 3 seconds
+  setInterval(() => {
+    if (dashboardScreen.style.display !== 'none') {
+      fetchAndRenderDashboard();
+    }
+  }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
