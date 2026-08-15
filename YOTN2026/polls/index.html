@@ -913,8 +913,9 @@ try {
 /* ============================================================ */
 /* APPLICATION STATE & DOM REFERENCES */
 /* ============================================================ */
-let currentQuestionIndex = 0;
+let currentQuestionIndex = -1;
 let currentPollStatus = 'LIVE'; // 'LIVE' | 'CLOSED'
+let isInitialLoaded = false;
 let selectedOptionKey = null;
 let isSubmitting = false;
 let currentPollId = null; // Supabase poll UUID if available
@@ -924,7 +925,6 @@ let currentVoteCounts = {}; // Key -> vote count
 const pollActiveArea = document.getElementById('pollActiveArea');
 const waitingForPollView = document.getElementById('waitingForPollView');
 const stepCounterLabel = document.getElementById('stepCounterLabel');
-const stepDots = document.querySelectorAll('.step-dot');
 const questionText = document.getElementById('questionText');
 const voteView = document.getElementById('voteView');
 const optionsList = document.getElementById('optionsList');
@@ -934,7 +934,6 @@ const btnText = document.getElementById('btnText');
 const resultsView = document.getElementById('resultsView');
 const resultsList = document.getElementById('resultsList');
 const totalVotesCount = document.getElementById('totalVotesCount');
-const nextQuestionBtn = document.getElementById('nextQuestionBtn');
 const completionView = document.getElementById('completionView');
 const reviewPollsBtn = document.getElementById('reviewPollsBtn');
 const alertBanner = document.getElementById('alertBanner');
@@ -944,13 +943,28 @@ const alertMessage = document.getElementById('alertMessage');
 /* SYNC ACTIVE POLL CONTROL FROM DATABASE */
 /* ============================================================ */
 async function syncActivePollFromDatabase() {
-  if (!supabaseClient) return;
+  if (!supabaseClient) {
+    if (!isInitialLoaded) {
+      isInitialLoaded = true;
+      loadQuestion(0, 'LIVE');
+    }
+    return;
+  }
 
   try {
-    const { data: polls } = await supabaseClient
+    const { data: polls, error } = await supabaseClient
       .from('polls')
       .select('*')
       .order('question_number', { ascending: true });
+
+    if (error) {
+      console.warn('Polls sync error:', error);
+      if (!isInitialLoaded) {
+        isInitialLoaded = true;
+        loadQuestion(0, 'LIVE');
+      }
+      return;
+    }
 
     if (polls && polls.length > 0) {
       const activePoll = polls.find(p => p.is_active === true);
@@ -960,25 +974,28 @@ async function syncActivePollFromDatabase() {
         pollActiveArea.style.display = 'block';
 
         const qIdx = activePoll.question_number - 1;
-        if (currentQuestionIndex !== qIdx || currentPollId !== activePoll.id) {
-          loadQuestion(qIdx, activePoll.status || 'LIVE');
-        } else {
+        if (currentQuestionIndex !== qIdx || !isInitialLoaded) {
+          isInitialLoaded = true;
+          await loadQuestion(qIdx, activePoll.status || 'LIVE');
+        } else if (currentPollStatus !== (activePoll.status || 'LIVE')) {
           currentPollStatus = activePoll.status || 'LIVE';
           handleStatusChange(currentPollStatus);
         }
       } else {
-        // Check if all polls are closed vs no poll started
-        const anyClosed = polls.some(p => p.status === 'CLOSED');
-        if (anyClosed) {
-          // Show results of last closed question or waiting view
-          showWaitingState();
-        } else {
-          showWaitingState();
-        }
+        showWaitingState();
+      }
+    } else {
+      if (!isInitialLoaded) {
+        isInitialLoaded = true;
+        loadQuestion(0, 'LIVE');
       }
     }
   } catch (err) {
     console.warn('Active poll sync notice:', err);
+    if (!isInitialLoaded) {
+      isInitialLoaded = true;
+      loadQuestion(0, 'LIVE');
+    }
   }
 }
 
@@ -993,8 +1010,10 @@ function showWaitingState() {
 function handleStatusChange(status) {
   if (status === 'CLOSED') {
     const q = POLL_QUESTIONS[currentQuestionIndex];
-    showResultsView(q, getStoredVotes()[q.number] || null);
-    showAlert('This poll is closed. Final live results are displayed below.', 'info');
+    if (q) {
+      showResultsView(q, getStoredVotes()[q.number] || null);
+      showAlert('This poll is closed. Final live results are displayed below.', 'info');
+    }
   }
 }
 
