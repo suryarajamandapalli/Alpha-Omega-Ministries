@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/register", "destination": "/YOTN2026/register/index.html" },
+    { "source": "/register/(.*)", "destination": "/YOTN2026/register/$1" },
+    { "source": "/lyrics", "destination": "/YOTN2026/lyrics/index.html" },
+    { "source": "/lyrics/(.*)", "destination": "/YOTN2026/lyrics/$1" },
+    { "source": "/polls", "destination": "/YOTN2026/polls/index.html" },
+    { "source": "/polls/(.*)", "destination": "/YOTN2026/polls/$1" },
+    { "source": "/YOTN2026", "destination": "/YOTN2026/index.html" },
+    { "source": "/YOTN2026/register", "destination": "/YOTN2026/register/index.html" },
+    { "source": "/YOTN2026/lyrics", "destination": "/YOTN2026/lyrics/index.html" },
+    { "source": "/YOTN2026/polls", "destination": "/YOTN2026/polls/index.html" }
+  ]
+}
