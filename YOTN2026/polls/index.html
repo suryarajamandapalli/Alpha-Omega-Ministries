@@ -94,7 +94,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+  gap: 16px;
 }
 
 .nav-back-link {
@@ -113,6 +114,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.02);
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .nav-back-link:hover {
@@ -121,30 +123,35 @@ body {
   background: rgba(214, 160, 65, 0.08);
 }
 
-.live-indicator {
+.nav-right-header {
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 3px;
+}
+
+.nav-right-header .poll-badge {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
   color: var(--gold);
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-gold);
+  background: rgba(214, 160, 65, 0.08);
+  margin-bottom: 0;
 }
 
-.live-pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #34d399;
-  box-shadow: 0 0 10px #34d399;
-  animation: livePulse 1.8s infinite;
-}
-
-@keyframes livePulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.5; }
+.nav-right-header .poll-tagline {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
 }
 
 /* Main Poll Card Container */
@@ -165,49 +172,6 @@ body {
 
 .poll-container:hover {
   border-color: rgba(214, 160, 65, 0.25);
-}
-
-/* Header Section */
-.poll-header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.poll-badge {
-  display: inline-block;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.35em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  padding: 5px 16px;
-  border-radius: 999px;
-  border: 1px solid var(--border-gold);
-  background: rgba(214, 160, 65, 0.06);
-}
-
-.poll-main-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: 0.08em;
-  line-height: 1.1;
-  margin-bottom: 4px;
-}
-
-.poll-subtitle {
-  font-family: 'Alex Brush', cursive;
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
-  color: var(--gold);
-  margin-bottom: 8px;
-}
-
-.poll-tagline {
-  font-size: 0.95rem;
-  color: var(--text-muted);
 }
 
 /* Question Step & Progress Indicator */
@@ -739,16 +703,14 @@ body {
     <span>←</span>
     <span>Return to YOTN 2026</span>
   </a>
+  <div class="nav-right-header">
+    <div class="poll-badge">LIVE POLLS</div>
+    <div class="poll-tagline">Your voice. Your perspective.</div>
+  </div>
 </nav>
 
 <!-- Main Poll Container -->
 <main class="poll-container" id="pollCard">
-  <!-- Header Section -->
-  <header class="poll-header">
-    <div class="poll-badge">Live Polls</div>
-    <p class="poll-tagline">Your voice. Your perspective.</p>
-  </header>
-
   <!-- Banner Alert -->
   <div id="alertBanner" class="alert-banner" role="status">
     <span id="alertMessage"></span>
