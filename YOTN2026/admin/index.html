@@ -29,17 +29,15 @@
 
 :root {
   --bg: #050505;
-  --bg-card: rgba(14, 14, 18, 0.92);
+  --bg-card: rgba(14, 14, 18, 0.94);
   --gold: #D6A041;
   --gold-light: #F3CA7E;
   --gold-deep: #9B6A1D;
   --white: #F5F5F5;
   --text-muted: #9ca3af;
-  --text-subtle: #71717a;
   --border-glass: rgba(255, 255, 255, 0.12);
-  --border-gold: rgba(214, 160, 65, 0.35);
+  --border-gold: rgba(214, 160, 65, 0.38);
   --error: #f87171;
-  --error-bg: rgba(248, 113, 113, 0.12);
   --success: #34d399;
 }
 
@@ -56,13 +54,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 32px 20px 80px;
+  padding: 32px 18px 80px;
   position: relative;
   overflow-x: hidden;
   line-height: 1.6;
 }
 
-/* Background Atmosphere */
 .bg-spotlight {
   position: fixed;
   top: -20%;
@@ -75,9 +72,7 @@ body {
   z-index: 0;
 }
 
-/* ============================================================ */
-/* LOGIN SCREEN */
-/* ============================================================ */
+/* Login Screen */
 .login-container {
   position: relative;
   z-index: 10;
@@ -90,7 +85,7 @@ body {
   border-radius: 24px;
   padding: 48px 36px;
   margin-top: 6vh;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(214, 160, 65, 0.05);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
   text-align: center;
   animation: fadeIn 0.4s ease forwards;
 }
@@ -133,12 +128,6 @@ body {
   text-align: left;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .form-label {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
@@ -146,12 +135,6 @@ body {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-muted);
-}
-
-.input-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
 }
 
 .form-input {
@@ -167,14 +150,9 @@ body {
   transition: all 0.25s ease;
 }
 
-.form-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
 .form-input:focus {
   border-color: var(--gold);
   background: rgba(214, 160, 65, 0.05);
-  box-shadow: 0 0 0 3px rgba(214, 160, 65, 0.15);
 }
 
 .login-btn {
@@ -194,26 +172,15 @@ body {
   border-radius: 999px;
   padding: 15px 32px;
   cursor: pointer;
-  transition: all 0.3s ease;
   box-shadow: 0 6px 25px rgba(214, 160, 65, 0.3);
   margin-top: 8px;
-}
-
-.login-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 35px rgba(214, 160, 65, 0.45);
-}
-
-.login-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .error-banner {
   display: none;
   padding: 10px 16px;
   border-radius: 10px;
-  background: var(--error-bg);
+  background: rgba(248, 113, 113, 0.12);
   border: 1px solid rgba(248, 113, 113, 0.3);
   color: var(--error);
   font-size: 0.85rem;
@@ -221,13 +188,9 @@ body {
   text-align: center;
 }
 
-.error-banner.show {
-  display: block;
-}
+.error-banner.show { display: block; }
 
-/* ============================================================ */
-/* DASHBOARD LAYOUT */
-/* ============================================================ */
+/* Dashboard */
 .dashboard-container {
   display: none;
   position: relative;
@@ -245,7 +208,8 @@ body {
   margin-bottom: 28px;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  gap: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .admin-brand-title {
@@ -253,7 +217,6 @@ body {
   font-size: 1.1rem;
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: 0.08em;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -273,13 +236,28 @@ body {
 .admin-nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.reset-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.reset-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
 }
 
 .view-polls-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
   font-weight: 600;
@@ -289,45 +267,30 @@ body {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(255, 255, 255, 0.03);
-  transition: all 0.25s ease;
 }
 
-.view-polls-link:hover {
-  color: var(--gold);
-  border-color: var(--gold);
-}
+.view-polls-link:hover { color: var(--gold); border-color: var(--gold); }
 
 .logout-btn {
   font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: #ef4444;
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.25);
   border-radius: 999px;
   padding: 6px 16px;
   cursor: pointer;
-  transition: all 0.25s ease;
 }
 
-.logout-btn:hover {
-  background: rgba(239, 68, 68, 0.2);
-}
-
-/* ============================================================ */
-/* CURRENTLY LIVE QUESTION HERO CARD */
-/* ============================================================ */
+/* Live Hero Card */
 .live-hero-card {
   background: var(--bg-card);
   border: 1px solid var(--border-gold);
   border-radius: 20px;
   padding: 32px 28px;
   margin-bottom: 36px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(214, 160, 65, 0.1);
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(214, 160, 65, 0.08);
 }
 
 .live-card-top {
@@ -353,15 +316,6 @@ body {
   border-radius: 999px;
 }
 
-.live-dot-pulse {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #34d399;
-  box-shadow: 0 0 8px #34d399;
-  animation: livePulse 1.8s infinite;
-}
-
 .live-total-votes {
   font-family: 'Cinzel', serif;
   font-size: 1rem;
@@ -378,7 +332,6 @@ body {
   margin-bottom: 24px;
 }
 
-/* Live Result Bars inside Hero Card */
 .live-options-tally {
   display: flex;
   flex-direction: column;
@@ -404,7 +357,7 @@ body {
   background: linear-gradient(90deg, rgba(155, 106, 29, 0.4) 0%, rgba(214, 160, 65, 0.4) 100%);
   border-right: 2px solid var(--gold);
   border-radius: 10px 0 0 10px;
-  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.6s ease;
   z-index: 1;
 }
 
@@ -417,37 +370,10 @@ body {
   gap: 12px;
 }
 
-.tally-text {
-  font-size: 0.88rem;
-  color: #f4f4f5;
-  font-weight: 600;
-}
-
-.tally-stats {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.tally-pct {
-  font-family: 'Cinzel', serif;
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--gold-light);
-}
-
-.tally-count {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-
-.live-card-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
+.tally-text { font-size: 0.88rem; color: #f4f4f5; font-weight: 600; }
+.tally-stats { display: flex; align-items: center; gap: 12px; }
+.tally-pct { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 800; color: var(--gold-light); }
+.tally-count { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--text-muted); }
 
 .end-poll-btn {
   display: inline-flex;
@@ -467,44 +393,9 @@ body {
   transition: all 0.25s ease;
 }
 
-.end-poll-btn:hover {
-  background: rgba(239, 68, 68, 0.35);
-  transform: translateY(-1px);
-}
+.end-poll-btn:hover { background: rgba(239, 68, 68, 0.35); }
 
-/* Empty Hero State */
-.no-live-poll {
-  text-align: center;
-  padding: 24px 0;
-  color: var(--text-muted);
-}
-
-.no-live-title {
-  font-family: 'Cinzel', serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 6px;
-}
-
-/* ============================================================ */
-/* ALL QUESTIONS LIST */
-/* ============================================================ */
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.section-title {
-  font-family: 'Cinzel', serif;
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: #ffffff;
-}
-
+/* All Questions List */
 .questions-grid {
   display: flex;
   flex-direction: column;
@@ -520,7 +411,6 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  transition: all 0.25s ease;
 }
 
 .question-admin-card.is-live {
@@ -528,24 +418,12 @@ body {
   background: rgba(214, 160, 65, 0.06);
 }
 
-.q-left-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.q-header-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
+.q-header-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
 .q-num-badge {
   font-family: 'Inter', sans-serif;
   font-size: 0.72rem;
   font-weight: 800;
   color: var(--gold);
-  letter-spacing: 0.05em;
   background: rgba(214, 160, 65, 0.1);
   padding: 2px 8px;
   border-radius: 6px;
@@ -562,36 +440,10 @@ body {
   border-radius: 4px;
 }
 
-.status-upcoming {
-  color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.status-live {
-  color: #34d399;
-  background: rgba(52, 211, 153, 0.12);
-  border: 1px solid rgba(52, 211, 153, 0.3);
-}
-
-.status-closed {
-  color: #a1a1aa;
-  background: rgba(161, 161, 170, 0.1);
-  border: 1px solid rgba(161, 161, 170, 0.2);
-}
-
-.q-body-text {
-  font-size: 0.95rem;
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.q-actions-col {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
+.status-upcoming { color: var(--text-muted); background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+.status-live { color: #34d399; background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3); }
+.status-closed { color: #a1a1aa; background: rgba(161, 161, 170, 0.1); border: 1px solid rgba(161, 161, 170, 0.2); }
+.q-body-text { font-size: 0.95rem; color: #ffffff; font-weight: 600; }
 
 .make-live-btn {
   display: inline-flex;
@@ -612,13 +464,10 @@ body {
 }
 
 .make-live-btn:hover {
-  transform: translateY(-1px);
   box-shadow: 0 4px 18px rgba(214, 160, 65, 0.4);
 }
 
-/* ============================================================ */
-/* CONFIRMATION MODAL */
-/* ============================================================ */
+/* Modal */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -631,10 +480,7 @@ body {
   padding: 20px;
 }
 
-.modal-overlay.show {
-  display: flex;
-}
-
+.modal-overlay.show { display: flex; }
 .modal-card {
   background: #0f0f13;
   border: 1px solid var(--border-gold);
@@ -643,35 +489,15 @@ body {
   max-width: 440px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
 }
 
-.modal-title {
-  font-family: 'Cinzel', serif;
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 10px;
-}
-
-.modal-desc {
-  font-size: 0.92rem;
-  color: #d4d4d8;
-  margin-bottom: 24px;
-  line-height: 1.6;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
+.modal-title { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 800; color: #ffffff; margin-bottom: 10px; }
+.modal-desc { font-size: 0.92rem; color: #d4d4d8; margin-bottom: 24px; line-height: 1.6; }
+.modal-actions { display: flex; justify-content: center; gap: 12px; }
 .modal-cancel-btn {
   font-family: 'Inter', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
   background: rgba(255, 255, 255, 0.05);
@@ -680,12 +506,10 @@ body {
   padding: 10px 22px;
   cursor: pointer;
 }
-
 .modal-confirm-btn {
   font-family: 'Inter', sans-serif;
   font-size: 0.8rem;
   font-weight: 800;
-  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #050505;
   background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
@@ -700,42 +524,8 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes livePulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.5; }
-}
-
-/* Spinner */
-.spinner {
-  display: none;
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(5, 5, 5, 0.3);
-  border-top-color: #050505;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Mobile Responsive */
 @media (max-width: 640px) {
-  body {
-    padding: 20px 14px 60px;
-  }
-
-  .question-admin-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .q-actions-col {
-    width: 100%;
-    justify-content: flex-end;
-  }
+  .question-admin-card { flex-direction: column; align-items: flex-start; gap: 14px; }
 }
 </style>
 </head>
@@ -743,9 +533,7 @@ body {
 
 <div class="bg-spotlight"></div>
 
-<!-- ============================================================ -->
 <!-- 1. LOGIN SCREEN -->
-<!-- ============================================================ -->
 <main class="login-container" id="loginScreen">
   <div class="login-badge">YOTN 2026</div>
   <h1 class="login-title">ADMIN CONTROL</h1>
@@ -756,28 +544,13 @@ body {
   <form id="loginForm" class="login-form" autocomplete="off">
     <div class="form-group">
       <label for="adminPassword" class="form-label">ADMIN PASSWORD</label>
-      <div class="input-wrap">
-        <input 
-          type="password" 
-          id="adminPassword" 
-          class="form-input" 
-          placeholder="Enter admin password" 
-          required
-          autofocus
-        >
-      </div>
+      <input type="password" id="adminPassword" class="form-input" placeholder="Enter admin password" required autofocus>
     </div>
-
-    <button type="submit" id="loginBtn" class="login-btn">
-      <span class="spinner" id="loginSpinner"></span>
-      <span id="loginBtnText">SIGN IN</span>
-    </button>
+    <button type="submit" id="loginBtn" class="login-btn">SIGN IN</button>
   </form>
 </main>
 
-<!-- ============================================================ */
 <!-- 2. ADMIN DASHBOARD -->
-<!-- ============================================================ -->
 <div class="dashboard-container" id="dashboardScreen">
   <!-- Nav Bar -->
   <nav class="admin-nav">
@@ -786,12 +559,8 @@ body {
       <span class="admin-tag-badge">ADMIN</span>
     </div>
     <div class="admin-nav-actions">
-      <button type="button" id="resetVotesBtn" class="reset-votes-nav-btn" style="font-family:'Inter',sans-serif; font-size:0.75rem; font-weight:700; color:#f87171; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:999px; padding:6px 14px; cursor:pointer; transition:all 0.25s ease;">
-        ↺ Reset All Votes
-      </button>
-      <a href="../polls/" target="_blank" class="view-polls-link">
-        <span>Public Polls ↗</span>
-      </a>
+      <button type="button" id="resetVotesBtn" class="reset-btn">↺ Reset All Votes</button>
+      <a href="../polls/" target="_blank" class="view-polls-link">Public Polls ↗</a>
       <button type="button" id="logoutBtn" class="logout-btn">Log Out</button>
     </div>
   </nav>
@@ -800,50 +569,32 @@ body {
   <section class="live-hero-card" id="liveHeroCard">
     <div id="liveHeroContent">
       <div class="live-card-top">
-        <span class="live-status-pill">
-          <span class="live-dot-pulse"></span>
-          CURRENTLY LIVE
-        </span>
+        <span class="live-status-pill">● CURRENTLY LIVE</span>
         <span class="live-total-votes" id="liveTotalVotes">0 TOTAL VOTES</span>
       </div>
 
       <h2 class="live-question-title" id="liveQuestionTitle">Loading live poll...</h2>
+      <div class="live-options-tally" id="liveOptionsTally"></div>
 
-      <!-- Distribution Bars -->
-      <div class="live-options-tally" id="liveOptionsTally">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <div class="live-card-actions">
-        <button type="button" class="end-poll-btn" id="endLivePollBtn">
-          <span>■ END POLL</span>
-        </button>
+      <div style="display:flex; justify-content:flex-end;">
+        <button type="button" class="end-poll-btn" id="endLivePollBtn">■ END POLL</button>
       </div>
     </div>
 
-    <div id="noLiveContent" class="no-live-poll" style="display:none;">
-      <h3 class="no-live-title">NO QUESTION IS CURRENTLY LIVE</h3>
-      <p style="font-size:0.9rem; color:var(--text-muted);">
-        Select a question below to broadcast live to all audience screens.
-      </p>
+    <div id="noLiveContent" style="display:none; text-align:center; padding:24px 0;">
+      <h3 style="font-family:'Cinzel',serif; font-size:1.2rem; color:#fff; margin-bottom:6px;">NO QUESTION IS CURRENTLY LIVE</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted);">Select a question below to broadcast live to all audience screens.</p>
     </div>
   </section>
 
-  <!-- All 5 Questions Management -->
+  <!-- All Questions Management -->
   <section>
-    <div class="section-header">
-      <h2 class="section-title">ALL POLL QUESTIONS</h2>
-    </div>
-
-    <div class="questions-grid" id="allQuestionsGrid">
-      <!-- 5 Question Cards rendered dynamically -->
-    </div>
+    <h2 style="font-family:'Cinzel',serif; font-size:1.15rem; color:#ffffff; margin-bottom:18px;">ALL POLL QUESTIONS</h2>
+    <div class="questions-grid" id="allQuestionsGrid"></div>
   </section>
 </div>
 
-<!-- ============================================================ -->
-<!-- CONFIRMATION MODAL -->
-<!-- ============================================================ -->
+<!-- Modal -->
 <div class="modal-overlay" id="confirmModal">
   <div class="modal-card">
     <h3 class="modal-title" id="modalTitle">CONFIRM ACTION</h3>
@@ -857,7 +608,7 @@ body {
 
 <script>
 /* ============================================================ */
-/* OFFICIAL 5 QUESTIONS DEFINITION */
+/* OFFICIAL 6 QUESTIONS DEFINITION */
 /* ============================================================ */
 const POLL_QUESTIONS = [
   {
@@ -907,14 +658,22 @@ const POLL_QUESTIONS = [
       { key: "A", text: "Yes" },
       { key: "B", text: "No" }
     ]
+  },
+  {
+    number: 6,
+    isEmojiReaction: true,
+    question: "How did you like the Polls and Interaction?",
+    options: [
+      { key: "love", text: "😍 Love it" },
+      { key: "clap", text: "👏🏻 Great" },
+      { key: "like", text: "👍 Like" },
+      { key: "happy", text: "😀 Good" },
+      { key: "dislike", text: "👎 Didn't like it" }
+    ]
   }
 ];
 
-/* ============================================================ */
-/* SUPABASE CLIENT & STATE */
-/* ============================================================ */
 let supabaseClient = null;
-let realtimeChannel = null;
 let adminToken = sessionStorage.getItem('yotn_admin_session') || '';
 let pollsDbData = [];
 let allVotesData = [];
@@ -928,23 +687,16 @@ try {
   if (window.supabase && window.supabase.createClient) {
     supabaseClient = window.supabase.createClient(config.url, config.anonKey);
   }
-} catch (e) {
-  console.warn('Supabase client notice:', e);
-}
+} catch (e) {}
 
-/* ============================================================ */
-/* DOM REFERENCES */
-/* ============================================================ */
 const loginScreen = document.getElementById('loginScreen');
 const loginForm = document.getElementById('loginForm');
 const adminPassword = document.getElementById('adminPassword');
 const loginBtn = document.getElementById('loginBtn');
-const loginSpinner = document.getElementById('loginSpinner');
-const loginBtnText = document.getElementById('loginBtnText');
 const loginError = document.getElementById('loginError');
-
 const dashboardScreen = document.getElementById('dashboardScreen');
 const logoutBtn = document.getElementById('logoutBtn');
+const resetVotesBtn = document.getElementById('resetVotesBtn');
 const liveHeroContent = document.getElementById('liveHeroContent');
 const noLiveContent = document.getElementById('noLiveContent');
 const liveTotalVotes = document.getElementById('liveTotalVotes');
@@ -960,18 +712,13 @@ const modalCancelBtn = document.getElementById('modalCancelBtn');
 const modalConfirmBtn = document.getElementById('modalConfirmBtn');
 
 /* ============================================================ */
-/* AUTHENTICATION FLOW */
+/* AUTHENTICATION */
 /* ============================================================ */
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   loginError.classList.remove('show');
-
   const pwd = adminPassword.value;
   if (!pwd) return;
-
-  loginBtn.disabled = true;
-  loginSpinner.style.display = 'inline-block';
-  loginBtnText.textContent = 'VERIFYING...';
 
   try {
     const res = await fetch('/api/admin-auth', {
@@ -979,9 +726,7 @@ loginForm.addEventListener('submit', async (e) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: pwd })
     });
-
     const data = await res.json();
-
     if (res.ok && data.token) {
       adminToken = data.token;
       sessionStorage.setItem('yotn_admin_session', adminToken);
@@ -990,12 +735,7 @@ loginForm.addEventListener('submit', async (e) => {
       showLoginError(data.error || 'Invalid admin credentials.');
     }
   } catch (err) {
-    // Fallback: check against direct validation
     showLoginError('Invalid admin credentials.');
-  } finally {
-    loginBtn.disabled = false;
-    loginSpinner.style.display = 'none';
-    loginBtnText.textContent = 'SIGN IN';
   }
 });
 
@@ -1007,83 +747,33 @@ function showLoginError(msg) {
 logoutBtn.addEventListener('click', () => {
   sessionStorage.removeItem('yotn_admin_session');
   adminToken = '';
-  if (realtimeChannel && supabaseClient) {
-    supabaseClient.removeChannel(realtimeChannel);
-  }
   dashboardScreen.style.display = 'none';
   loginScreen.style.display = 'block';
   adminPassword.value = '';
 });
 
 /* ============================================================ */
-/* INITIAL CHECK */
-/* ============================================================ */
-async function init() {
-  if (adminToken) {
-    try {
-      const res = await fetch('/api/admin-auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'verify', token: adminToken })
-      });
-      const data = await res.json();
-      if (data.authenticated) {
-        showDashboard();
-        return;
-      }
-    } catch (e) {}
-  }
-  loginScreen.style.display = 'block';
-  dashboardScreen.style.display = 'none';
-}
-
-function showDashboard() {
-  loginScreen.style.display = 'none';
-  dashboardScreen.style.display = 'block';
-  fetchAndRenderDashboard();
-  setupAdminRealtime();
-}
-
-/* ============================================================ */
-/* DASHBOARD DATA SYNC */
+/* DASHBOARD SYNC */
 /* ============================================================ */
 async function fetchAndRenderDashboard() {
   if (!supabaseClient) return;
-
   try {
-    // 1. Fetch Polls
     const { data: polls } = await supabaseClient
       .from('polls')
       .select('*')
       .order('question_number', { ascending: true });
 
-    if (polls) {
-      pollsDbData = polls;
-    }
+    if (polls) pollsDbData = polls;
 
-    // 2. Fetch Options map
-    const { data: options } = await supabaseClient
-      .from('poll_options')
-      .select('*');
-
-    // 3. Fetch Votes
-    const { data: votes } = await supabaseClient
-      .from('poll_votes')
-      .select('*');
-
-    if (votes) {
-      allVotesData = votes;
-    }
+    const { data: options } = await supabaseClient.from('poll_options').select('*');
+    const { data: votes } = await supabaseClient.from('poll_votes').select('*');
+    if (votes) allVotesData = votes;
 
     renderDashboardUI(pollsDbData, options || [], allVotesData);
-
-  } catch (err) {
-    console.warn('Dashboard fetch notice:', err);
-  }
+  } catch (err) {}
 }
 
 function renderDashboardUI(polls, options, votes) {
-  // Find currently live poll
   const livePoll = polls.find(p => p.is_active === true);
 
   if (livePoll) {
@@ -1092,14 +782,12 @@ function renderDashboardUI(polls, options, votes) {
 
     liveQuestionTitle.textContent = `QUESTION 0${livePoll.question_number}: ${livePoll.question}`;
 
-    // Get options and votes for live poll
     const pollOpts = options.filter(o => o.poll_id === livePoll.id);
     const pollVotes = votes.filter(v => v.poll_id === livePoll.id);
     const totalVotes = pollVotes.length;
 
     liveTotalVotes.textContent = `${totalVotes} TOTAL ${totalVotes === 1 ? 'VOTE' : 'VOTES'}`;
 
-    // Render Distribution bars
     liveOptionsTally.innerHTML = '';
     const qMeta = POLL_QUESTIONS.find(q => q.number === livePoll.question_number) || { options: [] };
 
@@ -1126,17 +814,16 @@ function renderDashboardUI(polls, options, votes) {
     endLivePollBtn.onclick = () => {
       confirmAction(
         `END QUESTION 0${livePoll.question_number}?`,
-        'The audience will no longer be able to submit new votes on this question. Final results will remain visible.',
+        'The audience will no longer be able to submit votes on this question.',
         () => setPollStatus(livePoll.question_number, 'CLOSED')
       );
     };
-
   } else {
     liveHeroContent.style.display = 'none';
     noLiveContent.style.display = 'block';
   }
 
-  // Render All 5 Questions
+  // Render All 6 Questions
   allQuestionsGrid.innerHTML = '';
   POLL_QUESTIONS.forEach(q => {
     const dbPoll = polls.find(p => p.question_number === q.number);
@@ -1144,124 +831,37 @@ function renderDashboardUI(polls, options, votes) {
     const isClosed = dbPoll && dbPoll.status === 'CLOSED';
     const statusText = isLive ? 'LIVE' : (isClosed ? 'CLOSED' : 'UPCOMING');
     const statusClass = isLive ? 'status-live' : (isClosed ? 'status-closed' : 'status-upcoming');
-
-    // Votes for this question
     const qVotes = dbPoll ? votes.filter(v => v.poll_id === dbPoll.id).length : 0;
 
     const card = document.createElement('div');
     card.className = `question-admin-card ${isLive ? 'is-live' : ''}`;
-
     card.innerHTML = `
-      <div class="q-left-info">
+      <div>
         <div class="q-header-row">
           <span class="q-num-badge">QUESTION 0${q.number}</span>
+          ${q.isEmojiReaction ? '<span style="font-family:Inter; font-size:0.68rem; font-weight:800; color:#F3CA7E; background:rgba(214,160,65,0.15); padding:2px 8px; border-radius:4px; border:1px solid rgba(214,160,65,0.3);">✨ EMOJI REACTION</span>' : ''}
           <span class="q-status-badge ${statusClass}">● ${statusText}</span>
           <span style="font-size:0.75rem; color:var(--text-muted);">${qVotes} ${qVotes === 1 ? 'vote' : 'votes'}</span>
         </div>
         <div class="q-body-text">${q.question}</div>
       </div>
-      <div class="q-actions-col">
+      <div>
         ${isLive ? `
-          <button type="button" class="end-poll-btn" onclick="triggerEndPoll(${q.number})">
-            ■ END POLL
-          </button>
+          <button type="button" class="end-poll-btn" onclick="triggerEndPoll(${q.number})">■ END POLL</button>
         ` : `
-          <button type="button" class="make-live-btn" onclick="triggerMakeLive(${q.number})">
-            ▶ MAKE LIVE
-          </button>
+          <button type="button" class="make-live-btn" onclick="triggerMakeLive(${q.number})">▶ MAKE LIVE</button>
         `}
       </div>
     `;
-
     allQuestionsGrid.appendChild(card);
   });
 }
 
 /* ============================================================ */
-/* ACTION TRIGGERS & MODAL */
-/* ============================================================ */
-window.triggerMakeLive = function(qNum) {
-  confirmAction(
-    `MAKE QUESTION 0${qNum} LIVE?`,
-    `This will immediately activate Question 0${qNum} and broadcast it to all connected public audience screens. Any other active question will become inactive.`,
-    () => setPollStatus(qNum, 'LIVE')
-  );
-};
-
-window.triggerEndPoll = function(qNum) {
-  confirmAction(
-    `END QUESTION 0${qNum}?`,
-    `The audience will no longer be able to submit votes on Question 0${qNum}. Final results will remain displayed.`,
-    () => setPollStatus(qNum, 'CLOSED')
-  );
-};
-
-function confirmAction(title, desc, onConfirm) {
-  modalTitle.textContent = title;
-  modalDesc.textContent = desc;
-  pendingAction = onConfirm;
-  confirmModal.classList.add('show');
-}
-
-modalCancelBtn.addEventListener('click', () => {
-  confirmModal.classList.remove('show');
-  pendingAction = null;
-});
-
-modalConfirmBtn.addEventListener('click', async () => {
-  confirmModal.classList.remove('show');
-  if (typeof pendingAction === 'function') {
-    await pendingAction();
-  }
-  pendingAction = null;
-});
-
-/* ============================================================ */
-/* RESET ALL VOTES HANDLER */
-/* ============================================================ */
-const resetVotesBtn = document.getElementById('resetVotesBtn');
-
-if (resetVotesBtn) {
-  resetVotesBtn.addEventListener('click', () => {
-    confirmAction(
-      'RESET ALL POLL VOTES?',
-      'This will permanently delete all audience votes from the database and reset the vote counts for all 5 questions back to 0. This cannot be undone.',
-      async () => {
-        try {
-          const res = await fetch('/api/admin-poll', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${adminToken}`
-            },
-            body: JSON.stringify({ action: 'reset-votes' })
-          });
-
-          if (!res.ok && supabaseClient) {
-            await supabaseClient.from('poll_votes').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-          }
-
-          allVotesData = [];
-          await fetchAndRenderDashboard();
-        } catch (err) {
-          console.error('Reset votes error:', err);
-          if (supabaseClient) {
-            await supabaseClient.from('poll_votes').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-            allVotesData = [];
-            await fetchAndRenderDashboard();
-          }
-        }
-      }
-    );
-  });
-}
-
-/* ============================================================ */
-/* SET POLL STATUS VIA API / SUPABASE */
+/* SET POLL STATUS */
 /* ============================================================ */
 async function setPollStatus(questionNumber, status) {
   try {
-    // 1. Direct Supabase update
     if (supabaseClient) {
       if (status === 'LIVE') {
         await supabaseClient.from('polls').update({ is_active: false }).neq('question_number', questionNumber);
@@ -1271,64 +871,89 @@ async function setPollStatus(questionNumber, status) {
       }
     }
 
-    // 2. Serverless API update
     fetch('/api/admin-poll', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${adminToken}`
       },
-      body: JSON.stringify({
-        action: 'set-status',
-        questionNumber: questionNumber,
-        status: status
-      })
-    }).catch(e => console.warn('Serverless poll sync notice:', e));
+      body: JSON.stringify({ action: 'set-status', questionNumber, status })
+    }).catch(e => {});
 
     await fetchAndRenderDashboard();
-  } catch (err) {
-    console.error('Error updating poll status:', err);
+  } catch (e) {
     await fetchAndRenderDashboard();
   }
 }
 
 /* ============================================================ */
-/* ADMIN REALTIME SUBSCRIPTION */
+/* RESET ALL VOTES */
 /* ============================================================ */
-function setupAdminRealtime() {
-  if (!supabaseClient) return;
+resetVotesBtn.addEventListener('click', () => {
+  confirmAction(
+    'RESET ALL POLL VOTES?',
+    'This will permanently wipe all audience votes from the database and set all tallies back to 0. Are you sure?',
+    async () => {
+      try {
+        if (supabaseClient) {
+          try { await supabaseClient.rpc('reset_all_votes'); } catch (e) {}
+          await supabaseClient.from('poll_votes').delete().not('id', 'is', null);
+        }
 
-  if (realtimeChannel) {
-    try { supabaseClient.removeChannel(realtimeChannel); } catch (e) {}
-  }
+        fetch('/api/admin-poll', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({ action: 'reset-votes' })
+        }).catch(e => {});
 
-  realtimeChannel = supabaseClient
-    .channel(`admin_dashboard_realtime_${Date.now()}`)
-    .on(
-      'postgres_changes',
-      { event: '*', schema: 'public', table: 'poll_votes' },
-      () => {
-        fetchAndRenderDashboard();
+        allVotesData = [];
+        await fetchAndRenderDashboard();
+      } catch (err) {
+        allVotesData = [];
+        await fetchAndRenderDashboard();
       }
-    )
-    .on(
-      'postgres_changes',
-      { event: '*', schema: 'public', table: 'polls' },
-      () => {
-        fetchAndRenderDashboard();
-      }
-    )
-    .subscribe();
-
-  // Heartbeat refresh every 3 seconds
-  setInterval(() => {
-    if (dashboardScreen.style.display !== 'none') {
-      fetchAndRenderDashboard();
     }
-  }, 3000);
+  );
+});
+
+/* Modal Trigger */
+window.triggerMakeLive = function(qNum) {
+  confirmAction(`MAKE QUESTION 0${qNum} LIVE?`, `This will immediately broadcast Question 0${qNum} to all audience screens.`, () => setPollStatus(qNum, 'LIVE'));
+};
+
+window.triggerEndPoll = function(qNum) {
+  confirmAction(`END QUESTION 0${qNum}?`, `Audience will no longer be able to vote on Question 0${qNum}.`, () => setPollStatus(qNum, 'CLOSED'));
+};
+
+function confirmAction(title, desc, onConfirm) {
+  modalTitle.textContent = title;
+  modalDesc.textContent = desc;
+  pendingAction = onConfirm;
+  confirmModal.classList.add('show');
 }
 
-document.addEventListener('DOMContentLoaded', init);
+modalCancelBtn.addEventListener('click', () => { confirmModal.classList.remove('show'); pendingAction = null; });
+modalConfirmBtn.addEventListener('click', async () => {
+  confirmModal.classList.remove('show');
+  if (typeof pendingAction === 'function') await pendingAction();
+  pendingAction = null;
+});
+
+function showDashboard() {
+  loginScreen.style.display = 'none';
+  dashboardScreen.style.display = 'block';
+  fetchAndRenderDashboard();
+  setInterval(() => {
+    if (dashboardScreen.style.display !== 'none') fetchAndRenderDashboard();
+  }, 2000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (adminToken) showDashboard();
+});
 </script>
 
 </body>

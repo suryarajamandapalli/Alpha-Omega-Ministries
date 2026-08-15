@@ -4,11 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Live Audience Polls | Youth Of The Nation 2026</title>
-
-<!-- SEO -->
-<meta name="description" content="Live Real-Time Audience Polling for Youth Of The Nation 2026 Freedom Festival in Rajahmundry.">
-
+<!-- Primary SEO Meta Tags -->
+<title>Live Audience Polls | Youth Of The Nation 2026 | Alpha & Omega Ministries</title>
+<meta name="title" content="Live Audience Polls | Youth Of The Nation 2026 | Alpha & Omega Ministries">
+<meta name="description" content="Participate in real-time audience voting, live polls, and perspective gathering during the Youth Of The Nation 2026 Freedom Festival gathering.">
+<meta name="keywords" content="Youth of the nation polls, live voting, Christian festival audience polls, YOTN 2026, Alpha and Omega Ministries">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#050505">
 <link rel="icon" href="../../logo.jpg">
 
@@ -30,22 +31,19 @@
 
 :root {
   --bg: #050505;
-  --bg-card: rgba(14, 14, 18, 0.88);
+  --bg-card: rgba(14, 14, 18, 0.94);
   --gold: #D6A041;
   --gold-light: #F3CA7E;
   --gold-deep: #9B6A1D;
   --white: #F5F5F5;
   --text-muted: #9ca3af;
-  --text-subtle: #71717a;
   --border-glass: rgba(255, 255, 255, 0.12);
-  --border-gold: rgba(214, 160, 65, 0.35);
+  --border-gold: rgba(214, 160, 65, 0.38);
   --error: #f87171;
-  --error-bg: rgba(248, 113, 113, 0.1);
   --success: #34d399;
 }
 
 html {
-  scroll-behavior: smooth;
   background-color: var(--bg);
 }
 
@@ -58,19 +56,20 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 40px 20px 80px;
+  padding: 24px 16px 80px;
   position: relative;
   overflow-x: hidden;
   line-height: 1.6;
 }
 
 /* Background Atmosphere */
-.bg-canvas {
+.bg-canvas-container {
   position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.6;
 }
 
 .bg-spotlight {
@@ -78,23 +77,24 @@ body {
   top: -20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 900px;
-  height: 900px;
-  background: radial-gradient(circle, rgba(214, 160, 65, 0.12) 0%, rgba(5, 5, 5, 0) 70%);
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(214, 160, 65, 0.09) 0%, rgba(5, 5, 5, 0) 70%);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Header & Navigation Bar */
+/* Top Navigation */
 .page-top-nav {
   position: relative;
   z-index: 10;
   width: 100%;
   max-width: 680px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 4px;
   gap: 16px;
 }
 
@@ -102,59 +102,57 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
   font-family: 'Inter', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  text-decoration: none;
+  letter-spacing: 0.05em;
   padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
-  transition: all 0.3s ease;
-  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-back-link:hover {
-  color: var(--gold);
+  color: #ffffff;
   border-color: var(--gold);
-  background: rgba(214, 160, 65, 0.08);
+  background: rgba(214, 160, 65, 0.1);
+  transform: translateX(-2px);
 }
 
 .nav-right-header {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  text-align: right;
-  gap: 3px;
+  gap: 2px;
 }
 
-.nav-right-header .poll-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.poll-badge {
   font-family: 'Inter', sans-serif;
   font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.22em;
   color: var(--gold);
   text-transform: uppercase;
-  padding: 4px 14px;
+  padding: 3px 10px;
   border-radius: 999px;
   border: 1px solid var(--border-gold);
   background: rgba(214, 160, 65, 0.08);
-  margin-bottom: 0;
 }
 
-.nav-right-header .poll-tagline {
-  font-size: 0.78rem;
+.poll-tagline {
+  font-size: 0.72rem;
   color: var(--text-muted);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
-/* Main Poll Card Container */
+/* ============================================================ */
+/* POLL CARD CONTAINER */
+/* ============================================================ */
 .poll-container {
   position: relative;
   z-index: 10;
@@ -165,72 +163,78 @@ body {
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-glass);
   border-radius: 24px;
-  padding: 48px 42px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(214, 160, 65, 0.04);
-  transition: border-color 0.3s ease;
+  padding: 36px 30px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(214, 160, 65, 0.04);
+  animation: fadeIn 0.4s ease forwards;
 }
 
-.poll-container:hover {
-  border-color: rgba(214, 160, 65, 0.25);
-}
-
-/* Question Step & Progress Indicator */
-.step-bar-wrap {
+/* Header Tag */
+.poll-header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 20px;
 }
 
-.step-label {
+.poll-step-label {
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
   color: var(--gold);
+  text-transform: uppercase;
 }
 
-.step-dots {
-  display: flex;
-  gap: 8px;
-}
-
-.step-dot {
-  width: 24px;
-  height: 4px;
+.live-indicator-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
-.step-dot.active {
-  background: var(--gold);
-  box-shadow: 0 0 10px rgba(214, 160, 65, 0.5);
-  width: 32px;
+.live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+  animation: livePulse 1.8s infinite;
 }
 
-.step-dot.completed {
-  background: var(--gold-deep);
+@keyframes livePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
 }
 
-/* Question Text */
-.question-block {
-  margin-bottom: 28px;
-}
-
-.question-text {
+/* Question Prompt */
+.question-title {
   font-family: 'Cinzel', serif;
-  font-size: clamp(1.2rem, 2.8vw, 1.55rem);
-  font-weight: 700;
+  font-size: clamp(1.25rem, 3.2vw, 1.55rem);
+  font-weight: 800;
   color: #ffffff;
-  line-height: 1.45;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  margin-bottom: 8px;
 }
 
-/* Option Selection List (Pre-Vote) */
+.question-subtitle {
+  font-size: 0.9rem;
+  color: var(--gold-light);
+  margin-bottom: 24px;
+}
+
+/* ============================================================ */
+/* OPTIONS SELECTION (PRE-VOTE) */
+/* ============================================================ */
 .options-list {
   display: flex;
   flex-direction: column;
@@ -239,29 +243,28 @@ body {
 }
 
 .option-item {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 18px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
+  padding: 12px 18px;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
 .option-item:hover {
+  background: rgba(214, 160, 65, 0.06);
   border-color: rgba(214, 160, 65, 0.4);
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-1px);
+  transform: translateX(3px);
 }
 
 .option-item.selected {
-  border-color: var(--gold);
   background: rgba(214, 160, 65, 0.12);
-  box-shadow: 0 0 25px rgba(214, 160, 65, 0.15);
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(214, 160, 65, 0.18);
 }
 
 .option-left {
@@ -271,43 +274,27 @@ body {
 }
 
 .option-radio-dot {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
 .option-item.selected .option-radio-dot {
   border-color: var(--gold);
-}
-
-.option-radio-dot::after {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
   background: var(--gold);
-  opacity: 0;
-  transform: scale(0);
-  transition: all 0.25s ease;
-}
-
-.option-item.selected .option-radio-dot::after {
-  opacity: 1;
-  transform: scale(1);
 }
 
 .option-key-badge {
   font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--gold);
-  letter-spacing: 0.05em;
   background: rgba(214, 160, 65, 0.1);
   padding: 2px 7px;
   border-radius: 6px;
@@ -315,19 +302,12 @@ body {
 }
 
 .option-text {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: #f4f4f5;
   font-weight: 500;
 }
 
 /* Submit Vote Button */
-.vote-action-bar {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
-
 .submit-vote-btn {
   width: 100%;
   display: inline-flex;
@@ -345,12 +325,11 @@ body {
   border-radius: 999px;
   padding: 14px 32px;
   cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 8px 30px rgba(214, 160, 65, 0.3);
 }
 
 .submit-vote-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #f5c575 0%, #b88028 100%);
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(214, 160, 65, 0.5);
 }
@@ -363,16 +342,94 @@ body {
 }
 
 /* ============================================================ */
+/* QUESTION 6 — EMOJI REACTION UI */
+/* ============================================================ */
+.emoji-reactions-wrap {
+  display: none;
+  text-align: center;
+  padding: 10px 0 20px;
+}
+
+.emoji-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(12px, 3vw, 24px);
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.emoji-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  width: clamp(68px, 16vw, 92px);
+  height: clamp(68px, 16vw, 92px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.emoji-btn:hover {
+  transform: translateY(-6px) scale(1.1);
+  background: rgba(214, 160, 65, 0.15);
+  border-color: var(--gold);
+  box-shadow: 0 10px 30px rgba(214, 160, 65, 0.35);
+}
+
+.emoji-btn:active {
+  transform: scale(0.92);
+}
+
+/* ============================================================ */
+/* FULL-SCREEN EMOJI CELEBRATION OVERLAY */
+/* ============================================================ */
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.emoji-particle {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  animation: blastUp 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes blastUp {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(var(--tx-start), var(--ty-start)) scale(var(--scale)) rotate(var(--rot-start));
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx-end), var(--ty-end)) scale(var(--scale-end)) rotate(var(--rot-end));
+  }
+}
+
+/* ============================================================ */
 /* LIVE RESULTS VIEW */
 /* ============================================================ */
 .results-view {
   display: none;
-  animation: fadeInResults 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes fadeInResults {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  animation: fadeIn 0.4s ease forwards;
 }
 
 .results-header-tag {
@@ -388,7 +445,7 @@ body {
   gap: 8px;
   font-family: 'Inter', sans-serif;
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
@@ -398,14 +455,12 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   color: var(--text-muted);
-  letter-spacing: 0.05em;
 }
 
 .results-list {
   display: flex;
   flex-direction: column;
-  gap: 11px;
-  margin-bottom: 26px;
+  gap: 10px;
 }
 
 .result-row {
@@ -415,31 +470,24 @@ body {
   border-radius: 12px;
   padding: 12px 18px;
   overflow: hidden;
-  transition: all 0.3s ease;
 }
 
 .result-row.user-voted {
   border-color: var(--gold);
   background: rgba(214, 160, 65, 0.08);
-  box-shadow: 0 0 25px rgba(214, 160, 65, 0.15);
 }
 
-/* Animated Progress Fill */
 .result-bar-fill {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   width: 0%;
-  background: linear-gradient(90deg, rgba(155, 106, 29, 0.35) 0%, rgba(214, 160, 65, 0.35) 100%);
+  background: linear-gradient(90deg, rgba(155, 106, 29, 0.4) 0%, rgba(214, 160, 65, 0.4) 100%);
   border-right: 2px solid var(--gold);
   border-radius: 12px 0 0 12px;
-  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
-}
-
-.result-row.user-voted .result-bar-fill {
-  background: linear-gradient(90deg, rgba(155, 106, 29, 0.55) 0%, rgba(214, 160, 65, 0.55) 100%);
 }
 
 .result-content-layer {
@@ -448,7 +496,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 14px;
 }
 
 .result-left {
@@ -460,8 +507,7 @@ body {
 .result-check {
   display: none;
   color: var(--gold);
-  font-weight: 800;
-  font-size: 0.85rem;
+  font-weight: 900;
 }
 
 .result-row.user-voted .result-check {
@@ -469,174 +515,112 @@ body {
 }
 
 .result-text {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .result-right {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  gap: 10px;
   flex-shrink: 0;
 }
 
 .result-percentage {
   font-family: 'Cinzel', serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--gold-light);
 }
 
 .result-vcount {
   font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
-  letter-spacing: 0.05em;
-}
-
-/* Next / Finish Button */
-.next-action-bar {
-  display: flex;
-  justify-content: center;
-}
-
-.next-step-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #050505;
-  background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
-  padding: 15px 38px;
-  border-radius: 999px;
-  border: 1px solid #E5B25D;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 25px rgba(214, 160, 65, 0.3);
-}
-
-.next-step-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 35px rgba(214, 160, 65, 0.45);
 }
 
 /* ============================================================ */
-/* FINAL COMPLETION SCREEN */
+/* FINAL THANK YOU SCREEN */
 /* ============================================================ */
 .completion-view {
   display: none;
   text-align: center;
-  padding: 20px 0;
-  animation: fadeInResults 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  padding: 30px 20px;
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .completion-icon-wrap {
-  width: 76px;
-  height: 76px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: rgba(214, 160, 65, 0.12);
-  border: 1px solid var(--border-gold);
-  color: var(--gold);
+  border: 1px solid var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
-  box-shadow: 0 0 40px rgba(214, 160, 65, 0.2);
+  margin: 0 auto 20px;
+  box-shadow: 0 0 35px rgba(214, 160, 65, 0.25);
 }
 
 .completion-icon-wrap svg {
   width: 36px;
   height: 36px;
-  stroke: var(--gold);
+  color: var(--gold);
 }
 
 .completion-title {
   font-family: 'Cinzel', serif;
-  font-size: clamp(1.6rem, 3.8vw, 2.2rem);
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .completion-subtitle {
   font-family: 'Alex Brush', cursive;
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-size: 1.6rem;
   color: var(--gold);
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
-.completion-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem;
-  font-style: italic;
-  color: #d4d4d8;
-  max-width: 460px;
-  margin: 0 auto 36px;
+.completion-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 440px;
+  margin: 0 auto 28px;
   line-height: 1.7;
-}
-
-.completion-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: center;
 }
 
 .completion-main-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #050505;
   background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
-  padding: 15px 36px;
+  border: 1px solid #E5B25D;
   border-radius: 999px;
+  padding: 14px 34px;
   text-decoration: none;
+  box-shadow: 0 8px 30px rgba(214, 160, 65, 0.3);
   transition: all 0.3s ease;
-  box-shadow: 0 6px 24px rgba(214, 160, 65, 0.3);
 }
 
 .completion-main-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(214, 160, 65, 0.45);
-}
-
-.completion-restart-btn {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px 16px;
-  transition: color 0.3s ease;
-}
-
-.completion-restart-btn:hover {
-  color: var(--gold);
+  box-shadow: 0 12px 40px rgba(214, 160, 65, 0.5);
 }
 
 /* Spinner */
 .spinner {
   display: none;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border: 2px solid rgba(5, 5, 5, 0.3);
   border-top-color: #050505;
   border-radius: 50%;
@@ -647,54 +631,17 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* Alert Notification Banner */
-.alert-banner {
-  display: none;
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.alert-banner.alert-info {
-  background: rgba(214, 160, 65, 0.1);
-  border: 1px solid var(--border-gold);
-  color: var(--gold-light);
-}
-
-.alert-banner.show {
-  display: block;
-}
-
-/* Mobile Responsive */
-@media (max-width: 640px) {
-  body {
-    padding: 24px 16px 60px;
-  }
-
-  .poll-container {
-    padding: 32px 20px;
-    border-radius: 20px;
-  }
-
-  .option-item {
-    padding: 14px 16px;
-  }
-
-  .result-row {
-    padding: 14px 16px;
-  }
-
-  .result-percentage {
-    font-size: 1rem;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 <body>
 
-<canvas id="bgCanvas" class="bg-canvas"></canvas>
+<div class="bg-canvas-container">
+  <canvas id="bgCanvas"></canvas>
+</div>
 <div class="bg-spotlight"></div>
 
 <!-- Top Navigation -->
@@ -711,62 +658,54 @@ body {
 
 <!-- Main Poll Container -->
 <main class="poll-container" id="pollCard">
-  <!-- Banner Alert -->
-  <div id="alertBanner" class="alert-banner" role="status">
-    <span id="alertMessage"></span>
-  </div>
-
-  <!-- Active Poll Area (Controlled by Stage Admin) -->
+  <!-- Active Poll Area -->
   <div id="pollActiveArea">
-
-    <!-- Question Prompt -->
-    <div class="question-block">
-      <h2 class="question-text" id="questionText">India at 80 Years of Independence – Are We Truly Free?</h2>
+    <div class="poll-header-bar">
+      <span class="poll-step-label" id="stepCounterLabel">LIVE AUDIENCE POLL</span>
+      <span class="live-indicator-pill">
+        <span class="live-pulse-dot"></span>
+        LIVE ON STAGE
+      </span>
     </div>
 
-    <!-- View A: Answer Options (Pre-Vote) -->
-    <section id="voteView">
-      <div class="options-list" id="optionsList" role="radiogroup" aria-labelledby="questionText">
-        <div class="option-item" role="radio" aria-checked="false" data-key="A" onclick="selectOption('A')">
-          <div class="option-left">
-            <span class="option-radio-dot"></span>
-            <span class="option-key-badge">A</span>
-            <span class="option-text">Yes, completely free</span>
-          </div>
-        </div>
-        <div class="option-item" role="radio" aria-checked="false" data-key="B" onclick="selectOption('B')">
-          <div class="option-left">
-            <span class="option-radio-dot"></span>
-            <span class="option-key-badge">B</span>
-            <span class="option-text">Free on paper, not in practice</span>
-          </div>
-        </div>
-        <div class="option-item" role="radio" aria-checked="false" data-key="C" onclick="selectOption('C')">
-          <div class="option-left">
-            <span class="option-radio-dot"></span>
-            <span class="option-key-badge">C</span>
-            <span class="option-text">Free in some ways, restricted in others</span>
-          </div>
-        </div>
-        <div class="option-item" role="radio" aria-checked="false" data-key="D" onclick="selectOption('D')">
-          <div class="option-left">
-            <span class="option-radio-dot"></span>
-            <span class="option-key-badge">D</span>
-            <span class="option-text">Not sure</span>
-          </div>
-        </div>
-      </div>
+    <!-- Question Title & Subtitle -->
+    <h2 class="question-title" id="questionText">India at 80 Years of Independence – Are We Truly Free?</h2>
+    <div class="question-subtitle" id="questionSub" style="display:none;"></div>
 
-      <div class="vote-action-bar">
-        <button type="button" id="submitVoteBtn" class="submit-vote-btn" disabled>
-          <span class="spinner" id="btnSpinner"></span>
-          <span id="btnText">SUBMIT VOTE</span>
+    <!-- 1. Standard Poll Voting View (Questions 1-5) -->
+    <section id="voteView">
+      <div class="options-list" id="optionsList" role="radiogroup">
+        <!-- Rendered dynamically -->
+      </div>
+      <button type="button" id="submitVoteBtn" class="submit-vote-btn" disabled>
+        <span class="spinner" id="btnSpinner"></span>
+        <span id="btnText">SUBMIT VOTE</span>
+      </button>
+    </section>
+
+    <!-- 2. Special Question 6 Emoji Reaction View -->
+    <section id="emojiView" class="emoji-reactions-wrap">
+      <div class="emoji-grid">
+        <button type="button" class="emoji-btn" data-key="love" aria-label="Love it" onclick="triggerEmojiReaction('love', '😍')">
+          <span>😍</span>
+        </button>
+        <button type="button" class="emoji-btn" data-key="clap" aria-label="Great" onclick="triggerEmojiReaction('clap', '👏🏻')">
+          <span>👏🏻</span>
+        </button>
+        <button type="button" class="emoji-btn" data-key="like" aria-label="Like" onclick="triggerEmojiReaction('like', '👍')">
+          <span>👍</span>
+        </button>
+        <button type="button" class="emoji-btn" data-key="happy" aria-label="Good" onclick="triggerEmojiReaction('happy', '😀')">
+          <span>😀</span>
+        </button>
+        <button type="button" class="emoji-btn" data-key="dislike" aria-label="Didn't like it" onclick="triggerEmojiReaction('dislike', '👎')">
+          <span>👎</span>
         </button>
       </div>
     </section>
 
-    <!-- View B: Live Results (Post-Vote & Real-Time Sync) -->
-    <section id="resultsView" class="results-view" aria-live="polite">
+    <!-- 3. Standard Live Results View (Questions 1-5 Post-Vote) -->
+    <section id="resultsView" class="results-view">
       <div class="results-header-tag">
         <span class="live-results-badge">
           <span class="live-pulse-dot" style="background:var(--gold); box-shadow:0 0 10px var(--gold);"></span>
@@ -774,62 +713,50 @@ body {
         </span>
         <span class="total-votes-count" id="totalVotesCount">0 votes</span>
       </div>
-
       <div class="results-list" id="resultsList">
-        <!-- Rendered dynamically with live percentage bars -->
-      </div>
-
-      <div class="live-sync-indicator-bar" style="margin-top:24px; text-align:center; padding:14px; background:rgba(214,160,65,0.06); border:1px solid rgba(214,160,65,0.25); border-radius:14px;">
-        <span style="font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:700; color:var(--gold-light); letter-spacing:0.1em; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
-          <span class="live-pulse-dot" style="width:6px; height:6px; background:var(--gold); box-shadow:0 0 8px var(--gold);"></span>
-          LIVE SYNC ACTIVE • Waiting for next question from stage
-        </span>
+        <!-- Rendered dynamically -->
       </div>
     </section>
   </div>
 
-  <!-- Waiting for Admin to activate Poll View -->
-  <section id="waitingForPollView" class="waiting-poll-view" style="display:none; text-align:center; padding:40px 20px;">
-    <div style="width:68px; height:68px; border-radius:50%; background:rgba(214,160,65,0.1); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
-      <span class="live-pulse-dot" style="width:12px; height:12px; background:var(--gold); box-shadow:0 0 16px var(--gold);"></span>
+  <!-- Waiting State -->
+  <section id="waitingForPollView" style="display:none; text-align:center; padding:36px 16px;">
+    <div style="width:64px; height:64px; border-radius:50%; background:rgba(214,160,65,0.1); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+      <span class="live-pulse-dot" style="width:10px; height:10px; background:var(--gold); box-shadow:0 0 12px var(--gold);"></span>
     </div>
-    <h2 style="font-family:'Cinzel',serif; font-size:clamp(1.4rem, 3.5vw, 1.8rem); color:#ffffff; margin-bottom:8px;">
-      WAITING FOR LIVE POLL...
+    <h2 style="font-family:'Cinzel',serif; font-size:1.3rem; color:#ffffff; margin-bottom:8px;">
+      WAITING FOR NEXT POLL...
     </h2>
-    <p style="font-size:0.95rem; color:var(--text-muted); max-width:440px; margin:0 auto 24px; line-height:1.7;">
-      The active question will automatically appear on your screen once announced live by the stage host.
+    <p style="font-size:0.9rem; color:var(--text-muted); max-width:400px; margin:0 auto; line-height:1.6;">
+      The active question will appear on your screen once announced live from the stage.
     </p>
   </section>
 
-  <!-- Final Screen: Completion -->
-  <section id="completionView" class="completion-view" aria-live="polite">
+  <!-- Final Thank You Screen -->
+  <section id="completionView" class="completion-view">
     <div class="completion-icon-wrap">
       <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
       </svg>
     </div>
-    <h2 class="completion-title">YOUR VOICE HAS BEEN HEARD</h2>
-    <div class="completion-subtitle">Youth Of The Nation 2026</div>
-
-    <p class="completion-quote">
-      “Freedom begins with a voice. And change begins with us.”
+    <h2 class="completion-title">THANK YOU</h2>
+    <div class="completion-subtitle">Your voice has been heard.</div>
+    <p class="completion-desc">
+      Thank you for being part of Youth Of The Nation 2026.
     </p>
-
-    <div class="completion-actions">
-      <a href="../" class="completion-main-btn">
-        <span>RETURN TO YOTN 2026</span>
-        <span>→</span>
-      </a>
-      <button type="button" id="reviewPollsBtn" class="completion-restart-btn">
-        ↺ Refresh Live Status
-      </button>
-    </div>
+    <a href="../" class="completion-main-btn">
+      <span>RETURN TO YOTN 2026</span>
+      <span>→</span>
+    </a>
   </section>
 </main>
 
+<!-- Full-Screen Emoji Blast Container -->
+<div id="celebrationOverlay" class="celebration-overlay" style="display:none;"></div>
+
 <script>
 /* ============================================================ */
-/* 5 OFFICIAL POLL QUESTIONS & OPTIONS DEFINITION */
+/* OFFICIAL 6 QUESTIONS DEFINITION */
 /* ============================================================ */
 const POLL_QUESTIONS = [
   {
@@ -879,215 +806,131 @@ const POLL_QUESTIONS = [
       { key: "A", text: "Yes" },
       { key: "B", text: "No" }
     ]
+  },
+  {
+    number: 6,
+    isEmojiReaction: true,
+    question: "How did you like the Polls and Interaction?",
+    subtitle: "Your reaction matters.",
+    options: [
+      { key: "love", emoji: "😍", label: "Love it" },
+      { key: "clap", emoji: "👏🏻", label: "Great" },
+      { key: "like", emoji: "👍", label: "Like" },
+      { key: "happy", emoji: "😀", label: "Good" },
+      { key: "dislike", emoji: "👎", label: "Didn't like it" }
+    ]
   }
 ];
 
 /* ============================================================ */
-/* VOTER IDENTIFIER & LOCAL PERSISTENCE */
-/* ============================================================ */
-function getOrCreateVoterId() {
-  let id = localStorage.getItem('yotn_voter_id');
-  if (!id) {
-    id = 'voter_' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now());
-    localStorage.setItem('yotn_voter_id', id);
-  }
-  return id;
-}
-
-const VOTER_ID = getOrCreateVoterId();
-
-function getStoredVotes() {
-  try {
-    return JSON.parse(localStorage.getItem('yotn_poll_votes') || '{}');
-  } catch (e) {
-    return {};
-  }
-}
-
-function setStoredVote(qNum, optionKey) {
-  const votes = getStoredVotes();
-  votes[qNum] = optionKey;
-  localStorage.setItem('yotn_poll_votes', JSON.stringify(votes));
-}
-
-/* ============================================================ */
-/* SUPABASE CLIENT & REALTIME SYNC */
+/* SUPABASE CLIENT & STATE */
 /* ============================================================ */
 let supabaseClient = null;
-let votesRealtimeChannel = null;
-let pollsRealtimeChannel = null;
+let currentQuestionIndex = -1;
+let selectedOptionKey = null;
+let currentPollId = null;
+let pollOptionsMap = {};
+let currentVoteCounts = {};
+let isSubmitting = false;
 
 try {
   const config = window.SUPABASE_CONFIG || {
     url: 'https://yqdtvfsxffhrxfabstsk.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZHR2ZnN4ZmZocnhmYWJzdHNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3NjY1MTgsImV4cCI6MjEwMjM0MjUxOH0.586sYXYAnD5kiy3y9sASvOSOXWkP10jQVAhtjOTFlEI'
   };
-
   if (window.supabase && window.supabase.createClient) {
     supabaseClient = window.supabase.createClient(config.url, config.anonKey);
   }
-} catch (e) {
-  console.warn('Supabase client notice:', e);
-}
+} catch (e) {}
 
-/* ============================================================ */
-/* APPLICATION STATE & DOM REFERENCES */
-/* ============================================================ */
-let currentQuestionIndex = -1;
-let currentPollStatus = 'LIVE'; // 'LIVE' | 'CLOSED'
-let isInitialLoaded = false;
-let selectedOptionKey = null;
-let isSubmitting = false;
-let currentPollId = null; // Supabase poll UUID if available
-let pollOptionsMap = {};  // Maps optionKey -> option UUID
-let currentVoteCounts = {}; // Key -> vote count
-
+/* DOM Elements */
 const pollActiveArea = document.getElementById('pollActiveArea');
 const waitingForPollView = document.getElementById('waitingForPollView');
+const completionView = document.getElementById('completionView');
 const stepCounterLabel = document.getElementById('stepCounterLabel');
 const questionText = document.getElementById('questionText');
+const questionSub = document.getElementById('questionSub');
 const voteView = document.getElementById('voteView');
 const optionsList = document.getElementById('optionsList');
 const submitVoteBtn = document.getElementById('submitVoteBtn');
 const btnSpinner = document.getElementById('btnSpinner');
 const btnText = document.getElementById('btnText');
+const emojiView = document.getElementById('emojiView');
 const resultsView = document.getElementById('resultsView');
 const resultsList = document.getElementById('resultsList');
 const totalVotesCount = document.getElementById('totalVotesCount');
-const completionView = document.getElementById('completionView');
-const reviewPollsBtn = document.getElementById('reviewPollsBtn');
-const alertBanner = document.getElementById('alertBanner');
-const alertMessage = document.getElementById('alertMessage');
+const celebrationOverlay = document.getElementById('celebrationOverlay');
 
 /* ============================================================ */
-/* SYNC ACTIVE POLL CONTROL FROM DATABASE */
+/* RENDER QUESTION */
 /* ============================================================ */
-async function syncActivePollFromDatabase() {
-  if (!supabaseClient) return;
-
-  try {
-    const { data: polls, error } = await supabaseClient
-      .from('polls')
-      .select('*')
-      .order('question_number', { ascending: true });
-
-    if (error || !polls || polls.length === 0) return;
-
-    const activePoll = polls.find(p => p.is_active === true);
-
-    if (activePoll) {
-      const targetIndex = activePoll.question_number - 1;
-      if (currentQuestionIndex !== targetIndex) {
-        loadQuestion(targetIndex, activePoll.status || 'LIVE');
-      } else if (currentPollStatus !== (activePoll.status || 'LIVE')) {
-        currentPollStatus = activePoll.status || 'LIVE';
-        handleStatusChange(currentPollStatus);
-      }
-    } else {
-      showWaitingState();
-    }
-  } catch (err) {
-    console.warn('Active poll sync notice:', err);
-  }
-}
-
-function showWaitingState() {
-  currentQuestionIndex = -1;
-  pollActiveArea.style.display = 'none';
-  resultsView.style.display = 'none';
-  voteView.style.display = 'none';
-  completionView.style.display = 'none';
-  waitingForPollView.style.display = 'block';
-}
-
-function handleStatusChange(status) {
-  if (status === 'CLOSED') {
-    const q = POLL_QUESTIONS[currentQuestionIndex];
-    if (q) {
-      showResultsView(q, getStoredVotes()[q.number] || null);
-      showAlert('This poll is closed. Final live results are displayed below.', 'info');
-    }
-  }
-}
-
-/* ============================================================ */
-/* RENDER CURRENT QUESTION (SYNCHRONOUS & INSTANT) */
-/* ============================================================ */
-function loadQuestion(index, status = 'LIVE') {
+function loadQuestion(index) {
   currentQuestionIndex = index;
-  currentPollStatus = status;
   selectedOptionKey = null;
   currentVoteCounts = {};
   pollOptionsMap = {};
   currentPollId = null;
 
-  hideAlert();
-
-  const totalQ = POLL_QUESTIONS.length;
-  if (index >= totalQ || index < 0) {
-    showCompletionScreen();
+  if (index < 0 || index >= POLL_QUESTIONS.length) {
+    waitingForPollView.style.display = 'block';
+    pollActiveArea.style.display = 'none';
+    completionView.style.display = 'none';
     return;
   }
 
   const q = POLL_QUESTIONS[index];
 
-  // 1. Synchronously update question prompt
+  // Configure Prompts
   questionText.textContent = q.question;
+  if (q.isEmojiReaction) {
+    stepCounterLabel.textContent = 'AUDIENCE VOICE';
+    questionSub.textContent = q.subtitle || 'Your reaction matters.';
+    questionSub.style.display = 'block';
 
-  // 2. Synchronously render selection option items
-  optionsList.innerHTML = '';
-  q.options.forEach(opt => {
-    const item = document.createElement('div');
-    item.className = 'option-item';
-    item.setAttribute('role', 'radio');
-    item.setAttribute('aria-checked', 'false');
-    item.dataset.key = opt.key;
+    // Show Emoji View ONLY
+    voteView.style.display = 'none';
+    resultsView.style.display = 'none';
+    emojiView.style.display = 'block';
+    waitingForPollView.style.display = 'none';
+    completionView.style.display = 'none';
+    pollActiveArea.style.display = 'block';
 
-    item.innerHTML = `
-      <div class="option-left">
-        <span class="option-radio-dot"></span>
-        <span class="option-key-badge">${opt.key}</span>
-        <span class="option-text">${opt.text}</span>
-      </div>
-    `;
+  } else {
+    stepCounterLabel.textContent = `QUESTION 0${q.number} • LIVE AUDIENCE POLL`;
+    questionSub.style.display = 'none';
+    emojiView.style.display = 'none';
 
-    item.addEventListener('click', () => {
-      selectOption(opt.key);
+    // Build standard radio options
+    optionsList.innerHTML = '';
+    q.options.forEach(opt => {
+      const item = document.createElement('div');
+      item.className = 'option-item';
+      item.dataset.key = opt.key;
+      item.innerHTML = `
+        <div class="option-left">
+          <span class="option-radio-dot"></span>
+          <span class="option-key-badge">${opt.key}</span>
+          <span class="option-text">${opt.text}</span>
+        </div>
+      `;
+      item.onclick = () => selectOption(opt.key);
+      optionsList.appendChild(item);
     });
 
-    optionsList.appendChild(item);
-  });
+    submitVoteBtn.disabled = true;
+    btnSpinner.style.display = 'none';
+    btnText.textContent = 'SUBMIT VOTE';
 
-  submitVoteBtn.disabled = true;
-  btnSpinner.style.display = 'none';
-  btnText.textContent = 'SUBMIT VOTE';
-
-  // 3. Synchronously configure view state
-  const storedVotes = getStoredVotes();
-  const alreadyVotedKey = storedVotes[q.number];
-
-  waitingForPollView.style.display = 'none';
-  completionView.style.display = 'none';
-  pollActiveArea.style.display = 'block';
-
-  if (currentPollStatus === 'CLOSED' || alreadyVotedKey) {
-    showResultsView(q, alreadyVotedKey || null);
-    if (currentPollStatus === 'CLOSED') {
-      showAlert('This poll is closed. Final live results are displayed below.', 'info');
-    }
-  } else {
+    // Standard Question ALWAYS starts in Voting View (Pre-Vote)
     voteView.style.display = 'block';
     resultsView.style.display = 'none';
+    waitingForPollView.style.display = 'none';
+    completionView.style.display = 'none';
+    pollActiveArea.style.display = 'block';
   }
 
-  // 4. Asynchronously fetch Supabase votes & setup Realtime
-  fetchPollDataAndVotes(q).then(() => {
-    if (resultsView.style.display !== 'none') {
-      updateResultsBars(q);
-    }
-  });
-
-  setupVotesRealtimeSubscription(q.number);
+  // Fetch Supabase poll id & options map asynchronously
+  fetchPollMetadata(q);
 }
 
 function selectOption(key) {
@@ -1096,145 +939,15 @@ function selectOption(key) {
   items.forEach(item => {
     if (item.dataset.key === key) {
       item.classList.add('selected');
-      item.setAttribute('aria-checked', 'true');
     } else {
       item.classList.remove('selected');
-      item.setAttribute('aria-checked', 'false');
     }
   });
-
   submitVoteBtn.disabled = false;
 }
 
 /* ============================================================ */
-/* SUPABASE DATA FETCHING & TALLY */
-/* ============================================================ */
-async function fetchPollDataAndVotes(q) {
-  // Initialize counts for every option key
-  q.options.forEach(opt => {
-    currentVoteCounts[opt.key] = 0;
-  });
-
-  if (!supabaseClient) return;
-
-  try {
-    // 1. Fetch Poll ID from Supabase
-    const { data: pollData } = await supabaseClient
-      .from('polls')
-      .select('id, status, is_active')
-      .eq('question_number', q.number)
-      .maybeSingle();
-
-    if (pollData) {
-      currentPollId = pollData.id;
-      if (pollData.status) {
-        currentPollStatus = pollData.status;
-      }
-
-      // 2. Fetch Options map
-      const { data: optionsData } = await supabaseClient
-        .from('poll_options')
-        .select('id, option_key')
-        .eq('poll_id', currentPollId);
-
-      if (optionsData) {
-        optionsData.forEach(o => {
-          pollOptionsMap[o.option_key] = o.id;
-        });
-      }
-
-      // 3. Fetch Vote counts
-      const { data: votesData, error: voteErr } = await supabaseClient
-        .from('poll_votes')
-        .select('option_id')
-        .eq('poll_id', currentPollId);
-
-      if (!voteErr && votesData) {
-        // Reverse map option_id -> option_key
-        const idToKey = {};
-        Object.entries(pollOptionsMap).forEach(([k, id]) => { idToKey[id] = k; });
-
-        votesData.forEach(v => {
-          const key = idToKey[v.option_id];
-          if (key && currentVoteCounts[key] !== undefined) {
-            currentVoteCounts[key]++;
-          }
-        });
-      }
-    }
-  } catch (err) {
-    console.warn('Poll data fetch notice:', err);
-  }
-}
-
-/* ============================================================ */
-/* SUPABASE REALTIME SUBSCRIPTIONS (VOTES & POLL CONTROL) */
-/* ============================================================ */
-let liveSyncInterval = null;
-
-function setupVotesRealtimeSubscription(questionNumber) {
-  if (votesRealtimeChannel && supabaseClient) {
-    try { supabaseClient.removeChannel(votesRealtimeChannel); } catch (e) {}
-    votesRealtimeChannel = null;
-  }
-
-  if (liveSyncInterval) {
-    clearInterval(liveSyncInterval);
-    liveSyncInterval = null;
-  }
-
-  if (!supabaseClient) return;
-
-  const channelName = `poll_channel_votes_${questionNumber}_${Date.now()}`;
-  votesRealtimeChannel = supabaseClient
-    .channel(channelName)
-    .on(
-      'postgres_changes',
-      { event: '*', schema: 'public', table: 'poll_votes' },
-      async () => {
-        const q = POLL_QUESTIONS[currentQuestionIndex];
-        await fetchPollDataAndVotes(q);
-        updateResultsBars(q);
-      }
-    )
-    .subscribe();
-
-  // Live sync heartbeat
-  liveSyncInterval = setInterval(async () => {
-    if (resultsView.style.display !== 'none') {
-      const q = POLL_QUESTIONS[currentQuestionIndex];
-      await fetchPollDataAndVotes(q);
-      updateResultsBars(q);
-    }
-  }, 3000);
-}
-
-function setupGlobalPollStateRealtime() {
-  if (!supabaseClient) return;
-
-  if (pollsRealtimeChannel) {
-    try { supabaseClient.removeChannel(pollsRealtimeChannel); } catch (e) {}
-  }
-
-  pollsRealtimeChannel = supabaseClient
-    .channel(`public_poll_state_channel_${Date.now()}`)
-    .on(
-      'postgres_changes',
-      { event: '*', schema: 'public', table: 'polls' },
-      () => {
-        syncActivePollFromDatabase();
-      }
-    )
-    .subscribe();
-
-  // Fast periodic poll sync (1.5 seconds)
-  setInterval(() => {
-    syncActivePollFromDatabase();
-  }, 1500);
-}
-
-/* ============================================================ */
-/* SUBMIT VOTE HANDLER */
+/* SUBMIT VOTE (QUESTIONS 1-5) */
 /* ============================================================ */
 submitVoteBtn.addEventListener('click', async () => {
   if (!selectedOptionKey || isSubmitting) return;
@@ -1248,32 +961,23 @@ submitVoteBtn.addEventListener('click', async () => {
   try {
     if (supabaseClient) {
       if (!currentPollId) {
-        await fetchPollDataAndVotes(q);
+        await fetchPollMetadata(q);
       }
-
       const optionId = pollOptionsMap[selectedOptionKey] || null;
-      const submissionVoterId = 'voter_' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now());
+      const subId = 'voter_' + Math.random().toString(36).substring(2) + Date.now();
 
-      const { error } = await supabaseClient
-        .from('poll_votes')
-        .insert([{
-          poll_id: currentPollId,
-          option_id: optionId,
-          voter_id: submissionVoterId
-        }]);
-
-      if (error) {
-        console.warn('Supabase vote insert notice:', error);
-      }
+      await supabaseClient.from('poll_votes').insert([{
+        poll_id: currentPollId,
+        option_id: optionId,
+        voter_id: subId
+      }]);
     }
 
-    await fetchPollDataAndVotes(q);
-    setStoredVote(q.number, selectedOptionKey);
+    // Refresh database tallies and show live results view
+    await fetchPollVotes(q);
     showResultsView(q, selectedOptionKey);
 
   } catch (err) {
-    console.error('Vote submission error:', err);
-    setStoredVote(q.number, selectedOptionKey);
     showResultsView(q, selectedOptionKey);
   } finally {
     isSubmitting = false;
@@ -1281,21 +985,109 @@ submitVoteBtn.addEventListener('click', async () => {
 });
 
 /* ============================================================ */
-/* RENDER RESULTS VIEW */
+/* QUESTION 6 — EMOJI REACTION & BLAST CELEBRATION */
+/* ============================================================ */
+window.triggerEmojiReaction = async function(key, emojiChar) {
+  const q = POLL_QUESTIONS[currentQuestionIndex];
+
+  // 1. Submit reaction to Supabase
+  try {
+    if (supabaseClient) {
+      if (!currentPollId) {
+        await fetchPollMetadata(q);
+      }
+      const optionId = pollOptionsMap[key] || null;
+      const subId = 'voter_' + Math.random().toString(36).substring(2) + Date.now();
+
+      supabaseClient.from('poll_votes').insert([{
+        poll_id: currentPollId,
+        option_id: optionId,
+        voter_id: subId
+      }]);
+    }
+  } catch (e) {}
+
+  // 2. Trigger Full-Screen Emoji Blast
+  runEmojiCelebrationBlast(emojiChar);
+
+  // 3. Transition to Thank You screen
+  setTimeout(() => {
+    pollActiveArea.style.display = 'none';
+    completionView.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 2200);
+};
+
+function runEmojiCelebrationBlast(emoji) {
+  celebrationOverlay.innerHTML = '';
+  celebrationOverlay.style.display = 'block';
+
+  const particleCount = 42;
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+
+  for (let i = 0; i < particleCount; i++) {
+    const el = document.createElement('div');
+    el.className = 'emoji-particle';
+    el.textContent = emoji;
+
+    // Random physics variables
+    const angle = Math.random() * Math.PI * 2;
+    const distStart = 60 + Math.random() * 140;
+    const distEnd = 240 + Math.random() * 480;
+
+    const txStart = Math.cos(angle) * distStart;
+    const tyStart = Math.sin(angle) * distStart - 80;
+
+    const txEnd = Math.cos(angle) * distEnd;
+    const tyEnd = Math.sin(angle) * distEnd - 220;
+
+    const scale = (0.7 + Math.random() * 0.9).toFixed(2);
+    const scaleEnd = (0.9 + Math.random() * 0.8).toFixed(2);
+    const rotStart = `${(Math.random() * 50 - 25).toFixed(0)}deg`;
+    const rotEnd = `${(Math.random() * 120 - 60).toFixed(0)}deg`;
+
+    el.style.left = `${cx}px`;
+    el.style.top = `${cy}px`;
+    el.style.fontSize = `${clamp(24, Math.floor(Math.random() * 40 + 28), 58)}px`;
+    el.style.animationDelay = `${(Math.random() * 0.25).toFixed(2)}s`;
+
+    el.style.setProperty('--tx-start', `${txStart}px`);
+    el.style.setProperty('--ty-start', `${tyStart}px`);
+    el.style.setProperty('--tx-end', `${txEnd}px`);
+    el.style.setProperty('--ty-end', `${tyEnd}px`);
+    el.style.setProperty('--scale', scale);
+    el.style.setProperty('--scale-end', scaleEnd);
+    el.style.setProperty('--rot-start', rotStart);
+    el.style.setProperty('--rot-end', rotEnd);
+
+    celebrationOverlay.appendChild(el);
+  }
+
+  // Clean up particles
+  setTimeout(() => {
+    celebrationOverlay.innerHTML = '';
+    celebrationOverlay.style.display = 'none';
+  }, 2600);
+}
+
+function clamp(min, val, max) {
+  return Math.min(Math.max(val, min), max);
+}
+
+/* ============================================================ */
+/* RESULTS VIEW (QUESTIONS 1-5) */
 /* ============================================================ */
 function showResultsView(q, userVotedKey) {
   voteView.style.display = 'none';
-  waitingForPollView.style.display = 'none';
+  emojiView.style.display = 'none';
   resultsView.style.display = 'block';
 
-  // Render initial result rows
   resultsList.innerHTML = '';
   q.options.forEach(opt => {
-    const isUserChoice = opt.key === userVotedKey;
+    const isChoice = opt.key === userVotedKey;
     const row = document.createElement('div');
-    row.className = `result-row ${isUserChoice ? 'user-voted' : ''}`;
-    row.id = `resultRow_${opt.key}`;
-
+    row.className = `result-row ${isChoice ? 'user-voted' : ''}`;
     row.innerHTML = `
       <div class="result-bar-fill" id="barFill_${opt.key}"></div>
       <div class="result-content-layer">
@@ -1310,17 +1102,14 @@ function showResultsView(q, userVotedKey) {
         </div>
       </div>
     `;
-
     resultsList.appendChild(row);
   });
 
-  // Calculate & Animate percentages
-  setTimeout(() => {
-    updateResultsBars(q);
-  }, 50);
+  setTimeout(() => updateResultsBars(q), 50);
 }
 
 function updateResultsBars(q) {
+  if (!q.options) return;
   let totalVotes = 0;
   q.options.forEach(opt => {
     totalVotes += (currentVoteCounts[opt.key] || 0);
@@ -1336,52 +1125,97 @@ function updateResultsBars(q) {
     const pctElem = document.getElementById(`pct_${opt.key}`);
     const countElem = document.getElementById(`count_${opt.key}`);
 
-    if (barElem) {
-      barElem.style.width = `${pct}%`;
-    }
-    if (pctElem) {
-      pctElem.textContent = `${pct}%`;
-    }
-    if (countElem) {
-      countElem.textContent = `${count} ${count === 1 ? 'vote' : 'votes'}`;
-    }
+    if (barElem) barElem.style.width = `${pct}%`;
+    if (pctElem) pctElem.textContent = `${pct}%`;
+    if (countElem) countElem.textContent = `${count} ${count === 1 ? 'vote' : 'votes'}`;
   });
 }
 
 /* ============================================================ */
-/* SCREEN COMPLETION & ALERTS */
+/* SUPABASE DATA SYNC */
 /* ============================================================ */
-function showCompletionScreen() {
-  if (votesRealtimeChannel && supabaseClient) {
-    supabaseClient.removeChannel(votesRealtimeChannel);
-    votesRealtimeChannel = null;
-  }
+async function fetchPollMetadata(q) {
+  if (!supabaseClient) return;
+  try {
+    const { data: pollData } = await supabaseClient
+      .from('polls')
+      .select('id')
+      .eq('question_number', q.number)
+      .maybeSingle();
 
-  pollActiveArea.style.display = 'none';
-  waitingForPollView.style.display = 'none';
-  completionView.style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (pollData) {
+      currentPollId = pollData.id;
+      const { data: optionsData } = await supabaseClient
+        .from('poll_options')
+        .select('id, option_key')
+        .eq('poll_id', currentPollId);
+
+      if (optionsData) {
+        optionsData.forEach(o => {
+          pollOptionsMap[o.option_key] = o.id;
+        });
+      }
+    }
+  } catch (e) {}
 }
 
-if (reviewPollsBtn) {
-  reviewPollsBtn.addEventListener('click', () => {
-    completionView.style.display = 'none';
-    syncActivePollFromDatabase();
-  });
-}
+async function fetchPollVotes(q) {
+  if (!supabaseClient || !currentPollId) return;
+  try {
+    const { data: votesData } = await supabaseClient
+      .from('poll_votes')
+      .select('option_id')
+      .eq('poll_id', currentPollId);
 
-function showAlert(message, type = 'info') {
-  alertBanner.className = `alert-banner alert-${type} show`;
-  alertMessage.textContent = message;
-}
+    if (votesData) {
+      const idToKey = {};
+      Object.entries(pollOptionsMap).forEach(([k, id]) => { idToKey[id] = k; });
+      q.options.forEach(opt => { currentVoteCounts[opt.key] = 0; });
 
-function hideAlert() {
-  alertBanner.className = 'alert-banner';
-  alertMessage.textContent = '';
+      votesData.forEach(v => {
+        const k = idToKey[v.option_id];
+        if (k && currentVoteCounts[k] !== undefined) {
+          currentVoteCounts[k]++;
+        }
+      });
+    }
+  } catch (e) {}
 }
 
 /* ============================================================ */
-/* AMBIENT BACKGROUND PARTICLES */
+/* STAGE ACTIVE QUESTION SYNCHRONIZATION */
+/* ============================================================ */
+async function syncActivePollFromDatabase() {
+  if (!supabaseClient) return;
+  try {
+    const { data: polls } = await supabaseClient
+      .from('polls')
+      .select('*')
+      .order('question_number', { ascending: true });
+
+    if (polls && polls.length > 0) {
+      const activePoll = polls.find(p => p.is_active === true);
+      if (activePoll) {
+        const targetIdx = activePoll.question_number - 1;
+        if (currentQuestionIndex !== targetIdx) {
+          loadQuestion(targetIdx);
+        } else if (resultsView.style.display !== 'none') {
+          // If viewing results, update live bars
+          const q = POLL_QUESTIONS[currentQuestionIndex];
+          await fetchPollVotes(q);
+          updateResultsBars(q);
+        }
+      } else {
+        waitingForPollView.style.display = 'block';
+        pollActiveArea.style.display = 'none';
+        currentQuestionIndex = -1;
+      }
+    }
+  } catch (e) {}
+}
+
+/* ============================================================ */
+/* BACKGROUND PARTICLES & INIT */
 /* ============================================================ */
 (function initAmbientCanvas() {
   const canvas = document.getElementById('bgCanvas');
@@ -1395,12 +1229,12 @@ function hideAlert() {
     h = canvas.height = window.innerHeight;
   });
 
-  const particles = Array.from({ length: 30 }, () => ({
+  const particles = Array.from({ length: 28 }, () => ({
     x: Math.random() * w,
     y: Math.random() * h,
     r: Math.random() * 1.8 + 0.5,
     vy: -Math.random() * 0.3 - 0.08,
-    alpha: Math.random() * 0.5 + 0.15
+    alpha: Math.random() * 0.45 + 0.15
   }));
 
   function animate() {
@@ -1418,12 +1252,32 @@ function hideAlert() {
   animate();
 })();
 
-/* ============================================================ */
-/* INITIALIZATION */
-/* ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
+  // 1. Initial Load Question 1
+  loadQuestion(0);
+
+  // 2. Sync active question from database
   syncActivePollFromDatabase();
-  setupGlobalPollStateRealtime();
+
+  // 3. Periodic Poll Sync (every 1.5s)
+  setInterval(() => {
+    syncActivePollFromDatabase();
+  }, 1500);
+
+  // 4. Realtime WebSockets
+  if (supabaseClient) {
+    supabaseClient.channel('stage_sync_realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'polls' }, () => syncActivePollFromDatabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'poll_votes' }, () => {
+        if (resultsView.style.display !== 'none') {
+          const q = POLL_QUESTIONS[currentQuestionIndex];
+          if (q) {
+            fetchPollVotes(q).then(() => updateResultsBars(q));
+          }
+        }
+      })
+      .subscribe();
+  }
 });
 </script>
 

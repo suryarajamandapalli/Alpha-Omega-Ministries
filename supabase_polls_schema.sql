@@ -130,4 +130,22 @@ BEGIN
     (p5, 'A', 'Yes', 1),
     (p5, 'B', 'No', 2);
 
+    -- Question 6 (Final Emoji Reaction)
+    DECLARE
+        p6 UUID;
+    BEGIN
+        INSERT INTO public.polls (question_number, question)
+        VALUES (6, 'How did you like the Polls and Interaction?')
+        ON CONFLICT (question_number) DO UPDATE SET question = EXCLUDED.question
+        RETURNING id INTO p6;
+
+        DELETE FROM public.poll_options WHERE poll_id = p6;
+        INSERT INTO public.poll_options (poll_id, option_key, option_text, display_order) VALUES
+        (p6, 'love', '😍 Love it', 1),
+        (p6, 'clap', '👏🏻 Great', 2),
+        (p6, 'like', '👍 Like', 3),
+        (p6, 'happy', '😀 Good', 4),
+        (p6, 'dislike', '👎 Didn''t like it', 5);
+    END;
+
 END $$;

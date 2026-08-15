@@ -97,8 +97,19 @@ module.exports = async (req, res) => {
         return res.status(200).json({ success: true, updated: updatedData });
       }
     } else if (action === 'reset-votes') {
-      // Delete all records from poll_votes table
-      const deleteVotesReq = await fetch(`${SUPABASE_URL}/rest/v1/poll_votes?id=not.is.null`, {
+      // 1. Try calling stored procedure rpc/reset_all_votes
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/rpc/reset_all_votes`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+      } catch (e) {}
+
+      // 2. Direct delete on poll_votes
+      await fetch(`${SUPABASE_URL}/rest/v1/poll_votes?id=not.is.null`, {
         method: 'DELETE',
         headers: {
           'apikey': SUPABASE_ANON_KEY,
