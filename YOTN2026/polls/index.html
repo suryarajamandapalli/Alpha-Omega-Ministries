@@ -1073,42 +1073,53 @@ async function fetchPollDataAndVotes(q) {
 }
 
 /* ============================================================ */
-/* SUPABASE REALTIME SUBSCRIPTION */
+/* SUPABASE REALTIME SUBSCRIPTION & LIVE HEARTBEAT */
 /* ============================================================ */
+let liveSyncInterval = null;
+
 function setupRealtimeSubscription(questionNumber) {
   // Clean up previous subscription
   if (realtimeChannel && supabaseClient) {
-    supabaseClient.removeChannel(realtimeChannel);
+    try { supabaseClient.removeChannel(realtimeChannel); } catch (e) {}
     realtimeChannel = null;
+  }
+
+  if (liveSyncInterval) {
+    clearInterval(liveSyncInterval);
+    liveSyncInterval = null;
   }
 
   if (!supabaseClient) return;
 
-  const channelName = `poll_channel_q${questionNumber}`;
+  const channelName = `poll_channel_global_${questionNumber}_${Date.now()}`;
   realtimeChannel = supabaseClient
     .channel(channelName)
     .on(
       'postgres_changes',
       {
-        event: 'INSERT',
+        event: '*',
         schema: 'public',
-        table: 'poll_votes',
-        filter: currentPollId ? `poll_id=eq.${currentPollId}` : undefined
+        table: 'poll_votes'
       },
-      (payload) => {
-        const newRecord = payload.new;
-        if (newRecord && newRecord.option_id) {
-          const idToKey = {};
-          Object.entries(pollOptionsMap).forEach(([k, id]) => { idToKey[id] = k; });
-          const key = idToKey[newRecord.option_id];
-          if (key && currentVoteCounts[key] !== undefined) {
-            currentVoteCounts[key]++;
-            updateResultsBars(POLL_QUESTIONS[currentQuestionIndex]);
-          }
-        }
+      async (payload) => {
+        console.log('Live vote event detected:', payload);
+        const q = POLL_QUESTIONS[currentQuestionIndex];
+        await fetchPollDataAndVotes(q);
+        updateResultsBars(q);
       }
     )
-    .subscribe();
+    .subscribe((status) => {
+      console.log('Realtime subscription status:', status);
+    });
+
+  // Secondary live sync heartbeat every 3 seconds while viewing results
+  liveSyncInterval = setInterval(async () => {
+    if (resultsView.style.display !== 'none') {
+      const q = POLL_QUESTIONS[currentQuestionIndex];
+      await fetchPollDataAndVotes(q);
+      updateResultsBars(q);
+    }
+  }, 3000);
 }
 
 /* ============================================================ */
@@ -1124,8 +1135,13 @@ submitVoteBtn.addEventListener('click', async () => {
   btnText.textContent = 'SUBMITTING...';
 
   try {
-    if (supabaseClient && currentPollId && pollOptionsMap[selectedOptionKey]) {
-      const optionId = pollOptionsMap[selectedOptionKey];
+    if (supabaseClient) {
+      // Ensure we have current poll ID & options
+      if (!currentPollId) {
+        await fetchPollDataAndVotes(q);
+      }
+
+      const optionId = pollOptionsMap[selectedOptionKey] || null;
 
       const { error } = await supabaseClient
         .from('poll_votes')
@@ -1135,28 +1151,22 @@ submitVoteBtn.addEventListener('click', async () => {
           voter_id: VOTER_ID
         }]);
 
-      if (error && error.code !== '23505') {
-        console.warn('Supabase vote submission error:', error);
+      if (error) {
+        console.warn('Supabase vote insert notice:', error);
       }
     }
 
-    // Increment local tally
-    if (currentVoteCounts[selectedOptionKey] !== undefined) {
-      currentVoteCounts[selectedOptionKey]++;
-    }
+    // Refresh database votes
+    await fetchPollDataAndVotes(q);
 
-    // Save in local storage
+    // Save vote in local storage
     setStoredVote(q.number, selectedOptionKey);
 
-    // Transition to results view
+    // Show live results with animated bars
     showResultsView(q, selectedOptionKey);
 
   } catch (err) {
     console.error('Vote submission error:', err);
-    // Proceed to results seamlessly
-    if (currentVoteCounts[selectedOptionKey] !== undefined) {
-      currentVoteCounts[selectedOptionKey]++;
-    }
     setStoredVote(q.number, selectedOptionKey);
     showResultsView(q, selectedOptionKey);
   } finally {
