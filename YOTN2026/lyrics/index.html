@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -15,7 +15,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Figtree:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 *{
   margin:0;
   padding:0;
@@ -24,14 +23,12 @@
 
 :root{
   --bg:#050505;
-  --card:#0c0c0c;
-  --card2:#111111;
+  --card:#0d0d0d;
   --gold:#D4AF37;
-  --gold-light:#f1d778;
-  --white:#ffffff;
-  --text:#eeeeee;
-  --text-muted:#888888;
-  --border:rgba(255,255,255,0.1);
+  --gold-light:#f0d66d;
+  --white:#fff;
+  --muted:#888;
+  --border:rgba(255,255,255,.1);
 }
 
 html{
@@ -39,18 +36,14 @@ html{
 }
 
 body{
-  font-family:'Figtree',sans-serif;
   background:
-    radial-gradient(circle at 50% 0%, rgba(212,175,55,0.08), transparent 35%),
+    radial-gradient(circle at 50% -10%,rgba(212,175,55,.12),transparent 35%),
     var(--bg);
   color:var(--white);
+  font-family:'Figtree',sans-serif;
   min-height:100vh;
   overflow-x:hidden;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 .header{
   text-align:center;
@@ -65,90 +58,78 @@ body{
   letter-spacing:.35em;
   color:var(--gold);
   text-transform:uppercase;
-  margin-bottom:20px;
   padding:7px 18px;
-  border-radius:999px;
   border:1px solid rgba(212,175,55,.3);
+  border-radius:999px;
   background:rgba(212,175,55,.05);
+  margin-bottom:20px;
 }
 
 .title{
   font-family:'Cinzel',serif;
-  font-size:clamp(2.2rem,7vw,4.5rem);
+  font-size:clamp(2.4rem,7vw,4.5rem);
   font-weight:900;
-  line-height:1.05;
+  line-height:1;
 }
 
 .subtitle{
   font-family:'Alex Brush',cursive;
-  font-size:clamp(2rem,5vw,3rem);
   color:var(--gold);
+  font-size:clamp(2rem,5vw,3rem);
   margin-top:8px;
 }
 
 .desc{
   max-width:650px;
   margin:18px auto 0;
-  color:var(--text-muted);
+  color:var(--muted);
   line-height:1.7;
-  font-size:.98rem;
 }
 
-/* =========================
-   SONG SELECTOR
-========================= */
+/* SONG NAVIGATION */
 
-.song-selector{
+.song-nav{
   position:sticky;
   top:0;
-  z-index:50;
-
-  background:rgba(5,5,5,.92);
+  z-index:100;
+  background:rgba(5,5,5,.9);
   backdrop-filter:blur(18px);
-
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
-
-  padding:14px 12px;
+  padding:12px;
 }
 
-.song-list{
+.song-nav-inner{
   max-width:1100px;
   margin:auto;
-
   display:flex;
   gap:8px;
   overflow-x:auto;
-
   scrollbar-width:none;
 }
 
-.song-list::-webkit-scrollbar{
+.song-nav-inner::-webkit-scrollbar{
   display:none;
 }
 
 .song-btn{
-  flex:0 0 auto;
-
+  flex:none;
   border:1px solid var(--border);
   background:#0b0b0b;
-
-  color:#999;
-
+  color:#888;
   padding:10px 16px;
   border-radius:999px;
-
   font-family:'Inter',sans-serif;
-  font-size:.72rem;
+  font-size:.7rem;
   font-weight:600;
-
   cursor:pointer;
   transition:.25s;
+  white-space:nowrap;
 }
 
 .song-btn:hover{
-  border-color:rgba(212,175,55,.5);
-  color:white;
+  color:#fff;
+  border-color:var(--gold);
 }
 
 .song-btn.active{
@@ -157,33 +138,27 @@ body{
   border-color:var(--gold);
 }
 
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 
 .main{
   width:min(100%,1000px);
   margin:auto;
-  padding:45px 20px 100px;
+  padding:50px 20px 100px;
 }
-
-/* =========================
-   SONG
-========================= */
 
 .song{
   display:none;
-  animation:fadeIn .45s ease;
+  animation:fade .4s ease;
 }
 
 .song.active{
   display:block;
 }
 
-@keyframes fadeIn{
+@keyframes fade{
   from{
     opacity:0;
-    transform:translateY(12px);
+    transform:translateY(15px);
   }
   to{
     opacity:1;
@@ -193,56 +168,42 @@ body{
 
 .song-number{
   text-align:center;
-
+  color:var(--gold);
   font-family:'Inter',sans-serif;
   font-size:.7rem;
   font-weight:600;
   letter-spacing:.3em;
-  color:var(--gold);
-
-  text-transform:uppercase;
   margin-bottom:12px;
 }
 
 .song-title{
   text-align:center;
-
   font-family:'Cinzel',serif;
-  font-size:clamp(1.6rem,5vw,2.8rem);
+  font-size:clamp(1.7rem,5vw,3rem);
   font-weight:800;
-
-  margin-bottom:8px;
 }
 
 .song-subtitle{
   text-align:center;
-
-  font-family:'Alex Brush',cursive;
   color:var(--gold-light);
-
-  font-size:1.8rem;
-  margin-bottom:35px;
+  font-family:'Alex Brush',cursive;
+  font-size:2rem;
+  margin:5px 0 35px;
 }
 
-/* =========================
-   LYRICS CARD
-========================= */
+/* LYRICS */
 
 .lyrics-card{
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.035),
-      rgba(255,255,255,.012)
-    );
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.035),
+    rgba(255,255,255,.01)
+  );
 
   border:1px solid var(--border);
   border-radius:24px;
-
   padding:clamp(25px,6vw,55px);
-
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.35);
+  box-shadow:0 25px 80px rgba(0,0,0,.35);
 }
 
 .section{
@@ -253,125 +214,96 @@ body{
   margin-bottom:0;
 }
 
-.section-label{
+.label{
+  color:var(--gold);
   font-family:'Inter',sans-serif;
-  font-size:.7rem;
+  font-size:.68rem;
   font-weight:700;
   letter-spacing:.25em;
   text-transform:uppercase;
-
-  color:var(--gold);
-
-  margin-bottom:18px;
+  margin-bottom:17px;
 }
 
 .lyrics{
   white-space:pre-line;
-
-  font-size:clamp(1.15rem,3vw,1.5rem);
+  font-size:clamp(1.1rem,3vw,1.45rem);
   line-height:2;
-
   color:#f5f5f5;
-
-  font-weight:400;
 }
 
-.lyrics.telugu{
+.telugu{
   font-family:'Noto Sans Telugu','Figtree',sans-serif;
   line-height:2.15;
 }
 
-.lyrics.roman{
+.roman{
   font-family:'Figtree',sans-serif;
 }
 
-/* Chorus emphasis */
-
-.chorus .lyrics{
-  color:#fff;
-  font-weight:500;
-}
-
 .chorus{
-  padding:24px;
-
-  border-left:2px solid var(--gold);
-
+  padding:25px;
   background:rgba(212,175,55,.035);
-  border-radius:0 16px 16px 0;
+  border-left:2px solid var(--gold);
+  border-radius:0 15px 15px 0;
 }
 
-/* =========================
-   NAVIGATION
-========================= */
+/* CONTROLS */
 
-.song-navigation{
+.controls{
   display:flex;
-  justify-content:space-between;
-  gap:15px;
-
+  gap:12px;
   margin-top:30px;
 }
 
-.nav-btn{
+.control{
   flex:1;
-
   padding:15px 20px;
-
   border-radius:999px;
-
   border:1px solid var(--border);
   background:#0b0b0b;
-
   color:#fff;
-
   font-family:'Inter',sans-serif;
-  font-size:.78rem;
   font-weight:600;
-
   cursor:pointer;
-
   transition:.25s;
 }
 
-.nav-btn:hover{
+.control:hover{
   border-color:var(--gold);
   color:var(--gold);
 }
 
-.nav-btn.primary{
+.control.next{
   background:var(--gold);
-  color:#050505;
   border-color:var(--gold);
+  color:#050505;
 }
 
-.nav-btn.primary:hover{
+.control.next:hover{
   background:var(--gold-light);
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 .footer{
   text-align:center;
-  padding:40px 20px 55px;
   color:#555;
   font-size:.75rem;
+  padding:30px 20px 55px;
 }
 
 .footer strong{
   color:#888;
 }
 
-/* =========================
-   MOBILE
-========================= */
-
 @media(max-width:600px){
 
   .header{
-    padding:40px 18px 28px;
+    padding:40px 18px 30px;
+  }
+
+  .main{
+    padding:35px 15px 80px;
   }
 
   .lyrics-card{
@@ -380,62 +312,43 @@ body{
   }
 
   .lyrics{
-    font-size:1.08rem;
-    line-height:1.95;
+    font-size:1.05rem;
   }
 
-  .lyrics.telugu{
-    line-height:2.1;
+  .chorus{
+    padding:20px 16px;
   }
 
-  .section{
-    margin-bottom:35px;
-  }
-
-  .song-navigation{
+  .controls{
     flex-direction:column;
   }
-
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="header">
 
-  <div class="badge">
-    CONCERT FEATURE
-  </div>
+  <div class="badge">CONCERT FEATURE</div>
 
-  <h1 class="title">
-    LIVE LYRICS
-  </h1>
+  <h1 class="title">LIVE LYRICS</h1>
 
-  <div class="subtitle">
-    Sing-Along Experience
-  </div>
+  <div class="subtitle">Sing-Along Experience</div>
 
   <p class="desc">
-    Follow the live concert lyrics in Telugu, English and Hindi.
-    Sing along with the Youth Of The Nation 2026 worship experience.
+    Follow the live concert lyrics and sing along during
+    Youth Of The Nation 2026.
   </p>
 
 </header>
 
 
-<!-- =========================
-     SONG SELECTOR
-========================= -->
+<!-- SONG SELECTOR -->
 
-<nav class="song-selector">
+<nav class="song-nav">
 
-  <div class="song-list">
+  <div class="song-nav-inner">
 
     <button class="song-btn active" onclick="showSong(0)">
       01 · YUDHULA RAJA
@@ -473,15 +386,13 @@ body{
 <main class="main">
 
 
-<!-- =========================================================
+<!-- =====================================================
      SONG 1
-========================================================= -->
+===================================================== -->
 
 <section class="song active">
 
-  <div class="song-number">
-    SONG 01
-  </div>
+  <div class="song-number">SONG 01</div>
 
   <h2 class="song-title">
     యుధుల రాజ శరోను రోజా
@@ -495,9 +406,7 @@ body{
 
     <div class="section">
 
-      <div class="section-label">
-        Telugu
-      </div>
+      <div class="label">Telugu</div>
 
       <div class="lyrics telugu">యుధుల రాజ శరోను రోజా
 నీ నామము గొప్పది
@@ -509,9 +418,7 @@ body{
 
     <div class="section chorus">
 
-      <div class="section-label">
-        Chorus
-      </div>
+      <div class="label">Chorus</div>
 
       <div class="lyrics telugu">పాడెదన్ నా యేసుకై
 నే జీవించు చివరి శ్వాస వరకు
@@ -523,9 +430,7 @@ body{
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 2
-      </div>
+      <div class="label">Verse 2</div>
 
       <div class="lyrics telugu">సైన్యముల అధిపతి
 బలమైన నామము
@@ -538,9 +443,7 @@ body{
 
     <div class="section">
 
-      <div class="section-label">
-        Bridge
-      </div>
+      <div class="label">Bridge</div>
 
       <div class="lyrics telugu">నీ ప్రసన్నతతో నన్ను నడిపి
 నీ మార్గము చూపుము
@@ -552,9 +455,7 @@ body{
 
     <div class="section">
 
-      <div class="section-label">
-        Roman
-      </div>
+      <div class="label">Roman Lyrics</div>
 
       <div class="lyrics roman">Yudhula Raja Sharonu Roja
 Nee Naamamu Gopadhi
@@ -562,14 +463,12 @@ Saripolcha leni dhaivamu neevu
 Nee naamamu Unnatham
 
 Chorus
-
 Paadedhan Na Yesukai
 Ney jeevinchu chivari svasa varakku
 Chaatedhan nee sathyamunu
 Ney brathuku dhianamul mugisey varaku
 
 Verse 2
-
 Sainyamula adhipathi
 Balamaina naamamu
 Paadedhan Parishudhuni
@@ -577,7 +476,6 @@ Agni Gundamu kaalchaledhu
 Yesu nakundaga
 
 Bridge
-
 Nee prasannathatho nanny nadipi
 Nee margamu choopumu
 Nee mahima naaku kanaparachi
@@ -590,15 +488,13 @@ Nee vijayamu nimmu</div>
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SONG 2
-========================================================= -->
+===================================================== -->
 
 <section class="song">
 
-  <div class="song-number">
-    SONG 02
-  </div>
+  <div class="song-number">SONG 02</div>
 
   <h2 class="song-title">
     నా బలముగా క్రీస్తు
@@ -612,9 +508,7 @@ Nee vijayamu nimmu</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Lyrics
-      </div>
+      <div class="label">Lyrics</div>
 
       <div class="lyrics telugu">నా బలముగా క్రీస్తు నాకుండగా
 ఏ భయము.. నాకు లేదు
@@ -652,15 +546,13 @@ Nee vijayamu nimmu</div>
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SONG 3
-========================================================= -->
+===================================================== -->
 
 <section class="song">
 
-  <div class="song-number">
-    SONG 03
-  </div>
+  <div class="song-number">SONG 03</div>
 
   <h2 class="song-title">
     Teri Stuti Prashansa Ho
@@ -674,9 +566,7 @@ Nee vijayamu nimmu</div>
 
     <div class="section chorus">
 
-      <div class="section-label">
-        Opening
-      </div>
+      <div class="label">Opening</div>
 
       <div class="lyrics roman">Teri Stuti Prashansa Ho,
 Teri Har Pal Mahima Ho (X2)</div>
@@ -686,9 +576,7 @@ Teri Har Pal Mahima Ho (X2)</div>
 
     <div class="section chorus">
 
-      <div class="section-label">
-        Chorus
-      </div>
+      <div class="label">Chorus</div>
 
       <div class="lyrics roman">Tu Avarnit Hai, Tu Sundar Hai,
 Mera Pehla Pehla Pyaar Hai (X2)</div>
@@ -706,9 +594,7 @@ Teri Har Pal Mahima Ho (2)</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 1
-      </div>
+      <div class="label">Verse 1</div>
 
       <div class="lyrics roman">Meri Niraashaon Mein
 Meri Aasha Bana Tu
@@ -728,9 +614,7 @@ Teri Har Pal Mahima Ho (2)</div>
 
     <div class="section chorus">
 
-      <div class="section-label">
-        Chorus
-      </div>
+      <div class="label">Chorus</div>
 
       <div class="lyrics roman">Tu Avarnit Hai, Tu Sundar Hai,
 Mera Pehla Pehla Pyaar Hai (2)</div>
@@ -740,9 +624,7 @@ Mera Pehla Pehla Pyaar Hai (2)</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 2
-      </div>
+      <div class="label">Verse 2</div>
 
       <div class="lyrics roman">Dil Ki Gehraaiyon Mein
 Basta Tu Hee Prabhu
@@ -756,15 +638,13 @@ Poora Karata Chalu (X2)</div>
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SONG 4
-========================================================= -->
+===================================================== -->
 
 <section class="song">
 
-  <div class="song-number">
-    SONG 04
-  </div>
+  <div class="song-number">SONG 04</div>
 
   <h2 class="song-title">
     నీటిపైనా నడిచెను
@@ -778,9 +658,7 @@ Poora Karata Chalu (X2)</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Opening
-      </div>
+      <div class="label">Opening</div>
 
       <div class="lyrics telugu">నీటిపైనా నడిచెను
 గాలి సముద్రమును గద్దించెను
@@ -792,9 +670,7 @@ Poora Karata Chalu (X2)</div>
 
     <div class="section chorus">
 
-      <div class="section-label">
-        Chorus
-      </div>
+      <div class="label">Chorus</div>
 
       <div class="lyrics telugu">ఆయనే కాపాడు దేవుడు
 ఆయనే నడిపించే దేవుడు
@@ -805,9 +681,7 @@ Poora Karata Chalu (X2)</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 1
-      </div>
+      <div class="label">Verse 1</div>
 
       <div class="lyrics telugu">1.మనకొరకు మరణించి
 సిలువలో ప్రాణమునిచ్చెను
@@ -828,9 +702,7 @@ Poora Karata Chalu (X2)</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 2
-      </div>
+      <div class="label">Verse 2</div>
 
       <div class="lyrics telugu">2.మేఘాల మధ్యలో
 బూర ధ్వని శబ్దముతో
@@ -860,9 +732,7 @@ Poora Karata Chalu (X2)</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Roman
-      </div>
+      <div class="label">Roman Lyrics</div>
 
       <div class="lyrics roman">Neeti Painaa Nadichenu - Gaali Samudramunu Gaddinchenu
 Mruthyunjayudu Lechenu Naatho Nithyamu Jeevinchunu-2
@@ -890,15 +760,13 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SONG 5
-========================================================= -->
+===================================================== -->
 
 <section class="song">
 
-  <div class="song-number">
-    SONG 05
-  </div>
+  <div class="song-number">SONG 05</div>
 
   <h2 class="song-title">
     యెహోవా రాఫా
@@ -912,9 +780,7 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 1
-      </div>
+      <div class="label">Verse 1</div>
 
       <div class="lyrics telugu">1. యెహోవా రాఫా సౌఖ్యమిచ్చువాడు
 వ్యాధులింక నాకు లేదే
@@ -934,9 +800,7 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 2
-      </div>
+      <div class="label">Verse 2</div>
 
       <div class="lyrics telugu">2. యెహోవా షాలోం సమాధానమిచ్చువాడు
 చేయి పట్టి నన్ను నడిపించును
@@ -956,9 +820,7 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 
     <div class="section chorus">
 
-      <div class="section-label">
-        Bridge
-      </div>
+      <div class="label">Bridge</div>
 
       <div class="lyrics telugu">యేసయ్యా నా నమ్మకము నీవే
 యేసయ్యా నా ఆశ్రయము నీవే</div>
@@ -970,15 +832,13 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SONG 6
-========================================================= -->
+===================================================== -->
 
 <section class="song">
 
-  <div class="song-number">
-    SONG 06
-  </div>
+  <div class="song-number">SONG 06</div>
 
   <h2 class="song-title">
     నా నీతి సూర్యుడా
@@ -991,6 +851,8 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
   <div class="lyrics-card">
 
     <div class="section chorus">
+
+      <div class="label">Opening</div>
 
       <div class="lyrics telugu">నా నీతి సూర్యుడా – భూవినేలే యెసయ్యా
 సరిపోల్చలేను నీతో – ఘనులైన వారిని
@@ -1008,9 +870,7 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 1
-      </div>
+      <div class="label">Verse 1</div>
 
       <div class="lyrics telugu">1. శ్రమలలో బహుశ్రమలలో – ఆదరణ కలిగించేను
 వాక్యమే కృపావక్యమే – నను వీడని అంబంధమై
@@ -1029,9 +889,7 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 2
-      </div>
+      <div class="label">Verse 2</div>
 
       <div class="lyrics telugu">2.మేలుకై సమస్తమును జరిగించుచున్నావు నీవు
 ఏదియు కోడువచేయవు నిన్నశ్రయించినా వారికి
@@ -1050,9 +908,7 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 3
-      </div>
+      <div class="label">Verse 3</div>
 
       <div class="lyrics telugu">3. సంఘమై నీ స్వాస్థ్యమై –
 నన్ను ని యెదుట నిలపాలని
@@ -1080,15 +936,13 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SONG 7
-========================================================= -->
+===================================================== -->
 
 <section class="song">
 
-  <div class="song-number">
-    SONG 07
-  </div>
+  <div class="song-number">SONG 07</div>
 
   <h2 class="song-title">
     బంగారం అడుగలేదు
@@ -1101,6 +955,8 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
   <div class="lyrics-card">
 
     <div class="section chorus">
+
+      <div class="label">Opening / Chorus</div>
 
       <div class="lyrics telugu">బంగారం అడుగలేదు వజ్రాల్ని అడుగలేదు
 హృదయాన్ని అడిగాడయ్యా
@@ -1119,9 +975,7 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 1
-      </div>
+      <div class="label">Verse 1</div>
 
       <div class="lyrics telugu">1. పాపాన్ని తొలగించి శాపాన్ని విరిచేయ
 భూలోకం వచ్చాడయ్యా
@@ -1137,10 +991,116 @@ Aayaney Thodaiyundu Devudu Aayaney-2</div>
 
     <div class="section">
 
-      <div class="section-label">
-        Verse 2
-      </div>
+      <div class="label">Verse 2</div>
 
       <div class="lyrics telugu">2. రక్షణను అందించి రక్తాన్ని చిందించి
 మోక్షాన్ని ఇచ్చాడయ్యా
-ధనవంతులనుగా మనలను చే
+ధనవంతులనుగా మనలను చేయ
+దారిద్య్రమొందాడయ్యా ||2||
+కన్నీటిని తుడిచాడయ్యా
+సంతోషం పంచాడయ్యా ||2|| ||నా యేసయ్యా||
+
+నే వెదకి రాలేనని – నా కోసం వచ్చాడయ్యా (2) ||నా యేసయ్యా||</div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PREVIOUS / NEXT -->
+
+<div class="controls">
+
+  <button class="control" onclick="previousSong()">
+    ← Previous Song
+  </button>
+
+  <button class="control next" onclick="nextSong()">
+    Next Song →
+  </button>
+
+</div>
+
+</main>
+
+
+<footer class="footer">
+
+  Youth Of The Nation 2026
+  <br><br>
+  <strong>Live Worship • Live Lyrics</strong>
+
+</footer>
+
+
+<script>
+
+let currentSong = 0;
+
+const songs = document.querySelectorAll('.song');
+const buttons = document.querySelectorAll('.song-btn');
+
+
+function showSong(index){
+
+  if(index < 0){
+    index = songs.length - 1;
+  }
+
+  if(index >= songs.length){
+    index = 0;
+  }
+
+  currentSong = index;
+
+  songs.forEach((song,i)=>{
+    song.classList.toggle('active',i === currentSong);
+  });
+
+  buttons.forEach((button,i)=>{
+    button.classList.toggle('active',i === currentSong);
+  });
+
+  buttons[currentSong].scrollIntoView({
+    behavior:'smooth',
+    block:'nearest',
+    inline:'center'
+  });
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+
+function nextSong(){
+  showSong(currentSong + 1);
+}
+
+
+function previousSong(){
+  showSong(currentSong - 1);
+}
+
+
+/* Keyboard controls */
+
+document.addEventListener('keydown',(e)=>{
+
+  if(e.key === 'ArrowRight'){
+    nextSong();
+  }
+
+  if(e.key === 'ArrowLeft'){
+    previousSong();
+  }
+
+});
+
+</script>
+
+</body>
+</html>
