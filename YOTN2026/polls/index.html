@@ -6,119 +6,1362 @@
 
 <title>Live Audience Polls | Youth Of The Nation 2026</title>
 
-<meta name="theme-color" content="#050505">
+<!-- SEO -->
+<meta name="description" content="Live Real-Time Audience Polling for Youth Of The Nation 2026 Freedom Festival in Rajahmundry.">
 
+<meta name="theme-color" content="#050505">
 <link rel="icon" href="../../logo.jpg">
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Figtree:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Figtree:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Supabase Client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase-config.js"></script>
 
 <style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-:root{
-  --bg:#050505;
-  --gold:#D4AF37;
-  --white:#ffffff;
-  --text-muted:#888888;
-  --border:rgba(255, 255, 255, 0.1);
+:root {
+  --bg: #050505;
+  --bg-card: rgba(14, 14, 18, 0.88);
+  --gold: #D6A041;
+  --gold-light: #F3CA7E;
+  --gold-deep: #9B6A1D;
+  --white: #F5F5F5;
+  --text-muted: #9ca3af;
+  --text-subtle: #71717a;
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --border-gold: rgba(214, 160, 65, 0.35);
+  --error: #f87171;
+  --error-bg: rgba(248, 113, 113, 0.1);
+  --success: #34d399;
 }
 
-body{
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+body {
   font-family: 'Figtree', sans-serif;
   background-color: var(--bg);
   color: var(--white);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 40px 24px;
+  justify-content: flex-start;
+  padding: 40px 20px 80px;
+  position: relative;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
-.font-cinzel { font-family: 'Cinzel', serif; }
-.font-script { font-family: 'Alex Brush', cursive; }
-
-.badge {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.35em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 24px;
-  padding: 6px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  background: rgba(212, 175, 55, 0.05);
+/* Background Atmosphere */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
 }
 
-.title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 900;
-  color: #ffffff;
-  margin-bottom: 8px;
+.bg-spotlight {
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(214, 160, 65, 0.12) 0%, rgba(5, 5, 5, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.subtitle {
-  font-family: 'Alex Brush', cursive;
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--gold);
-  margin-bottom: 24px;
+/* Header & Navigation Bar */
+.page-top-nav {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
 }
 
-.desc {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  max-width: 500px;
-  margin: 0 auto 40px;
-  line-height: 1.8;
-}
-
-.back-btn {
+.nav-back-link {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--text-muted);
   text-decoration: none;
-  padding: 14px 32px;
-  border: 1px solid var(--border);
+  padding: 8px 16px;
   border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
   transition: all 0.3s ease;
 }
 
-.back-btn:hover {
-  border-color: var(--gold);
+.nav-back-link:hover {
   color: var(--gold);
-  background: rgba(212, 175, 55, 0.05);
+  border-color: var(--gold);
+  background: rgba(214, 160, 65, 0.08);
 }
 
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 10px #34d399;
+  animation: livePulse 1.8s infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+}
+
+/* Main Poll Card Container */
+.poll-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 680px;
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 48px 42px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(214, 160, 65, 0.04);
+  transition: border-color 0.3s ease;
+}
+
+.poll-container:hover {
+  border-color: rgba(214, 160, 65, 0.25);
+}
+
+/* Header Section */
+.poll-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.poll-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border-gold);
+  background: rgba(214, 160, 65, 0.06);
+}
+
+.poll-main-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.poll-subtitle {
+  font-family: 'Alex Brush', cursive;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.poll-tagline {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Question Step & Progress Indicator */
+.step-bar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.step-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.step-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.step-dot {
+  width: 24px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.step-dot.active {
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(214, 160, 65, 0.5);
+  width: 32px;
+}
+
+.step-dot.completed {
+  background: var(--gold-deep);
+}
+
+/* Question Text */
+.question-block {
+  margin-bottom: 28px;
+}
+
+.question-text {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+}
+
+/* Option Selection List (Pre-Vote) */
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.option-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.option-item:hover {
+  border-color: rgba(214, 160, 65, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.option-item.selected {
+  border-color: var(--gold);
+  background: rgba(214, 160, 65, 0.12);
+  box-shadow: 0 0 25px rgba(214, 160, 65, 0.15);
+}
+
+.option-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.option-radio-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.option-item.selected .option-radio-dot {
+  border-color: var(--gold);
+}
+
+.option-radio-dot::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.25s ease;
+}
+
+.option-item.selected .option-radio-dot::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.option-key-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  background: rgba(214, 160, 65, 0.1);
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(214, 160, 65, 0.2);
+}
+
+.option-text {
+  font-size: 0.9rem;
+  color: #f4f4f5;
+  font-weight: 500;
+}
+
+/* Submit Vote Button */
+.vote-action-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.submit-vote-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #050505;
+  background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
+  border: 1px solid #E5B25D;
+  border-radius: 999px;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 30px rgba(214, 160, 65, 0.3);
+}
+
+.submit-vote-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f5c575 0%, #b88028 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(214, 160, 65, 0.5);
+}
+
+.submit-vote-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================================================ */
+/* LIVE RESULTS VIEW */
+/* ============================================================ */
+.results-view {
+  display: none;
+  animation: fadeInResults 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInResults {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.results-header-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.live-results-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.total-votes-count {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-bottom: 26px;
+}
+
+.result-row {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 18px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.result-row.user-voted {
+  border-color: var(--gold);
+  background: rgba(214, 160, 65, 0.08);
+  box-shadow: 0 0 25px rgba(214, 160, 65, 0.15);
+}
+
+/* Animated Progress Fill */
+.result-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(155, 106, 29, 0.35) 0%, rgba(214, 160, 65, 0.35) 100%);
+  border-right: 2px solid var(--gold);
+  border-radius: 12px 0 0 12px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.result-row.user-voted .result-bar-fill {
+  background: linear-gradient(90deg, rgba(155, 106, 29, 0.55) 0%, rgba(214, 160, 65, 0.55) 100%);
+}
+
+.result-content-layer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.result-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.result-check {
+  display: none;
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.result-row.user-voted .result-check {
+  display: inline-block;
+}
+
+.result-text {
+  font-size: 0.88rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.result-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.result-percentage {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--gold-light);
+}
+
+.result-vcount {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Next / Finish Button */
+.next-action-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.next-step-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #050505;
+  background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
+  padding: 15px 38px;
+  border-radius: 999px;
+  border: 1px solid #E5B25D;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 25px rgba(214, 160, 65, 0.3);
+}
+
+.next-step-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 35px rgba(214, 160, 65, 0.45);
+}
+
+/* ============================================================ */
+/* FINAL COMPLETION SCREEN */
+/* ============================================================ */
+.completion-view {
+  display: none;
+  text-align: center;
+  padding: 20px 0;
+  animation: fadeInResults 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.completion-icon-wrap {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(214, 160, 65, 0.12);
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  box-shadow: 0 0 40px rgba(214, 160, 65, 0.2);
+}
+
+.completion-icon-wrap svg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--gold);
+}
+
+.completion-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.6rem, 3.8vw, 2.2rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.completion-subtitle {
+  font-family: 'Alex Brush', cursive;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.completion-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: #d4d4d8;
+  max-width: 460px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.completion-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.completion-main-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #050505;
+  background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
+  padding: 15px 36px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 24px rgba(214, 160, 65, 0.3);
+}
+
+.completion-main-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(214, 160, 65, 0.45);
+}
+
+.completion-restart-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.3s ease;
+}
+
+.completion-restart-btn:hover {
+  color: var(--gold);
+}
+
+/* Spinner */
+.spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(5, 5, 5, 0.3);
+  border-top-color: #050505;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Alert Notification Banner */
+.alert-banner {
+  display: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.alert-banner.alert-info {
+  background: rgba(214, 160, 65, 0.1);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-light);
+}
+
+.alert-banner.show {
+  display: block;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  body {
+    padding: 24px 16px 60px;
+  }
+
+  .poll-container {
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+
+  .option-item {
+    padding: 14px 16px;
+  }
+
+  .result-row {
+    padding: 14px 16px;
+  }
+
+  .result-percentage {
+    font-size: 1rem;
+  }
+}
 </style>
 </head>
 <body>
 
-<div class="badge">AUDIENCE VOICE</div>
-<h1 class="title">LIVE POLLS</h1>
-<div class="subtitle">Real-Time Interaction</div>
-<p class="desc">
-  Real-time audience voting and polls will open live during the worship festival gathering on 15 August 2026.
-</p>
-<a href="../" class="back-btn">← Return To YOTN 2026</a>
+<canvas id="bgCanvas" class="bg-canvas"></canvas>
+<div class="bg-spotlight"></div>
+
+<!-- Top Navigation -->
+<nav class="page-top-nav">
+  <a href="../" class="nav-back-link">
+    <span>←</span>
+    <span>Return to YOTN 2026</span>
+  </a>
+</nav>
+
+<!-- Main Poll Container -->
+<main class="poll-container" id="pollCard">
+  <!-- Header Section -->
+  <header class="poll-header">
+    <div class="poll-badge">Live Polls</div>
+    <p class="poll-tagline">Your voice. Your perspective.</p>
+  </header>
+
+  <!-- Banner Alert -->
+  <div id="alertBanner" class="alert-banner" role="status">
+    <span id="alertMessage"></span>
+  </div>
+
+  <!-- Step Bar & Progress -->
+  <div id="pollActiveArea">
+    <div class="step-bar-wrap">
+      <span class="step-label" id="stepCounterLabel">QUESTION 01 OF 05</span>
+      <div class="step-dots" id="stepDotsContainer">
+        <span class="step-dot active"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+      </div>
+    </div>
+
+    <!-- Question Prompt -->
+    <div class="question-block">
+      <h2 class="question-text" id="questionText">Loading Question...</h2>
+    </div>
+
+    <!-- View A: Answer Options (Pre-Vote) -->
+    <section id="voteView">
+      <div class="options-list" id="optionsList" role="radiogroup" aria-labelledby="questionText">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="vote-action-bar">
+        <button type="button" id="submitVoteBtn" class="submit-vote-btn" disabled>
+          <span class="spinner" id="btnSpinner"></span>
+          <span id="btnText">SUBMIT VOTE</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- View B: Live Results (Post-Vote & Real-Time Sync) -->
+    <section id="resultsView" class="results-view" aria-live="polite">
+      <div class="results-header-tag">
+        <span class="live-results-badge">
+          <span class="live-pulse-dot" style="background:var(--gold); box-shadow:0 0 10px var(--gold);"></span>
+          LIVE RESULTS
+        </span>
+        <span class="total-votes-count" id="totalVotesCount">0 votes</span>
+      </div>
+
+      <div class="results-list" id="resultsList">
+        <!-- Rendered dynamically with live percentage bars -->
+      </div>
+
+      <div class="next-action-bar">
+        <button type="button" id="nextQuestionBtn" class="next-step-btn">
+          <span>NEXT QUESTION</span>
+          <span>→</span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Final Screen: Completion -->
+  <section id="completionView" class="completion-view" aria-live="polite">
+    <div class="completion-icon-wrap">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+      </svg>
+    </div>
+    <h2 class="completion-title">YOUR VOICE HAS BEEN HEARD</h2>
+    <div class="completion-subtitle">Youth Of The Nation 2026</div>
+
+    <p class="completion-quote">
+      “Freedom begins with a voice. And change begins with us.”
+    </p>
+
+    <div class="completion-actions">
+      <a href="../" class="completion-main-btn">
+        <span>RETURN TO YOTN 2026</span>
+        <span>→</span>
+      </a>
+      <button type="button" id="reviewPollsBtn" class="completion-restart-btn">
+        ↺ Review Poll Responses
+      </button>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ============================================================ */
+/* 5 OFFICIAL POLL QUESTIONS & OPTIONS DEFINITION */
+/* ============================================================ */
+const POLL_QUESTIONS = [
+  {
+    number: 1,
+    question: "India at 80 Years of Independence – Are We Truly Free?",
+    options: [
+      { key: "A", text: "Yes, completely free" },
+      { key: "B", text: "Free on paper, not in practice" },
+      { key: "C", text: "Free in some ways, restricted in others" },
+      { key: "D", text: "Not sure" }
+    ]
+  },
+  {
+    number: 2,
+    question: "Do you think every Indian citizen enjoys the same level of freedom, regardless of religion, gender, or class?",
+    options: [
+      { key: "A", text: "Yes, freedom is equal for all" },
+      { key: "B", text: "No, some enjoy more freedom than others" },
+      { key: "C", text: "It depends on where you live" },
+      { key: "D", text: "I've never really thought about it" }
+    ]
+  },
+  {
+    number: 3,
+    question: "Is freedom the same as doing whatever you want, whenever you want?",
+    options: [
+      { key: "A", text: "Yes" },
+      { key: "B", text: "No. Freedom comes with responsibility" },
+      { key: "C", text: "Freedom is more about having choices, not doing everything" },
+      { key: "D", text: "I'm not sure" }
+    ]
+  },
+  {
+    number: 4,
+    question: "How do you define the idea of freedom?",
+    options: [
+      { key: "A", text: "No one controlling my decisions" },
+      { key: "B", text: "Being able to speak my mind without fear" },
+      { key: "C", text: "Freedom from my own fears, guilt, and habits" },
+      { key: "D", text: "Something deeper than any of the above" }
+    ]
+  },
+  {
+    number: 5,
+    question: "Do you think that the youth can actually change the nation?",
+    options: [
+      { key: "A", text: "Yes" },
+      { key: "B", text: "No" }
+    ]
+  }
+];
+
+/* ============================================================ */
+/* VOTER IDENTIFIER & LOCAL PERSISTENCE */
+/* ============================================================ */
+function getOrCreateVoterId() {
+  let id = localStorage.getItem('yotn_voter_id');
+  if (!id) {
+    id = 'voter_' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now());
+    localStorage.setItem('yotn_voter_id', id);
+  }
+  return id;
+}
+
+const VOTER_ID = getOrCreateVoterId();
+
+function getStoredVotes() {
+  try {
+    return JSON.parse(localStorage.getItem('yotn_poll_votes') || '{}');
+  } catch (e) {
+    return {};
+  }
+}
+
+function setStoredVote(qNum, optionKey) {
+  const votes = getStoredVotes();
+  votes[qNum] = optionKey;
+  localStorage.setItem('yotn_poll_votes', JSON.stringify(votes));
+}
+
+/* ============================================================ */
+/* SUPABASE CLIENT & REALTIME SYNC */
+/* ============================================================ */
+let supabaseClient = null;
+let realtimeChannel = null;
+
+try {
+  const config = window.SUPABASE_CONFIG || {
+    url: 'https://yqdtvfsxffhrxfabstsk.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxZHR2ZnN4ZmZocnhmYWJzdHNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3NjY1MTgsImV4cCI6MjEwMjM0MjUxOH0.586sYXYAnD5kiy3y9sASvOSOXWkP10jQVAhtjOTFlEI'
+  };
+
+  if (window.supabase && window.supabase.createClient) {
+    supabaseClient = window.supabase.createClient(config.url, config.anonKey);
+  }
+} catch (e) {
+  console.warn('Supabase client notice:', e);
+}
+
+/* ============================================================ */
+/* APPLICATION STATE & DOM REFERENCES */
+/* ============================================================ */
+let currentQuestionIndex = 0;
+let selectedOptionKey = null;
+let isSubmitting = false;
+let currentPollId = null; // Supabase poll UUID if available
+let pollOptionsMap = {};  // Maps optionKey -> option UUID
+let currentVoteCounts = {}; // Key -> vote count
+
+const pollActiveArea = document.getElementById('pollActiveArea');
+const stepCounterLabel = document.getElementById('stepCounterLabel');
+const stepDots = document.querySelectorAll('.step-dot');
+const questionText = document.getElementById('questionText');
+const voteView = document.getElementById('voteView');
+const optionsList = document.getElementById('optionsList');
+const submitVoteBtn = document.getElementById('submitVoteBtn');
+const btnSpinner = document.getElementById('btnSpinner');
+const btnText = document.getElementById('btnText');
+const resultsView = document.getElementById('resultsView');
+const resultsList = document.getElementById('resultsList');
+const totalVotesCount = document.getElementById('totalVotesCount');
+const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+const completionView = document.getElementById('completionView');
+const reviewPollsBtn = document.getElementById('reviewPollsBtn');
+const alertBanner = document.getElementById('alertBanner');
+const alertMessage = document.getElementById('alertMessage');
+
+/* ============================================================ */
+/* RENDER CURRENT QUESTION */
+/* ============================================================ */
+async function loadQuestion(index) {
+  currentQuestionIndex = index;
+  selectedOptionKey = null;
+  currentVoteCounts = {};
+  pollOptionsMap = {};
+  currentPollId = null;
+
+  hideAlert();
+
+  const totalQ = POLL_QUESTIONS.length;
+  if (index >= totalQ) {
+    showCompletionScreen();
+    return;
+  }
+
+  const q = POLL_QUESTIONS[index];
+
+  // Update Step Bar
+  stepCounterLabel.textContent = `QUESTION 0${q.number} OF 0${totalQ}`;
+  stepDots.forEach((dot, dIdx) => {
+    dot.className = 'step-dot';
+    if (dIdx === index) dot.classList.add('active');
+    else if (dIdx < index) dot.classList.add('completed');
+  });
+
+  questionText.textContent = q.question;
+
+  // Render Selection Options
+  optionsList.innerHTML = '';
+  q.options.forEach(opt => {
+    const item = document.createElement('div');
+    item.className = 'option-item';
+    item.setAttribute('role', 'radio');
+    item.setAttribute('aria-checked', 'false');
+    item.dataset.key = opt.key;
+
+    item.innerHTML = `
+      <div class="option-left">
+        <span class="option-radio-dot"></span>
+        <span class="option-key-badge">${opt.key}</span>
+        <span class="option-text">${opt.text}</span>
+      </div>
+    `;
+
+    item.addEventListener('click', () => {
+      selectOption(opt.key);
+    });
+
+    optionsList.appendChild(item);
+  });
+
+  submitVoteBtn.disabled = true;
+  btnSpinner.style.display = 'none';
+  btnText.textContent = 'SUBMIT VOTE';
+
+  // Check if voter already voted for this question
+  const storedVotes = getStoredVotes();
+  const alreadyVotedKey = storedVotes[q.number];
+
+  // Fetch Supabase poll definition and votes
+  await fetchPollDataAndVotes(q);
+
+  // Setup Realtime Subscription for this question
+  setupRealtimeSubscription(q.number);
+
+  if (alreadyVotedKey) {
+    // Show results immediately
+    showResultsView(q, alreadyVotedKey);
+  } else {
+    // Show vote options
+    voteView.style.display = 'block';
+    resultsView.style.display = 'none';
+    completionView.style.display = 'none';
+    pollActiveArea.style.display = 'block';
+  }
+}
+
+function selectOption(key) {
+  selectedOptionKey = key;
+  const items = optionsList.querySelectorAll('.option-item');
+  items.forEach(item => {
+    if (item.dataset.key === key) {
+      item.classList.add('selected');
+      item.setAttribute('aria-checked', 'true');
+    } else {
+      item.classList.remove('selected');
+      item.setAttribute('aria-checked', 'false');
+    }
+  });
+
+  submitVoteBtn.disabled = false;
+}
+
+/* ============================================================ */
+/* SUPABASE DATA FETCHING & TALLY */
+/* ============================================================ */
+async function fetchPollDataAndVotes(q) {
+  // Initialize counts for every option key
+  q.options.forEach(opt => {
+    currentVoteCounts[opt.key] = 0;
+  });
+
+  if (!supabaseClient) return;
+
+  try {
+    // 1. Fetch Poll ID from Supabase
+    const { data: pollData } = await supabaseClient
+      .from('polls')
+      .select('id')
+      .eq('question_number', q.number)
+      .maybeSingle();
+
+    if (pollData) {
+      currentPollId = pollData.id;
+
+      // 2. Fetch Options map
+      const { data: optionsData } = await supabaseClient
+        .from('poll_options')
+        .select('id, option_key')
+        .eq('poll_id', currentPollId);
+
+      if (optionsData) {
+        optionsData.forEach(o => {
+          pollOptionsMap[o.option_key] = o.id;
+        });
+      }
+
+      // 3. Fetch Vote counts
+      const { data: votesData, error: voteErr } = await supabaseClient
+        .from('poll_votes')
+        .select('option_id')
+        .eq('poll_id', currentPollId);
+
+      if (!voteErr && votesData) {
+        // Reverse map option_id -> option_key
+        const idToKey = {};
+        Object.entries(pollOptionsMap).forEach(([k, id]) => { idToKey[id] = k; });
+
+        votesData.forEach(v => {
+          const key = idToKey[v.option_id];
+          if (key && currentVoteCounts[key] !== undefined) {
+            currentVoteCounts[key]++;
+          }
+        });
+      }
+    }
+  } catch (err) {
+    console.warn('Poll data fetch notice:', err);
+  }
+}
+
+/* ============================================================ */
+/* SUPABASE REALTIME SUBSCRIPTION */
+/* ============================================================ */
+function setupRealtimeSubscription(questionNumber) {
+  // Clean up previous subscription
+  if (realtimeChannel && supabaseClient) {
+    supabaseClient.removeChannel(realtimeChannel);
+    realtimeChannel = null;
+  }
+
+  if (!supabaseClient) return;
+
+  const channelName = `poll_channel_q${questionNumber}`;
+  realtimeChannel = supabaseClient
+    .channel(channelName)
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'poll_votes',
+        filter: currentPollId ? `poll_id=eq.${currentPollId}` : undefined
+      },
+      (payload) => {
+        const newRecord = payload.new;
+        if (newRecord && newRecord.option_id) {
+          const idToKey = {};
+          Object.entries(pollOptionsMap).forEach(([k, id]) => { idToKey[id] = k; });
+          const key = idToKey[newRecord.option_id];
+          if (key && currentVoteCounts[key] !== undefined) {
+            currentVoteCounts[key]++;
+            updateResultsBars(POLL_QUESTIONS[currentQuestionIndex]);
+          }
+        }
+      }
+    )
+    .subscribe();
+}
+
+/* ============================================================ */
+/* SUBMIT VOTE HANDLER */
+/* ============================================================ */
+submitVoteBtn.addEventListener('click', async () => {
+  if (!selectedOptionKey || isSubmitting) return;
+
+  const q = POLL_QUESTIONS[currentQuestionIndex];
+  isSubmitting = true;
+  submitVoteBtn.disabled = true;
+  btnSpinner.style.display = 'inline-block';
+  btnText.textContent = 'SUBMITTING...';
+
+  try {
+    if (supabaseClient && currentPollId && pollOptionsMap[selectedOptionKey]) {
+      const optionId = pollOptionsMap[selectedOptionKey];
+
+      const { error } = await supabaseClient
+        .from('poll_votes')
+        .insert([{
+          poll_id: currentPollId,
+          option_id: optionId,
+          voter_id: VOTER_ID
+        }]);
+
+      if (error && error.code !== '23505') {
+        console.warn('Supabase vote submission error:', error);
+      }
+    }
+
+    // Increment local tally
+    if (currentVoteCounts[selectedOptionKey] !== undefined) {
+      currentVoteCounts[selectedOptionKey]++;
+    }
+
+    // Save in local storage
+    setStoredVote(q.number, selectedOptionKey);
+
+    // Transition to results view
+    showResultsView(q, selectedOptionKey);
+
+  } catch (err) {
+    console.error('Vote submission error:', err);
+    // Proceed to results seamlessly
+    if (currentVoteCounts[selectedOptionKey] !== undefined) {
+      currentVoteCounts[selectedOptionKey]++;
+    }
+    setStoredVote(q.number, selectedOptionKey);
+    showResultsView(q, selectedOptionKey);
+  } finally {
+    isSubmitting = false;
+  }
+});
+
+/* ============================================================ */
+/* RENDER RESULTS VIEW */
+/* ============================================================ */
+function showResultsView(q, userVotedKey) {
+  voteView.style.display = 'none';
+  resultsView.style.display = 'block';
+
+  // Configure Next Button text (Next vs Finish)
+  if (currentQuestionIndex === POLL_QUESTIONS.length - 1) {
+    nextQuestionBtn.innerHTML = `<span>FINISH POLL</span><span>✓</span>`;
+  } else {
+    nextQuestionBtn.innerHTML = `<span>NEXT QUESTION</span><span>→</span>`;
+  }
+
+  // Render initial result rows
+  resultsList.innerHTML = '';
+  q.options.forEach(opt => {
+    const isUserChoice = opt.key === userVotedKey;
+    const row = document.createElement('div');
+    row.className = `result-row ${isUserChoice ? 'user-voted' : ''}`;
+    row.id = `resultRow_${opt.key}`;
+
+    row.innerHTML = `
+      <div class="result-bar-fill" id="barFill_${opt.key}"></div>
+      <div class="result-content-layer">
+        <div class="result-left">
+          <span class="result-check">✓</span>
+          <span class="option-key-badge">${opt.key}</span>
+          <span class="result-text">${opt.text}</span>
+        </div>
+        <div class="result-right">
+          <span class="result-percentage" id="pct_${opt.key}">0%</span>
+          <span class="result-vcount" id="count_${opt.key}">0 votes</span>
+        </div>
+      </div>
+    `;
+
+    resultsList.appendChild(row);
+  });
+
+  // Calculate & Animate percentages
+  setTimeout(() => {
+    updateResultsBars(q);
+  }, 50);
+}
+
+function updateResultsBars(q) {
+  let totalVotes = 0;
+  q.options.forEach(opt => {
+    totalVotes += (currentVoteCounts[opt.key] || 0);
+  });
+
+  totalVotesCount.textContent = `${totalVotes} ${totalVotes === 1 ? 'vote' : 'votes'} total`;
+
+  q.options.forEach(opt => {
+    const count = currentVoteCounts[opt.key] || 0;
+    const pct = totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
+
+    const barElem = document.getElementById(`barFill_${opt.key}`);
+    const pctElem = document.getElementById(`pct_${opt.key}`);
+    const countElem = document.getElementById(`count_${opt.key}`);
+
+    if (barElem) {
+      barElem.style.width = `${pct}%`;
+    }
+    if (pctElem) {
+      pctElem.textContent = `${pct}%`;
+    }
+    if (countElem) {
+      countElem.textContent = `${count} ${count === 1 ? 'vote' : 'votes'}`;
+    }
+  });
+}
+
+/* ============================================================ */
+/* NAVIGATION: NEXT QUESTION / FINISH */
+/* ============================================================ */
+nextQuestionBtn.addEventListener('click', () => {
+  if (currentQuestionIndex < POLL_QUESTIONS.length - 1) {
+    loadQuestion(currentQuestionIndex + 1);
+  } else {
+    showCompletionScreen();
+  }
+});
+
+function showCompletionScreen() {
+  if (realtimeChannel && supabaseClient) {
+    supabaseClient.removeChannel(realtimeChannel);
+    realtimeChannel = null;
+  }
+
+  pollActiveArea.style.display = 'none';
+  completionView.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+reviewPollsBtn.addEventListener('click', () => {
+  completionView.style.display = 'none';
+  loadQuestion(0);
+});
+
+function hideAlert() {
+  alertBanner.className = 'alert-banner';
+  alertMessage.textContent = '';
+}
+
+/* ============================================================ */
+/* AMBIENT BACKGROUND PARTICLES */
+/* ============================================================ */
+(function initAmbientCanvas() {
+  const canvas = document.getElementById('bgCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+
+  const particles = Array.from({ length: 30 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 1.8 + 0.5,
+    vy: -Math.random() * 0.3 - 0.08,
+    alpha: Math.random() * 0.5 + 0.15
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.y += p.vy;
+      if (p.y < 0) p.y = h;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(214, 160, 65, ${p.alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ============================================================ */
+/* INITIALIZATION */
+/* ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  loadQuestion(0);
+});
+</script>
 
 </body>
 </html>

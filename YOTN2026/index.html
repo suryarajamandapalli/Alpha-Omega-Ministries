@@ -66,12 +66,13 @@ body{
 .font-inter { font-family: 'Inter', sans-serif; }
 
 /* ============================================================ */
-/* MANDATORY CINEMATIC PRELOADER STYLES */
+/* CINEMATIC INDUSTRY PRELOADER (PURE SOLID WHITE THEME) */
 /* ============================================================ */
 #preloader {
   position: fixed;
   inset: 0;
-  background-color: #050505;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
   z-index: 99999;
   display: flex;
   justify-content: center;
@@ -79,69 +80,75 @@ body{
   overflow: hidden;
 }
 
-#preloaderCanvas {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-.preloader-seq {
+.preloader-stage {
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
+  width: 90%;
+  max-width: 650px;
   opacity: 0;
   pointer-events: none;
+  transform: scale(0.94);
 }
 
-.seq-logo-church {
-  width: 120px;
-  height: 120px;
+.preloader-church-emblem {
+  width: clamp(180px, 28vw, 260px);
+  height: clamp(180px, 28vw, 260px);
   border-radius: 50%;
   object-fit: contain;
   margin-bottom: 24px;
-  box-shadow: 0 0 50px rgba(214, 160, 65, 0.25);
-  border: 1px solid rgba(214, 160, 65, 0.4);
 }
 
-.seq-logo-band {
-  width: 130px;
-  height: 130px;
-  border-radius: 16px;
+.preloader-band-emblem {
+  width: clamp(190px, 28vw, 270px);
+  height: auto;
+  max-height: 270px;
   object-fit: contain;
-  background: #ffffff;
-  padding: 14px;
   margin-bottom: 24px;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
 }
 
-.seq-tag {
+.preloader-tagline {
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.4em;
-  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  color: #9B6A1D;
+  margin-bottom: 10px;
 }
 
-.seq-title-huge {
+.preloader-main-title {
   font-family: 'Cinzel', serif;
-  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
   font-weight: 900;
-  letter-spacing: 0.05em;
-  color: #ffffff;
-  line-height: 1.05;
-  text-shadow: 0 0 35px rgba(255,255,255,0.2);
+  color: #0f172a;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
 }
 
-.seq-subtitle-script {
+.preloader-script {
   font-family: 'Alex Brush', cursive;
-  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
-  color: var(--gold);
-  margin-top: 8px;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  color: #9B6A1D;
+  margin-top: 4px;
+}
+
+.preloader-bar-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #f1f5f9;
+}
+
+.preloader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: #9B6A1D;
 }
 
 /* ============================================================ */
@@ -260,6 +267,36 @@ body{
   pointer-events: none;
 }
 
+.hero-band-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.hero-band-backdrop-img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 0.3;
+  filter: drop-shadow(0 0 50px rgba(214, 160, 65, 0.4));
+  transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.hero-band-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% 60%, rgba(214, 160, 65, 0.14) 0%, transparent 75%),
+    linear-gradient(to top, #050505 0%, rgba(5, 5, 5, 0.5) 50%, #050505 100%);
+  pointer-events: none;
+}
+
 .hero-content {
   position: relative;
   z-index: 10;
@@ -303,8 +340,68 @@ body{
   font-weight: 300;
   color: #a1a1aa;
   max-width: 620px;
-  margin: 0 auto 52px;
+  margin: 0 auto 36px;
   line-height: 1.7;
+}
+
+.hero-actions-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.hero-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 34px;
+  border-radius: 999px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-btn-primary {
+  background: linear-gradient(135deg, #E5B25D 0%, #9B6A1D 100%);
+  color: #050505;
+  border: 1px solid #E5B25D;
+  box-shadow: 0 4px 20px rgba(214, 160, 65, 0.25);
+}
+
+.hero-btn-primary:hover {
+  background: linear-gradient(135deg, #f5c575 0%, #b88028 100%);
+  color: #000000;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(214, 160, 65, 0.45);
+}
+
+.hero-btn-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.hero-btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(214, 160, 65, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(214, 160, 65, 0.18);
 }
 
 .hero-editorial-link {
@@ -312,25 +409,19 @@ body{
   align-items: center;
   gap: 12px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #888888;
   text-decoration: none;
-  padding: 18px 40px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
   border-radius: 999px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease;
 }
 
 .hero-editorial-link:hover {
-  border-color: var(--gold);
   color: var(--gold);
-  background: rgba(214, 160, 65, 0.08);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(214, 160, 65, 0.15);
 }
 
 .hero-editorial-link .arrow {
@@ -338,7 +429,7 @@ body{
 }
 
 .hero-editorial-link:hover .arrow {
-  transform: translateX(6px);
+  transform: translateY(4px);
 }
 
 /* ============================================================ */
@@ -766,54 +857,45 @@ body{
 </head>
 <body>
 
-<!-- MANDATORY CINEMATIC PRELOADER -->
+<!-- CINEMATIC INDUSTRY PRELOADER -->
 <div id="preloader">
-  <canvas id="preloaderCanvas"></canvas>
-
-  <!-- Sequence 1: Alpha Omega Logo -->
-  <div id="seq1" class="preloader-seq">
-    <img id="seq1-logo" src="./assets/Church Logo.jpeg" alt="Alpha Omega Ministries" class="seq-logo-church">
-    <div id="seq1-text" class="seq-tag">ALPHA OMEGA MINISTRIES</div>
+  <!-- Stage 1: Church Logo & Branding -->
+  <div id="pStage1" class="preloader-stage">
+    <img src="./assets/Church Logo.jpeg" alt="Alpha Omega Ministries" class="preloader-church-emblem">
+    <div class="preloader-tagline">ALPHA OMEGA MINISTRIES</div>
+    <div class="preloader-main-title">PRESENTS</div>
   </div>
 
-  <!-- Sequence 2: The Psalms Band Logo -->
-  <div id="seq2" class="preloader-seq">
-    <img id="seq2-logo" src="./assets/Band Logo.jpeg" alt="The Psalms Band" class="seq-logo-band">
-    <div id="seq2-text">
-      <div class="seq-title-huge" style="font-size:2.2rem;">THE PSALMS</div>
-      <div class="seq-subtitle-script" style="font-size:2.4rem; margin-top:-6px;">Band</div>
-    </div>
+  <!-- Stage 2: The Psalms Band -->
+  <div id="pStage2" class="preloader-stage">
+    <img src="./assets/Band Logo.jpeg" alt="The Psalms Band" class="preloader-band-emblem">
+    <div class="preloader-tagline">HEADLINE WORSHIP BAND</div>
+    <div class="preloader-main-title">THE PSALMS BAND</div>
   </div>
 
-  <!-- Sequence 3: Event Reveal -->
-  <div id="seq3" class="preloader-seq">
-    <div id="seq3-content">
-      <div id="seq3-title" class="seq-title-huge">YOUTH<br>OF THE<br>NATION</div>
-      <div id="seq3-sub" class="seq-subtitle-script">Freedom Festival 2026</div>
-    </div>
+  <!-- Stage 3: Grand Festival Reveal -->
+  <div id="pStage3" class="preloader-stage">
+    <div class="preloader-tagline">[ FREEDOM FESTIVAL 2026 ]</div>
+    <div class="preloader-main-title" style="font-size: clamp(2.4rem, 6vw, 4.2rem);">YOUTH OF THE NATION</div>
+    <div class="preloader-script">Freedom Festival 2026</div>
+  </div>
+
+  <!-- Progress Bar Accent -->
+  <div class="preloader-bar-track">
+    <div id="pBar" class="preloader-bar-fill"></div>
   </div>
 </div>
 
-<!-- FLOATING EDITORIAL NAVIGATION -->
-<header className="header-nav" id="headerNav">
-  <a href="../" class="nav-brand">
-    <span>YOUTH OF THE NATION</span>
-    <span class="nav-dot"></span>
-  </a>
-
-  <nav class="nav-menu">
-    <a href="./about" class="nav-link">About</a>
-    <a href="./gallery" class="nav-link">Gallery</a>
-    <a href="./lyrics" class="nav-link">Lyrics</a>
-    <a href="./polls" class="nav-link">Polls</a>
-    <a href="../" class="nav-link">Main Website</a>
-  </nav>
-</header>
 
 <!-- SECTION 1: HERO -->
 <section class="hero-section" id="hero">
   <canvas id="heroCanvas" class="hero-canvas"></canvas>
   <div class="hero-spotlight"></div>
+
+  <div class="hero-band-backdrop">
+    <img src="./assets/hero-band-silhouette.png" alt="Worship Band Silhouette" class="hero-band-backdrop-img">
+    <div class="hero-band-gradient-overlay"></div>
+  </div>
 
   <div class="hero-content">
     <div class="hero-bracket-tag">[ ALPHA OMEGA MINISTRIES PRESENTS ]</div>
@@ -822,10 +904,19 @@ body{
     <p class="hero-desc-short">
       A sacred gathering of youth, worship, and God's presence.
     </p>
-    <a href="#about" class="hero-editorial-link">
-      <span>EXPLORE THE EXPERIENCE</span>
-      <span class="arrow">↓</span>
-    </a>
+
+    <div class="hero-actions-container">
+      <div class="hero-btn-group">
+        <a href="./register" class="hero-btn hero-btn-primary">Register</a>
+        <a href="./lyrics" class="hero-btn hero-btn-secondary">Lyrics</a>
+        <a href="./polls" class="hero-btn hero-btn-secondary">Polls</a>
+      </div>
+
+      <a href="#about" class="hero-editorial-link">
+        <span>EXPLORE THE EXPERIENCE</span>
+        <span class="arrow">↓</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -983,18 +1074,7 @@ body{
     </div>
   </div>
 </footer>
-
 <script>
-/* NAVBAR TRANSPARENT TO SOLID ON SCROLL */
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('headerNav');
-  if (window.scrollY > 50) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
-  }
-});
-
 /* CANVAS PARTICLES */
 function initCanvas(canvasId, particleColor) {
   const canvas = document.getElementById(canvasId);
@@ -1031,42 +1111,48 @@ function initCanvas(canvasId, particleColor) {
   animate();
 }
 
-initCanvas('preloaderCanvas', 'rgba(214, 160, 65, ALPHA)');
 initCanvas('heroCanvas', 'rgba(255, 255, 255, ALPHA)');
 
-/* GSAP MANDATORY CINEMATIC PRELOADER TIMELINE */
+/* CINEMATIC PRELOADER ANIMATION TIMELINE */
 window.addEventListener('DOMContentLoaded', () => {
-  const tl = gsap.timeline({
+  const tl = gsap.timeline();
+
+  // Progress Bar
+  tl.to('#pBar', { width: '100%', duration: 2.7, ease: 'power1.inOut' }, 0);
+
+  // Stage 1: Church Logo
+  tl.to('#pStage1', { opacity: 1, scale: 1, duration: 0.65, ease: 'power3.out' }, 0.1)
+    .to('#pStage1', { scale: 1.04, duration: 0.65, ease: 'sine.inOut' }, 0.35)
+    .to('#pStage1', { opacity: 0, scale: 1.08, duration: 0.35, ease: 'power2.in' }, 0.95);
+
+  // Stage 2: Band Logo
+  tl.to('#pStage2', { opacity: 1, scale: 1, duration: 0.65, ease: 'power3.out' }, 1.15)
+    .to('#pStage2', { scale: 1.04, duration: 0.65, ease: 'sine.inOut' }, 1.35)
+    .to('#pStage2', { opacity: 0, scale: 1.08, duration: 0.35, ease: 'power2.in' }, 1.85);
+
+  // Stage 3: Festival Title
+  tl.to('#pStage3', { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out' }, 2.05)
+    .to('#pStage3', { scale: 1.03, duration: 0.6, ease: 'sine.inOut' }, 2.2)
+    .to('#pStage3', { opacity: 0, duration: 0.35, ease: 'power2.in' }, 2.65);
+
+  // White Curtain Lift Transition into Dark Stage
+  tl.to('#preloader', {
+    yPercent: -100,
+    duration: 0.85,
+    ease: 'expo.inOut',
     onComplete: () => {
-      gsap.to('#preloader', {
-        opacity: 0,
-        duration: 1.0,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          document.getElementById('preloader').style.display = 'none';
+      document.getElementById('preloader').style.display = 'none';
 
-          gsap.from('.hero-bracket-tag', { opacity: 0, y: 20, duration: 1, ease: 'power3.out' });
-          gsap.from('.hero-title-giant', { opacity: 0, y: 30, duration: 1.2, delay: 0.2, ease: 'power3.out' });
-          gsap.from('.hero-script-subtitle', { opacity: 0, duration: 1, delay: 0.4 });
-          gsap.from('.hero-desc-short', { opacity: 0, y: 20, duration: 1, delay: 0.6 });
-          gsap.from('.hero-editorial-link', { opacity: 0, y: 20, duration: 1, delay: 0.8 });
-        }
-      });
+      // Hero Elements Reveal
+      gsap.from('.hero-band-backdrop-img', { opacity: 0, scale: 0.96, duration: 1.4, ease: 'power2.out' });
+      gsap.from('.hero-bracket-tag', { opacity: 0, y: 20, duration: 0.9, ease: 'power3.out' });
+      gsap.from('.hero-title-giant', { opacity: 0, y: 30, duration: 1.1, delay: 0.15, ease: 'power3.out' });
+      gsap.from('.hero-script-subtitle', { opacity: 0, duration: 0.9, delay: 0.3 });
+      gsap.from('.hero-desc-short', { opacity: 0, y: 20, duration: 0.9, delay: 0.45 });
+      gsap.from('.hero-btn-group', { opacity: 0, y: 20, duration: 0.9, delay: 0.6, ease: 'power3.out' });
+      gsap.from('.hero-editorial-link', { opacity: 0, y: 20, duration: 0.9, delay: 0.75 });
     }
-  });
-
-  // Seq 1: Alpha Omega
-  tl.to('#seq1', { opacity: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' })
-    .to('#seq1-logo', { scale: 1.06, duration: 1.2, ease: 'power1.inOut' }, '-=0.6')
-    .to('#seq1', { opacity: 0, duration: 0.6, ease: 'power2.in' }, '+=0.4')
-
-  // Seq 2: The Psalms Band
-    .to('#seq2', { opacity: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' })
-    .to('#seq2', { opacity: 0, duration: 0.6, ease: 'power2.in' }, '+=0.6')
-
-  // Seq 3: Event Reveal
-    .to('#seq3', { opacity: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' })
-    .to('#seq3-content', { opacity: 0, duration: 0.6, ease: 'power2.in' }, '+=0.8');
+  }, 2.7);
 });
 
 /* ARTWORK SWITCHER & LIGHTBOX LOGIC */
