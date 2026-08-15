@@ -721,13 +721,40 @@ body {
 
     <!-- Question Prompt -->
     <div class="question-block">
-      <h2 class="question-text" id="questionText">Loading Live Question...</h2>
+      <h2 class="question-text" id="questionText">India at 80 Years of Independence – Are We Truly Free?</h2>
     </div>
 
     <!-- View A: Answer Options (Pre-Vote) -->
     <section id="voteView">
       <div class="options-list" id="optionsList" role="radiogroup" aria-labelledby="questionText">
-        <!-- Rendered dynamically -->
+        <div class="option-item" role="radio" aria-checked="false" data-key="A" onclick="selectOption('A')">
+          <div class="option-left">
+            <span class="option-radio-dot"></span>
+            <span class="option-key-badge">A</span>
+            <span class="option-text">Yes, completely free</span>
+          </div>
+        </div>
+        <div class="option-item" role="radio" aria-checked="false" data-key="B" onclick="selectOption('B')">
+          <div class="option-left">
+            <span class="option-radio-dot"></span>
+            <span class="option-key-badge">B</span>
+            <span class="option-text">Free on paper, not in practice</span>
+          </div>
+        </div>
+        <div class="option-item" role="radio" aria-checked="false" data-key="C" onclick="selectOption('C')">
+          <div class="option-left">
+            <span class="option-radio-dot"></span>
+            <span class="option-key-badge">C</span>
+            <span class="option-text">Free in some ways, restricted in others</span>
+          </div>
+        </div>
+        <div class="option-item" role="radio" aria-checked="false" data-key="D" onclick="selectOption('D')">
+          <div class="option-left">
+            <span class="option-radio-dot"></span>
+            <span class="option-key-badge">D</span>
+            <span class="option-text">Not sure</span>
+          </div>
+        </div>
       </div>
 
       <div class="vote-action-bar">
@@ -1011,9 +1038,9 @@ function handleStatusChange(status) {
 }
 
 /* ============================================================ */
-/* RENDER CURRENT QUESTION */
+/* RENDER CURRENT QUESTION (SYNCHRONOUS & INSTANT) */
 /* ============================================================ */
-async function loadQuestion(index, status = 'LIVE') {
+function loadQuestion(index, status = 'LIVE') {
   currentQuestionIndex = index;
   currentPollStatus = status;
   selectedOptionKey = null;
@@ -1024,18 +1051,17 @@ async function loadQuestion(index, status = 'LIVE') {
   hideAlert();
 
   const totalQ = POLL_QUESTIONS.length;
-  if (index >= totalQ) {
+  if (index >= totalQ || index < 0) {
     showCompletionScreen();
     return;
   }
 
   const q = POLL_QUESTIONS[index];
 
-  // Update Header Label
-  stepCounterLabel.textContent = `QUESTION 0${q.number} • LIVE AUDIENCE POLL`;
+  // 1. Synchronously update question prompt
   questionText.textContent = q.question;
 
-  // Render Selection Options
+  // 2. Synchronously render selection option items
   optionsList.innerHTML = '';
   q.options.forEach(opt => {
     const item = document.createElement('div');
@@ -1063,14 +1089,13 @@ async function loadQuestion(index, status = 'LIVE') {
   btnSpinner.style.display = 'none';
   btnText.textContent = 'SUBMIT VOTE';
 
-  // Fetch Supabase poll definition and votes
-  await fetchPollDataAndVotes(q);
-
-  // Setup Realtime Subscription for votes on this question
-  setupVotesRealtimeSubscription(q.number);
-
+  // 3. Synchronously configure view state
   const storedVotes = getStoredVotes();
   const alreadyVotedKey = storedVotes[q.number];
+
+  waitingForPollView.style.display = 'none';
+  completionView.style.display = 'none';
+  pollActiveArea.style.display = 'block';
 
   if (currentPollStatus === 'CLOSED' || alreadyVotedKey) {
     showResultsView(q, alreadyVotedKey || null);
@@ -1078,13 +1103,18 @@ async function loadQuestion(index, status = 'LIVE') {
       showAlert('This poll is closed. Final live results are displayed below.', 'info');
     }
   } else {
-    // Show voting options first for anticipation
     voteView.style.display = 'block';
     resultsView.style.display = 'none';
-    completionView.style.display = 'none';
-    waitingForPollView.style.display = 'none';
-    pollActiveArea.style.display = 'block';
   }
+
+  // 4. Asynchronously fetch Supabase votes & setup Realtime
+  fetchPollDataAndVotes(q).then(() => {
+    if (resultsView.style.display !== 'none') {
+      updateResultsBars(q);
+    }
+  });
+
+  setupVotesRealtimeSubscription(q.number);
 }
 
 function selectOption(key) {
@@ -1224,10 +1254,10 @@ function setupGlobalPollStateRealtime() {
     )
     .subscribe();
 
-  // Periodic poll check
+  // Fast periodic poll sync (1.5 seconds)
   setInterval(() => {
     syncActivePollFromDatabase();
-  }, 4000);
+  }, 1500);
 }
 
 /* ============================================================ */

@@ -1261,7 +1261,18 @@ if (resetVotesBtn) {
 /* ============================================================ */
 async function setPollStatus(questionNumber, status) {
   try {
-    const res = await fetch('/api/admin-poll', {
+    // 1. Direct Supabase update
+    if (supabaseClient) {
+      if (status === 'LIVE') {
+        await supabaseClient.from('polls').update({ is_active: false }).neq('question_number', questionNumber);
+        await supabaseClient.from('polls').update({ is_active: true, status: 'LIVE' }).eq('question_number', questionNumber);
+      } else {
+        await supabaseClient.from('polls').update({ is_active: false, status: 'CLOSED' }).eq('question_number', questionNumber);
+      }
+    }
+
+    // 2. Serverless API update
+    fetch('/api/admin-poll', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -1272,29 +1283,11 @@ async function setPollStatus(questionNumber, status) {
         questionNumber: questionNumber,
         status: status
       })
-    });
+    }).catch(e => console.warn('Serverless poll sync notice:', e));
 
-    if (res.ok) {
-      await fetchAndRenderDashboard();
-    } else {
-      // Fallback: direct Supabase patch
-      if (status === 'LIVE') {
-        await supabaseClient.from('polls').update({ is_active: false }).neq('question_number', questionNumber);
-        await supabaseClient.from('polls').update({ is_active: true, status: 'LIVE' }).eq('question_number', questionNumber);
-      } else {
-        await supabaseClient.from('polls').update({ is_active: false, status: 'CLOSED' }).eq('question_number', questionNumber);
-      }
-      await fetchAndRenderDashboard();
-    }
+    await fetchAndRenderDashboard();
   } catch (err) {
     console.error('Error updating poll status:', err);
-    // Direct Supabase fallback
-    if (status === 'LIVE') {
-      await supabaseClient.from('polls').update({ is_active: false }).neq('question_number', questionNumber);
-      await supabaseClient.from('polls').update({ is_active: true, status: 'LIVE' }).eq('question_number', questionNumber);
-    } else {
-      await supabaseClient.from('polls').update({ is_active: false, status: 'CLOSED' }).eq('question_number', questionNumber);
-    }
     await fetchAndRenderDashboard();
   }
 }
