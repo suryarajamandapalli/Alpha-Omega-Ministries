@@ -985,26 +985,17 @@ async function loadQuestion(index) {
   btnSpinner.style.display = 'none';
   btnText.textContent = 'SUBMIT VOTE';
 
-  // Check if voter already voted for this question
-  const storedVotes = getStoredVotes();
-  const alreadyVotedKey = storedVotes[q.number];
-
   // Fetch Supabase poll definition and votes
   await fetchPollDataAndVotes(q);
 
   // Setup Realtime Subscription for this question
   setupRealtimeSubscription(q.number);
 
-  if (alreadyVotedKey) {
-    // Show results immediately
-    showResultsView(q, alreadyVotedKey);
-  } else {
-    // Show vote options
-    voteView.style.display = 'block';
-    resultsView.style.display = 'none';
-    completionView.style.display = 'none';
-    pollActiveArea.style.display = 'block';
-  }
+  // Always show voting options first for anticipation
+  voteView.style.display = 'block';
+  resultsView.style.display = 'none';
+  completionView.style.display = 'none';
+  pollActiveArea.style.display = 'block';
 }
 
 function selectOption(key) {
