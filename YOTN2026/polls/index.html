@@ -1288,13 +1288,6 @@ function showResultsView(q, userVotedKey) {
   waitingForPollView.style.display = 'none';
   resultsView.style.display = 'block';
 
-  // Configure Next Button text (Next vs Finish)
-  if (currentQuestionIndex === POLL_QUESTIONS.length - 1) {
-    nextQuestionBtn.innerHTML = `<span>FINISH POLL</span><span>✓</span>`;
-  } else {
-    nextQuestionBtn.innerHTML = `<span>NEXT QUESTION</span><span>→</span>`;
-  }
-
   // Render initial result rows
   resultsList.innerHTML = '';
   q.options.forEach(opt => {
