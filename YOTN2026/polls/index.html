@@ -716,22 +716,19 @@ body {
     <span id="alertMessage"></span>
   </div>
 
-  <!-- Step Bar & Progress -->
+  <!-- Active Poll Area (Controlled by Stage Admin) -->
   <div id="pollActiveArea">
     <div class="step-bar-wrap">
-      <span class="step-label" id="stepCounterLabel">QUESTION 01 OF 05</span>
-      <div class="step-dots" id="stepDotsContainer">
-        <span class="step-dot active"></span>
-        <span class="step-dot"></span>
-        <span class="step-dot"></span>
-        <span class="step-dot"></span>
-        <span class="step-dot"></span>
-      </div>
+      <span class="step-label" id="stepCounterLabel">LIVE AUDIENCE POLL</span>
+      <span id="activePollLiveBadge" style="font-family:'Inter',sans-serif; font-size:0.72rem; font-weight:800; letter-spacing:0.15em; color:#34d399; background:rgba(52,211,153,0.12); padding:4px 12px; border-radius:999px; border:1px solid rgba(52,211,153,0.3); display:inline-flex; align-items:center; gap:6px;">
+        <span class="live-pulse-dot" style="width:7px; height:7px; background:#34d399; box-shadow:0 0 8px #34d399;"></span>
+        LIVE ON STAGE
+      </span>
     </div>
 
     <!-- Question Prompt -->
     <div class="question-block">
-      <h2 class="question-text" id="questionText">Loading Question...</h2>
+      <h2 class="question-text" id="questionText">Loading Live Question...</h2>
     </div>
 
     <!-- View A: Answer Options (Pre-Vote) -->
@@ -762,11 +759,11 @@ body {
         <!-- Rendered dynamically with live percentage bars -->
       </div>
 
-      <div class="next-action-bar">
-        <button type="button" id="nextQuestionBtn" class="next-step-btn">
-          <span>NEXT QUESTION</span>
-          <span>→</span>
-        </button>
+      <div class="live-sync-indicator-bar" style="margin-top:24px; text-align:center; padding:14px; background:rgba(214,160,65,0.06); border:1px solid rgba(214,160,65,0.25); border-radius:14px;">
+        <span style="font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:700; color:var(--gold-light); letter-spacing:0.1em; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+          <span class="live-pulse-dot" style="width:6px; height:6px; background:var(--gold); box-shadow:0 0 8px var(--gold);"></span>
+          LIVE SYNC ACTIVE • Waiting for next question from stage
+        </span>
       </div>
     </section>
   </div>
@@ -1022,14 +1019,8 @@ async function loadQuestion(index, status = 'LIVE') {
 
   const q = POLL_QUESTIONS[index];
 
-  // Update Step Bar
-  stepCounterLabel.textContent = `QUESTION 0${q.number} OF 0${totalQ}`;
-  stepDots.forEach((dot, dIdx) => {
-    dot.className = 'step-dot';
-    if (dIdx === index) dot.classList.add('active');
-    else if (dIdx < index) dot.classList.add('completed');
-  });
-
+  // Update Header Label
+  stepCounterLabel.textContent = `QUESTION 0${q.number} • LIVE AUDIENCE POLL`;
   questionText.textContent = q.question;
 
   // Render Selection Options
