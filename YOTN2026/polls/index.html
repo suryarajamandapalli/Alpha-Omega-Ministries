@@ -1142,13 +1142,14 @@ submitVoteBtn.addEventListener('click', async () => {
       }
 
       const optionId = pollOptionsMap[selectedOptionKey] || null;
+      const submissionVoterId = 'voter_' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now());
 
       const { error } = await supabaseClient
         .from('poll_votes')
         .insert([{
           poll_id: currentPollId,
           option_id: optionId,
-          voter_id: VOTER_ID
+          voter_id: submissionVoterId
         }]);
 
       if (error) {
