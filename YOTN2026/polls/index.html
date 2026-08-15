@@ -963,13 +963,7 @@ const alertMessage = document.getElementById('alertMessage');
 /* SYNC ACTIVE POLL CONTROL FROM DATABASE */
 /* ============================================================ */
 async function syncActivePollFromDatabase() {
-  if (!supabaseClient) {
-    if (!isInitialLoaded) {
-      isInitialLoaded = true;
-      loadQuestion(0, 'LIVE');
-    }
-    return;
-  }
+  if (!supabaseClient) return;
 
   try {
     const { data: polls, error } = await supabaseClient
@@ -977,49 +971,28 @@ async function syncActivePollFromDatabase() {
       .select('*')
       .order('question_number', { ascending: true });
 
-    if (error) {
-      console.warn('Polls sync error:', error);
-      if (!isInitialLoaded) {
-        isInitialLoaded = true;
-        loadQuestion(0, 'LIVE');
-      }
-      return;
-    }
+    if (error || !polls || polls.length === 0) return;
 
-    if (polls && polls.length > 0) {
-      const activePoll = polls.find(p => p.is_active === true);
+    const activePoll = polls.find(p => p.is_active === true);
 
-      if (activePoll) {
-        waitingForPollView.style.display = 'none';
-        pollActiveArea.style.display = 'block';
-
-        const qIdx = activePoll.question_number - 1;
-        if (currentQuestionIndex !== qIdx || !isInitialLoaded) {
-          isInitialLoaded = true;
-          await loadQuestion(qIdx, activePoll.status || 'LIVE');
-        } else if (currentPollStatus !== (activePoll.status || 'LIVE')) {
-          currentPollStatus = activePoll.status || 'LIVE';
-          handleStatusChange(currentPollStatus);
-        }
-      } else {
-        showWaitingState();
+    if (activePoll) {
+      const targetIndex = activePoll.question_number - 1;
+      if (currentQuestionIndex !== targetIndex) {
+        loadQuestion(targetIndex, activePoll.status || 'LIVE');
+      } else if (currentPollStatus !== (activePoll.status || 'LIVE')) {
+        currentPollStatus = activePoll.status || 'LIVE';
+        handleStatusChange(currentPollStatus);
       }
     } else {
-      if (!isInitialLoaded) {
-        isInitialLoaded = true;
-        loadQuestion(0, 'LIVE');
-      }
+      showWaitingState();
     }
   } catch (err) {
     console.warn('Active poll sync notice:', err);
-    if (!isInitialLoaded) {
-      isInitialLoaded = true;
-      loadQuestion(0, 'LIVE');
-    }
   }
 }
 
 function showWaitingState() {
+  currentQuestionIndex = -1;
   pollActiveArea.style.display = 'none';
   resultsView.style.display = 'none';
   voteView.style.display = 'none';
